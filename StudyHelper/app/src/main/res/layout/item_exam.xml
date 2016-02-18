@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Question Desciption"
+                android:background="@color/greenBg"
+                android:textSize="@dimen/quesitionSize" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/answerA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:text="AnswerA"
+                    android:textSize="@dimen/answerSize" />
+
+                <RadioButton
+                    android:id="@+id/answerB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="AnswerB"
+                    android:background="@null"
+                    android:textSize="@dimen/answerSize" />
+
+                <RadioButton
+                    android:id="@+id/answerC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:text="AnswerC"
+                    android:textSize="@dimen/answerSize" />
+
+                <RadioButton
+                    android:id="@+id/answerD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="AnswerD"
+                    android:background="@null"
+                    android:textSize="@dimen/answerSize" />
+                <RadioButton
+                    android:id="@+id/answerE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="AnswerE"
+                    android:background="@null"
+                    android:visibility="gone"
+                    android:textSize="@dimen/answerSize" />
+            </RadioGroup>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/explaination"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Question Explaination"
+                android:textSize="@dimen/answerSize"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

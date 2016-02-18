@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/relativelayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical" >
+
+
+    <TextView
+        android:id="@+id/tv_testName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical"
+        android:text="中医方剂大全"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/lv_download"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:orientation="vertical" >
+        <ImageView
+            android:id="@+id/iv_download"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/un_download_icon" />
+        <TextView
+            android:id="@+id/tv_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_download"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="未下载"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <ImageView
+            android:id="@+id/iv_user_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/user_head"/>
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KingJames"
+            android:layout_toRightOf="@+id/iv_user_icon"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time:2015-10-22"
+            android:layout_toRightOf="@+id/iv_user_icon"
+            android:layout_below="@+id/tv_username"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:text="discuss content"/>
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/greenBg"/>
+
+
+</LinearLayout>

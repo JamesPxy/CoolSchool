@@ -1,0 +1,72 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* LICENSE
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:18.+
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => bmob_IM\src\main\AndroidManifest.xml
+* assets\ => bmob_IM\src\main\assets
+* libs\armeabi\libBaiduMapSDK_v3_0_0.so => bmob_IM\src\main\jniLibs\armeabi\libBaiduMapSDK_v3_0_0.so
+* libs\armeabi\liblocSDK4d.so => bmob_IM\src\main\jniLibs\armeabi\liblocSDK4d.so
+* libs\baidumapapi_v3_0_0.jar => bmob_IM\libs\baidumapapi_v3_0_0.jar
+* libs\BmobIM_V1.1.9beta_20150820.jar => bmob_IM\libs\BmobIM_V1.1.9beta_20150820.jar
+* libs\BmobSDK_V3.4.3_0820.jar => bmob_IM\libs\BmobSDK_V3.4.3_0820.jar
+* libs\locSDK_4.2.jar => bmob_IM\libs\locSDK_4.2.jar
+* libs\photoview-library-1.2.2.jar => bmob_IM\libs\photoview-library-1.2.2.jar
+* libs\universal-image-loader-1.9.2_sources.jar => bmob_IM\libs\universal-image-loader-1.9.2_sources.jar
+* lint.xml => bmob_IM\lint.xml
+* res\ => bmob_IM\src\main\res\
+* src\ => bmob_IM\src\main\java\
+
+Missing Android Support Repository:
+-----------------------------------
+Some useful libraries, such as the Android Support Library, are
+installed from a special Maven repository, which should be installed
+via the SDK manager.
+
+It looks like this library is missing from your SDK installation at:
+null
+
+To install it, open the SDK manager, and in the Extras category,
+select "Android Support Repository". You may also want to install the
+"Google Repository" if you want to use libraries like Google Play
+Services.
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

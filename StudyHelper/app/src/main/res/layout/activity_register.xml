@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/lbg"
+              android:orientation="vertical" >
+
+    <RelativeLayout
+        android:background="@color/greenBg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/sso_icon_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="新用户注册"
+            android:textColor="@color/whiteBg"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:layout_height="50dp">
+        <RadioButton
+            android:id="@+id/rbt_phone"
+            android:button="@null"
+            android:background="@drawable/reg_top_leftbtn_selector"
+            android:drawableLeft="@drawable/reg_top_leftimg_selector"
+            android:text="手机号注册"
+            android:drawablePadding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@drawable/reg_top_textcolor_selector"
+            android:checked="true"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rbt_email"
+            android:button="@null"
+            android:background="@drawable/reg_top_rightbtn_selector"
+            android:drawableLeft="@drawable/reg_top_rightimg_selector"
+            android:drawablePadding="10dp"
+            android:text="邮箱注册"
+            android:textColor="@drawable/reg_top_textcolor_selector"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </RadioGroup>
+
+
+
+    <LinearLayout
+        android:id="@+id/phone_layout_f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sso_usrbg" >
+
+            <ImageView
+                android:id="@+id/imglabel"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sso_reg_phone_icon" />
+
+            <EditText
+                android:id="@+id/regUsr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="phone"
+                android:layout_marginLeft="8dp"
+                android:background="@color/whiteBg"
+                android:hint="@string/regUsrtips"
+                android:maxLength="50"
+                android:paddingBottom="10dp"
+                android:paddingTop="13dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/edittext_hint_color"
+                android:textCursorDrawable="@null"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/usrmidpwd" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sso_pwdbg" >
+
+            <EditText
+                android:id="@+id/regPwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/pwd_label"
+                android:background="@color/whiteBg"
+                android:ems="10"
+                android:hint="@string/regPwdtips"
+                android:inputType="textPassword"
+                android:maxLength="40"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/edittext_hint_color"
+                android:textCursorDrawable="@null"
+                android:textSize="13sp" >
+            </EditText>
+
+            <RelativeLayout
+                android:id="@+id/hidePwdLayout"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true" >
+
+                <ImageView
+                    android:id="@+id/hidePwdImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/sso_hidepwd" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/pwd_label"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/regPwd"
+                android:layout_marginLeft="6dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sso_pwd" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btnselector"
+        android:text="@string/regBtn"
+        android:textColor="@color/whiteBg"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:id="@+id/read_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</LinearLayout>
