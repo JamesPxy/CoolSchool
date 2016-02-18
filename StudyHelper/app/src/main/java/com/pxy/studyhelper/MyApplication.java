@@ -1,15 +1,19 @@
 package com.pxy.studyhelper;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.bmob.BmobConfiguration;
 import com.bmob.BmobPro;
+import com.pxy.studyhelper.activity.LoginActivity;
 import com.pxy.studyhelper.entity.User;
 
 import org.xutils.DbManager;
+import org.xutils.common.util.LogUtil;
 import org.xutils.x;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 /**
  * User: Pxy(15602269883@163.com)
@@ -64,8 +68,17 @@ public class MyApplication  extends Application {
                         // ...
                     }
                 });//数据库更新操作
-
         dbManager= x.getDb(daoConfig);
 
+        mCurrentUser= BmobUser.getCurrentUser(this, User.class);
+        if(mCurrentUser!=null){
+            //缓存对象不为空时允许用户使用
+            LogUtil.i(mCurrentUser.toString());
+        }else{
+            Intent  intent=new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
+
 }

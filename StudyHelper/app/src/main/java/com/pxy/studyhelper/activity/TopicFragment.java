@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -18,6 +17,7 @@ import com.pxy.studyhelper.biz.GetTopicBiz;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.utils.DialogUtil;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,6 +27,8 @@ public class TopicFragment extends Fragment {
 
     private PullToRefreshListView   mListView;
     private TopicAdapter  mTopicAdapter;
+    private GetTopicBiz  mGetTopicBiz;
+    private LinkedList<Topic> mTopicList=new LinkedList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +37,8 @@ public class TopicFragment extends Fragment {
         setListView(view);
 
         DialogUtil.showProgressDialog(getActivity(), "正在拼命加载数据...");
-        GetTopicBiz.getTopicInfo(this);
+        mGetTopicBiz=new GetTopicBiz();
+        mGetTopicBiz.getTopicInfo(this);
 
         return view;
     }
@@ -55,13 +58,12 @@ public class TopicFragment extends Fragment {
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-                Toast.makeText(getActivity(), "下拉刷新...", Toast.LENGTH_SHORT).show();
+                mGetTopicBiz.getTopicInfo(TopicFragment.this);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Toast.makeText(getActivity(), "上拉刷新...", Toast.LENGTH_SHORT).show();
+                mGetTopicBiz.getTopicInfo(TopicFragment.this);
             }
         });
 
@@ -69,8 +71,16 @@ public class TopicFragment extends Fragment {
 
 
     public void updateListView(List<Topic> list) {
-        mTopicAdapter=new TopicAdapter(getActivity(),list);
-        mListView.setAdapter(mTopicAdapter);
+        if(mTopicAdapter==null) {
+            mTopicList.addAll(list);
+            mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
+            mListView.setAdapter(mTopicAdapter);
+        }else{
+            for (int i=0;i<list.size();i++){
+                mTopicList.addLast(list.get(i));
+            }
+            mTopicAdapter.notifyDataSetChanged();
+        }
         DialogUtil.closeProgressDialog();
     }
 }

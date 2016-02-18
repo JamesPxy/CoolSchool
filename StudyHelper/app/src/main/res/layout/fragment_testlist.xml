@@ -9,5 +9,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:dividerHeight="1dp"
+        android:headerDividersEnabled="false"
         />
 </LinearLayout>

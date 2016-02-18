@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.pxy.studyhelper.activity.TopicFragment">
-    <View
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
-    <!--android:background="#DADADA"-->
+    &lt;!&ndash;android:background="#DADADA"&ndash;&gt;-->
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

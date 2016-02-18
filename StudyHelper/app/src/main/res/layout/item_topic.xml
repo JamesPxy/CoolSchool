@@ -49,14 +49,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:scaleType="centerInside"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:scaleType="centerCrop"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:src="@drawable/loading_1"/>
 
     <TextView
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:background="#DADADA"
         android:layout_height="2dp"/>

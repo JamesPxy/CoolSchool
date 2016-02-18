@@ -87,8 +87,10 @@ public class TopicAdapter  extends BaseAdapter {
         holder.tvUserName.setText(topic.getUserName());
         holder.tvContent.setText(topic.getContent());
         holder.tvTime.setText(topic.getCreatedAt());
-        x.image().bind(holder.mImageView, topic.getImage().getFileUrl(context), imageOptions);
-        x.image().bind(holder.ivUserHead, topic.getImage().getFileUrl(context), imageOptions);
+        if(topic.getImage()!=null) {
+            x.image().bind(holder.ivUserHead, topic.getImage().getFileUrl(context), imageOptions);
+            x.image().bind(holder.mImageView, topic.getImage().getFileUrl(context), imageOptions);
+        }
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
