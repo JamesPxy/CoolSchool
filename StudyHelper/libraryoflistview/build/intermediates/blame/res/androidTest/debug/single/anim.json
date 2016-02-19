@@ -4,14 +4,6 @@
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
     },
     {
-        "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
-        "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
-    },
-    {
-        "merged": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
-        "source": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
-    },
-    {
         "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
     },
@@ -20,15 +12,7 @@
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
     },
     {
-        "merged": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
-        "source": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
-    },
-    {
-        "merged": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
-        "source": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
-    },
-    {
-        "merged": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
-        "source": "F:\\MyGitHub\\StudyHelper\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+        "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
     }
 ]

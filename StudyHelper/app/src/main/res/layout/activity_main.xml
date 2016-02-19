@@ -17,8 +17,8 @@
         tools:openDrawer="start">
 
         <include
-            layout="@layout/bottom_tabbar"
-            android:layout_below="@+id/drawer_layout"
+            layout="@layout/content_main"
+            android:layout_below="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

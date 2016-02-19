@@ -1,6 +1,7 @@
 package com.pxy.studyhelper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pxy.studyhelper.R;
+import com.pxy.studyhelper.activity.CommentActivity;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.utils.Tools;
 
 import org.xutils.common.util.DensityUtil;
+import org.xutils.common.util.LogUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * User: Pxy(15602269883@163.com)
@@ -38,7 +43,7 @@ public class TopicAdapter  extends BaseAdapter {
             this.mTopicList=new ArrayList<>();
         }
 
-         imageOptions = new ImageOptions.Builder()
+        imageOptions = new ImageOptions.Builder()
                 .setSize(DensityUtil.dip2px(120), DensityUtil.dip2px(120))//图片大小
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
                 .setCrop(true)// 如果ImageView的大小不是定义为wrap_content, 不要crop.
@@ -65,7 +70,7 @@ public class TopicAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        ViewHolder  holder;
+        final ViewHolder  holder;
         if(view==null){
             holder=new ViewHolder();
             view= LayoutInflater.from(context).inflate(R.layout.item_topic,null);
@@ -82,11 +87,15 @@ public class TopicAdapter  extends BaseAdapter {
         }else{
             holder= (ViewHolder) view.getTag();
         }
-        Topic  topic=mTopicList.get(position);
+        final Topic  topic=mTopicList.get(position);
 
         holder.tvUserName.setText(topic.getUserName());
         holder.tvContent.setText(topic.getContent());
         holder.tvTime.setText(topic.getCreatedAt());
+        holder.tvZanNum.setText(topic.getLove().toString());
+        holder.ivZan.setTag(false);
+        holder.ivZan.setImageResource(R.drawable.love_icon);
+
         if(topic.getImage()!=null) {
             x.image().bind(holder.ivUserHead, topic.getImage().getFileUrl(context), imageOptions);
             x.image().bind(holder.mImageView, topic.getImage().getFileUrl(context), imageOptions);
@@ -95,7 +104,44 @@ public class TopicAdapter  extends BaseAdapter {
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tools.ToastShort("加油,少年!勇者无敌");
+                Intent  intent=new Intent(context, CommentActivity.class);
+                intent.putExtra("topic",topic);
+                context.startActivity(intent);
+                //todo  展示大图
+            }
+        });
+        holder.ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent=new Intent(context, CommentActivity.class);
+                intent.putExtra("topic",topic);
+                context.startActivity(intent);
+            }
+        });
+        holder.ivZan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((boolean)holder.ivZan.getTag()){
+                    Tools.ToastShort("已经赞过");
+                    return;
+                }
+                topic.setLove(topic.getLove().intValue()+1);
+                topic.update(context, new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        Tools.ToastShort("点赞成功...");
+                        holder.ivZan.setTag(true);
+                        LogUtil.i("love ---"+topic.getLove().intValue());
+                        LogUtil.i("love --1---"+(topic.getLove().intValue()+1));
+                        holder.tvZanNum.setText(topic.getLove()+ "");
+                        holder.ivZan.setImageResource(R.drawable.love_down_press_small);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Tools.ToastShort("点赞失败..."+s);
+                    }
+                });
             }
         });
 

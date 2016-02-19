@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:id="@+id/lv_topic"
+    >
     <RelativeLayout
-        android:id="@+id/rv_comment"
+        android:id="@+id/rv_user_info"
         android:layout_width="match_parent"
         android:layout_height="80dp">
         <ImageView
@@ -31,24 +30,38 @@
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="time:2015-10-22"
+            android:text="username"
             android:layout_toRightOf="@+id/iv_user_icon"
             android:layout_below="@+id/tv_username"
             android:layout_marginLeft="10dp"
             android:textSize="20sp"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_zan"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/tv_zan"
+            android:src="@drawable/love_icon"/>
+        <TextView
+            android:id="@+id/tv_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赞(100)"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
     </RelativeLayout>
+
     <TextView
-        android:id="@+id/tv_comment"
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:layout_marginLeft="14dp"
+        android:textSize="25sp"
         android:text="discuss content"/>
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/greenBg"/>
-
 
 </LinearLayout>

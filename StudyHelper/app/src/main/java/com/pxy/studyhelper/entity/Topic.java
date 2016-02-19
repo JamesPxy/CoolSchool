@@ -15,7 +15,7 @@ public class Topic  extends BmobObject implements Serializable{
     private String  userName;
     private String  content;
     private BmobFile image;
-    private Integer love;
+    private Integer love=0;
     private String  headUrl;
 
     public String getUserName() {
@@ -46,8 +46,8 @@ public class Topic  extends BmobObject implements Serializable{
         return love;
     }
 
-    public void setLove(Integer love) {
-        this.love = love;
+    public void setLove(int love) {
+        this.love = new Integer(love);
     }
 
     public String getHeadUrl() {

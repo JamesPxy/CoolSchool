@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFragmentList.add(new TopicFragment());
         mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new TestBigFragment());
-        mFragmentList.add(new TopicFragment());
+        mFragmentList.add(new TestBigFragment());
+//        mFragmentList.add(new TopicFragment());
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 

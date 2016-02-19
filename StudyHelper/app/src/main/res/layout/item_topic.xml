@@ -54,9 +54,9 @@
         android:scaleType="centerCrop"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:src="@drawable/loading_1"/>
+        android:src="@drawable/ic_menu_camera"/>
 
-    <TextView
+    <View
         android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:background="#DADADA"
