@@ -41,11 +41,12 @@ public class CommentActivity extends AppCompatActivity {
     private EditText  mEdtComment;
     @ViewInject(value = R.id.tv_title)
     private TextView  tvTitle;
+    @ViewInject(value = R.id.tv_no_comment)
+    private   TextView  tvNoComment;
 
     private CommentAdapter  mCommentAdapter;
     private LinkedList<Comment>  mCommentList=new LinkedList<>();
     private int  curPage=0;
-
     private Topic mTopic;
 
 
@@ -53,11 +54,10 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        iniitView();
+        initView();
 
         mTopic= (Topic) getIntent().getSerializableExtra("topic");
         if(mTopic==null){
-            Tools.ToastShort("topic  null");
             this.finish();
         }
 
@@ -65,7 +65,7 @@ public class CommentActivity extends AppCompatActivity {
         getCommentInfo(this, mTopic.getObjectId(), curPage);
     }
 
-    private void iniitView() {
+    private void initView() {
         tvTitle.setText("评论详情");
 
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
@@ -98,7 +98,6 @@ public class CommentActivity extends AppCompatActivity {
             DialogUtil.closeProgressDialog();
         }else{
             mCommentAdapter.notifyDataSetChanged();
-            mListView.onRefreshComplete();
         }
     }
 
@@ -114,9 +113,10 @@ public class CommentActivity extends AppCompatActivity {
     private void  getCommentInfo(Context context,String  topicId,int page){
 
         BmobQuery<Comment>   query=new BmobQuery<>();
+        query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
         query.addWhereEqualTo("topicId", topicId);
-        query.setLimit(2);
-        query.setSkip(2 * page);
+        query.setLimit(4);
+        query.setSkip(4 * page);
         query.order("createdAt");
         query.findObjects(context, new FindListener<Comment>() {
             @Override
@@ -126,11 +126,14 @@ public class CommentActivity extends AppCompatActivity {
                     for(Comment  c:list){
                         mCommentList.addLast(c);
                     }
+                    tvNoComment.setVisibility(View.GONE);
                     updateListView();
                 }else{
-                    Tools.ToastShort("list  size  0");
-                    mListView.onRefreshComplete();
+                    //没有更多评论
+                    tvNoComment.setVisibility(View.VISIBLE);
                 }
+                DialogUtil.closeProgressDialog();
+                mListView.onRefreshComplete();
             }
 
             @Override
@@ -142,7 +145,7 @@ public class CommentActivity extends AppCompatActivity {
     }
 
 
-    private void uploadCommentInfo(Context context){
+    private void uploadCommentInfo(final Context context){
         String  str=mEdtComment.getText().toString().trim();
         if(TextUtils.isEmpty(str)){
             Tools.ToastShort("评论内容不能为空...");
@@ -161,6 +164,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 Tools.ToastShort("发送评论成功...");
+                getCommentInfo(context, mTopic.getObjectId(), curPage);
             }
 
             @Override

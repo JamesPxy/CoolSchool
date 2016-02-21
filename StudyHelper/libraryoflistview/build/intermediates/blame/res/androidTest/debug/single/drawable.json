@@ -1,5 +1,13 @@
 [
     {
+        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
         "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
     },

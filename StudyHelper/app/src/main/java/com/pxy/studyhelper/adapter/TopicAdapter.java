@@ -97,8 +97,11 @@ public class TopicAdapter  extends BaseAdapter {
         holder.ivZan.setImageResource(R.drawable.love_icon);
 
         if(topic.getImage()!=null) {
+            holder.mImageView.setVisibility(View.VISIBLE);
             x.image().bind(holder.ivUserHead, topic.getImage().getFileUrl(context), imageOptions);
             x.image().bind(holder.mImageView, topic.getImage().getFileUrl(context), imageOptions);
+        }else{
+            holder.mImageView.setVisibility(View.GONE);
         }
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {

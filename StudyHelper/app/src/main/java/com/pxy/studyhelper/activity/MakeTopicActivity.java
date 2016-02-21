@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.utils.DialogUtil;
@@ -23,7 +26,12 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
@@ -44,7 +52,8 @@ public class MakeTopicActivity   extends Activity {
     private ImageView  mImageView;
 
     private static final int RESULT_LOAD_IMG=1;
-    private  String picturePath;
+    private  boolean isCompressSuccess=false;
+    private String  newPath;
     private final Topic  topic=new Topic();
 
     @Override
@@ -54,17 +63,16 @@ public class MakeTopicActivity   extends Activity {
     }
 
 
-    @Event(value = {R.id.iv_send,R.id.iv_add_img},type = View.OnClickListener.class)
+    @Event(value = {R.id.iv_send,R.id.iv_add_img,R.id.iv_back},type = View.OnClickListener.class)
     private void doClick(View  view){
         switch (view.getId()){
             case R.id.iv_send:
-                if(picturePath!=null)uploadImg(MakeTopicActivity.this, picturePath, topic);
-                else Tools.ToastShort("get img path  null");
+                uploadImg(MakeTopicActivity.this, newPath, topic);
                 break;
-
             case R.id.iv_add_img:
                 selectImgPic();
                 break;
+            case R.id.iv_back:finish();break;
         }
     }
 
@@ -86,35 +94,63 @@ public class MakeTopicActivity   extends Activity {
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            picturePath = cursor.getString(columnIndex);
+            String  picturePath = cursor.getString(columnIndex);
             cursor.close();
             mImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            //todo  压缩文件
+            if(picturePath!=null)compressImageFile(picturePath);
             LogUtil.e("img  path--"+picturePath);
         }
     }
 
     private void uploadImg(final Context context,String picPath, final Topic  topic){
+        final String  content=mEdtContent.getText().toString().trim();
+        if(TextUtils.isEmpty(content)){
+            Tools.ToastShort("动态内容不能为空...");
+            return;
+        }
+        if(picPath==null){
+            //用户未上传照片
+            topic.setLove(0);
+            topic.setContent(content);
+            if(MyApplication.mCurrentUser!=null){
+                topic.setUserName(MyApplication.mCurrentUser.getUsername());
+            }else{
+                topic.setUserName("null");
+            }
+            topic.save(context, new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    LogUtil.i("动态发表成功 success");
+                    Tools.ToastShort("动态发表成功...");
+                }
+                @Override
+                public void onFailure(int i, String s) {
+                    LogUtil.e(i + "动态发表失败" + s);
+                    Tools.ToastShort("动态发表失败..."+s);
+                }
+            });
+            return;
+        }
+        //压缩图片
+        DialogUtil.showProgressDialog(context, "uploading...");
+        if(!isCompressSuccess){
+            Tools.ToastShort("压缩图片失败,请重试...");
+            return;
+        }
         final BmobFile bmobFile = new BmobFile(new File(picPath));
         bmobFile.uploadblock(context, new UploadFileListener() {
             @Override
             public void onSuccess() {
-                // TODO Auto-generated method stub
-                //bmobFile.getUrl()---返回的上传文件的地址（不带域名）
-                //bmobFile.getFileUrl(context)--返回的上传文件的完整地址（带域名）
                 LogUtil.i("上传文件成功" + bmobFile.getFileUrl(context));
                 topic.setImage(bmobFile);
                 topic.setLove(0);
-                topic.setUserName("test cool  666");
-//                topic.setContent("zly  lbj  pxy  zai yi qi");
-                topic.setContent(mEdtContent.getText().toString());
-//                BmobUser bmobUser = BmobUser.getCurrentUser(context);
-//                if(bmobUser != null){
-//                    // 允许用户使用应用
-//                }else{
-//                    //缓存用户对象为空时， 可打开用户注册界面…
-//                }
-//                topic.setUserName(MyApplication.mCurrentUser.getUsername());
-//                topic.setUserName(User.getCurrentUser(context).getUsername());
+                topic.setContent(content);
+                if (MyApplication.mCurrentUser != null) {
+                    topic.setUserName(MyApplication.mCurrentUser.getUsername());
+                } else {
+                    topic.setUserName("null");
+                }
                 topic.save(context, new SaveListener() {
                     @Override
                     public void onSuccess() {
@@ -122,7 +158,6 @@ public class MakeTopicActivity   extends Activity {
                         DialogUtil.closeProgressDialog();
                         Tools.ToastShort("动态发表成功...");
                     }
-
 
                     @Override
                     public void onFailure(int i, String s) {
@@ -136,7 +171,10 @@ public class MakeTopicActivity   extends Activity {
             public void onProgress(Integer value) {
                 // TODO Auto-generated method stub
                 // 返回的上传进度（百分比）
-                DialogUtil.showProgressDialog(context, "uploading..." + value + "%");
+                if(value==100){
+                    DialogUtil.closeProgressDialog();
+                }
+//                DialogUtil.showProgressDialog(context, "uploading..." + value + "%");
                 LogUtil.i("on progress--" + value);
             }
 
@@ -148,5 +186,131 @@ public class MakeTopicActivity   extends Activity {
             }
         });
 
+    }
+
+
+//    private Bitmap compressImageFromFile(String srcPath) {
+//        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+//        newOpts.inJustDecodeBounds = true;//只读边,不读内容
+//
+//        newOpts.inJustDecodeBounds = false;
+//        int w = newOpts.outWidth;
+//        int h = newOpts.outHeight;
+//        float hh = 800f;//
+//        float ww = 480f;//
+//        int be = 1;
+//        if (w > h && w > ww) {
+//            be = (int) (newOpts.outWidth / ww);
+//        } else if (w < h && h > hh) {
+//            be = (int) (newOpts.outHeight / hh);
+//        }
+//        if (be <= 0)
+//            be = 1;
+//        newOpts.inSampleSize = be;//设置采样率
+//
+//        newOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;//该模式是默认的,可不设
+//        newOpts.inPurgeable = true;// 同时设置才会有效
+//        newOpts.inInputShareable = true;//。当系统内存不够时候图片自动被回收
+//
+//        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+//
+//        return bitmap;
+//    }
+//
+//    public  boolean compressBmpToFile(Bitmap bmp){
+//        //todo  判断file是否存在
+//        LogUtil.i("new path---"+newPath);
+//        File file=new File(newPath);
+//        if(file.exists()){
+//            file.delete();
+//        }
+//        try {
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            LogUtil.e(e.getMessage());
+//        }
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        int options = 80;//个人喜欢从80开始,
+//        bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+//        try {
+//            // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+//            while (baos.toByteArray().length / 1024 > 100) {
+//                baos.reset();
+//                options -= 10;
+//                if(options<0)options=80;
+//                bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+//            }
+//
+//            FileOutputStream fos = new FileOutputStream(file);
+//            fos.write(baos.toByteArray());
+//            fos.flush();
+//            fos.close();
+//        } catch (Exception e) {
+//            LogUtil.e(e.getMessage());
+//            return false;
+//        }
+//        LogUtil.e("压缩后文件大小---"+file.length()/ 1048576);
+//        return true;
+//    }
+
+    private void  compressImageFile(String  path){
+        //先将所选图片转化为流的形式，path所得到的图片路径
+        FileInputStream is = null;
+        try {
+            is = new FileInputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int size = 4;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = size;
+        //将图片缩小为原来的  1/size ,不然图片很大时会报内存溢出错误
+        Bitmap image = BitmapFactory.decodeStream(is,null,options);
+        //显示在本地
+//        mImageView.setImageBitmap(image);
+        try {
+            if(is!=null) is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //定义一个file，为压缩后的图片   File f = new File("图片保存路径","图片名称");
+        newPath=MakeTopicActivity.this.getCacheDir().getAbsolutePath()+"/topicImages.jpg";
+        File file=new File(newPath);
+        if(file.exists()){
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            LogUtil.e(e.getMessage());
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//这里100表示不压缩，将不压缩的数据存放到baos中
+        int per = 100;
+        while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();// 重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, per, baos);// 将图片压缩为原来的(100-per)%，把压缩后的数据存放到baos中
+            per -= 10;// 每次都减少10
+        }
+        //回收图片，清理内存
+        if(image != null && !image.isRecycled()){
+            image.recycle();
+            image = null;
+            System.gc();
+        }
+        //将输出流写入到新文件
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            fos.close();
+            baos.close();
+            //标记压缩图片成功
+            isCompressSuccess=true;
+        }catch (Exception e){
+            LogUtil.e(e.getMessage());
+        }
     }
 }

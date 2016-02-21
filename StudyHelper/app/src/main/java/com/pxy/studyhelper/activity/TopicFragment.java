@@ -40,8 +40,6 @@ public class TopicFragment extends Fragment {
     private TopicAdapter  mTopicAdapter;
     private GetTopicBiz  mGetTopicBiz;
     private LinkedList<Topic> mTopicList=new LinkedList<>();
-    private int mCurrentPage=0;
-    private boolean  isNewExist=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,7 +104,6 @@ public class TopicFragment extends Fragment {
         }else{
             mTopicAdapter.notifyDataSetChanged();
         }
-        mListView.onRefreshComplete();
     }
 
     public void updateListView(List<Topic> list) {
@@ -115,9 +112,6 @@ public class TopicFragment extends Fragment {
             mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
             mListView.setAdapter(mTopicAdapter);
         }else{
-            for(Topic  topic1:list){
-                mTopicList.addFirst(topic1);
-            }
             mTopicAdapter.notifyDataSetChanged();
             mListView.onRefreshComplete();
         }
@@ -126,7 +120,7 @@ public class TopicFragment extends Fragment {
 
     public  void  getTopicInfo(Context  context,int page){
         BmobQuery<Topic> mTopicQuery =new BmobQuery<>();
-        mTopicQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ONLY);//先从网络读取数据，如果没有，再从缓存中获取。
+        mTopicQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);//先从网络读取数据，如果没有，再从缓存中获取。
         //按时间  从最新动态  到之前发布动态
         mTopicQuery.order("-createdAt");
         // 返回50条数据，如果不加上这条语句，默认返回10条数据
@@ -144,7 +138,6 @@ public class TopicFragment extends Fragment {
             @Override
             public void onError(int i, String s) {
                 if(i==9015){
-                    isNewExist=false;
                     Tools.ToastShort("已是最新数据,没有更多了...");
                 }else{
                     Tools.ToastShort(s);
@@ -162,9 +155,10 @@ public class TopicFragment extends Fragment {
     private static final int STATE_REFRESH = 0;// 下拉刷新
     private static final int STATE_MORE = 1;// 加载更多
 
-    private int limit = 4;		//每一页显示个数
+    private int limit = 4;		//每次查询个数  每页显示个数
     private int curPage =0;		// 当前页的编号，从0开始
-    private String  lastTime;   //最后动态时间
+    private String  lastTime="2016-02-15 22:56:18";   //最后动态时间
+    private String  firstTime="2016-02-15 22:56:18";   //最新动态时间
 
     /**
      * 分页获取数据
@@ -178,20 +172,30 @@ public class TopicFragment extends Fragment {
         // 按时间降序查询
         query.order("-createdAt");
         // 如果是加载更多
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(actionType == STATE_MORE){
             // 处理时间查询
-            Date date = null;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 date = sdf.parse(lastTime);
+                LogUtil.i("last time---date  to  string---"+date.toString());
             } catch (Exception e) {
                 LogUtil.e(e.getMessage());
             }
             // 只查询小于等于最后一个item发表时间的数据
-            query.addWhereLessThanOrEqualTo("createdAt", new BmobDate(date));
+            query.addWhereLessThan("createdAt", new BmobDate(date));
             // 跳过之前页数并去掉重复数据
             query.setSkip(page * limit);
         }else{
+            // 处理时间查询
+            try {
+                date = sdf.parse(firstTime);
+                LogUtil.i("first time---date  to  string---"+date.toString());
+                query.addWhereGreaterThan("createdAt", new BmobDate(date));
+            } catch (Exception e) {
+                LogUtil.e(e.getMessage());
+            }
+            // 只查询小于等于最后一个item发表时间的数据
             page=0;
             query.setSkip(page);
         }
@@ -203,31 +207,50 @@ public class TopicFragment extends Fragment {
             public void onSuccess(List<Topic> list) {
                 if(list.size()>0){
                     if(actionType == STATE_REFRESH){
+                        if(list.size()==1){
+                            mListView.onRefreshComplete();
+                            Tools.ToastShort("没有最新数据了...");
+                            return;
+                        }
                         // 当是下拉刷新操作时，将当前页的编号重置为0，并把mTopicList清空，重新添加
-                        curPage = 0;
-                        mTopicList.clear();
-                        // 获取最后时间
-                        lastTime = list.get(list.size()-1).getCreatedAt();
-                        LogUtil.i("last time------"+lastTime);
-                    }
-                    // 将本次查询的数据添加到mTopicList中
-                    for (Topic td : list) {
-                        LogUtil.i(td.toString());
-                        mTopicList.add(td);
+                        if(mTopicList.size()>0&&mTopicList.getFirst().getContent().equals(list.get(list.size()-1).getContent())){
+                            for (int i=list.size()-2;i>=0;i--) {
+                                mTopicList.addFirst(list.get(i));
+                                LogUtil.i("STATE_REFRESH--666---222222-" + list.get(i).toString());
+                            }
+                        }else{
+                            for (int i=list.size()-1;i>=0;i--) {
+                                LogUtil.i("STATE_REFRESH--666----" + list.get(i).toString());
+                                mTopicList.addFirst(list.get(i));
+                            }
+                        }
+                        // 获取动态时间
+                        firstTime=list.get(0).getCreatedAt();
+                        lastTime = mTopicList.getLast().getCreatedAt();
+                        LogUtil.i("first time---666---"+firstTime);
+                        LogUtil.i("last time---666---"+lastTime);
+                    }else {
+                        // 将本次查询的数据添加到mTopicList中
+                        for (Topic td : list) {
+                            LogUtil.i("STATE_more--666--"+td.toString());
+                            mTopicList.addLast(td);
+                        }
+                        curPage++;
                     }
                     updateview();
-                    curPage++;
-                    Tools.ToastShort("第"+curPage+"页数据加载完成");
+//                    Tools.ToastShort("第"+curPage+"页数据加载完成");
+                    LogUtil.i("666---第"+curPage+"页数据加载完成");
                 }else if(actionType == STATE_MORE){
                     Tools.ToastShort("没有更多数据了");
                 }else if(actionType == STATE_REFRESH){
                     Tools.ToastShort("没有最新数据了");
                 }
+                mListView.onRefreshComplete();
             }
 
             @Override
             public void onError(int arg0, String arg1) {
-                Tools.ToastShort("查询失败:"+arg1);
+                Tools.ToastShort(arg0+"查询失败:"+arg1);
                 mListView.onRefreshComplete();
             }
         });

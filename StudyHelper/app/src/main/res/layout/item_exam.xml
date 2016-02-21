@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F2F2F2"
     >
     <ScrollView
         android:id="@+id/scrollView"
@@ -18,10 +20,10 @@
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/question"
+                android:textColor="@color/question_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Question Desciption"
-                android:background="@color/greenBg"
                 android:textSize="@dimen/quesitionSize" />
 
             <RadioGroup
@@ -37,7 +39,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rb_a_selector"
                     android:text="AnswerA"
+                    android:textColor="@color/answer_color"
                     android:textSize="@dimen/answerSize" />
 
                 <RadioButton
@@ -47,6 +52,9 @@
                     android:gravity="center_vertical"
                     android:text="AnswerB"
                     android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rb_a_selector"
+                    android:textColor="@color/answer_color"
                     android:textSize="@dimen/answerSize" />
 
                 <RadioButton
@@ -55,6 +63,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rb_a_selector"
+                    android:textColor="@color/answer_color"
                     android:text="AnswerC"
                     android:textSize="@dimen/answerSize" />
 
@@ -65,6 +76,8 @@
                     android:gravity="center_vertical"
                     android:text="AnswerD"
                     android:background="@null"
+                    android:button="@drawable/rb_a_selector"
+                    android:textColor="@color/answer_color"
                     android:textSize="@dimen/answerSize" />
                 <RadioButton
                     android:id="@+id/answerE"
@@ -73,6 +86,9 @@
                     android:gravity="center_vertical"
                     android:text="AnswerE"
                     android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rb_a_selector"
+                    android:textColor="@color/answer_color"
                     android:visibility="gone"
                     android:textSize="@dimen/answerSize" />
             </RadioGroup>

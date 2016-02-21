@@ -9,19 +9,27 @@
     <include
         android:id="@+id/include_tabbar"
         layout="@layout/tabbar"/>
+    <TextView
+        android:id="@+id/tv_no_comment"
+        android:layout_below="@+id/include_tabbar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂时没有更多评论..."/>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_listview"
-        android:layout_below="@+id/include_tabbar"
-        android:layout_above="@+id/relativelayout"
+        android:layout_below="@+id/tv_no_comment"
+        android:layout_above="@+id/rv_send_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="@color/black"
         ></com.handmark.pulltorefresh.library.PullToRefreshListView>
-
     <RelativeLayout
-        android:id="@+id/relativelayout"
+        android:id="@+id/rv_send_comment"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_alignParentBottom="true"

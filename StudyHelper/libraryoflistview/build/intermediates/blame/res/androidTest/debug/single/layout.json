@@ -4,7 +4,15 @@
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
     },
     {
+        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+    },
+    {
         "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     }
 ]

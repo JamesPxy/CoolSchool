@@ -15,10 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pxy.studyhelper.R;
-import com.pxy.studyhelper.activity.ExamActivity;
 import com.pxy.studyhelper.activity.PracticeActivity;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
+import com.pxy.studyhelper.fragment.NewExamActivity;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
 import com.pxy.studyhelper.utils.Tools;
@@ -106,7 +106,7 @@ public class DownloadAdapter  extends BaseAdapter {
                             }
                             break;
                             case 1:{
-                                Intent intent = new Intent(context, ExamActivity.class);
+                                Intent intent = new Intent(context, NewExamActivity.class);
                                 //试题类别
                                 intent.putExtra("dbName", data.getTestFile().getFilename());
                                 context.startActivity(intent);

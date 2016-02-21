@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/icon_mode_normal1" android:state_pressed="false"/>
-    <item android:drawable="@drawable/icon_mode_normal2" android:state_pressed="true"/>
+    <item android:drawable="@drawable/icon_finish1" android:state_pressed="false"/>
+    <item android:drawable="@drawable/icon_finish2" android:state_pressed="true"/>
 </selector>

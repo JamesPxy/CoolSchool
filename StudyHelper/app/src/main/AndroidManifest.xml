@@ -76,7 +76,11 @@
         <activity
             android:name=".activity.MakeTopicActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activity.CommentActivity"
+        <activity
+            android:name=".activity.CommentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".fragment.NewExamActivity"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

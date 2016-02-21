@@ -33,10 +33,10 @@ dependencies {
     //okhttp（选填）：为解决弱网情况下SDK请求失败及响应慢的问题，自`V3.4.3版本`开始使用`okhttp`优化SDK的网络框架。
     //    compile 'com.squareup.okhttp:okhttp:2.4.0'
     //    compile 'com.squareup.okio:okio:1.4.0'
+    compile project(':libraryoflistview')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'org.xutils:xutils:3.3.4'
     compile 'cn.bmob.android:bmob-sdk:3.4.5'
     compile 'com.android.support:support-v4:23.1.1'
-    compile project(':libraryoflistview')
 }

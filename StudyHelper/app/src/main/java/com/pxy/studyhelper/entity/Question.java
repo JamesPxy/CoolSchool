@@ -1,6 +1,8 @@
 package com.pxy.studyhelper.entity;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable{
 	public int id;
 	public String question;
 	public String answerA;
