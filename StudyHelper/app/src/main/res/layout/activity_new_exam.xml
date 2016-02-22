@@ -9,20 +9,31 @@
         android:id="@+id/rv_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue"
+        android:background="@color/greenBg"
         >
         <ImageView
             android:id="@+id/iv_back"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/sso_icon_back" />
-        <ImageView
-            android:id="@+id/iv_time"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:src="@drawable/sso_icon_back" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="练习模式"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:textSize="18sp"
+            android:textColor="@color/whiteBg"/>
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@+id/chronometer"
@@ -43,7 +54,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/share_selector"
+            android:src="@drawable/menu_more"
             />
     </RelativeLayout>
 
@@ -110,6 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lv_submit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -117,7 +129,7 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:id="@+id/iv_add_note"
+                android:id="@+id/iv_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -128,6 +140,30 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="交卷"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lv_see_answer"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/iv_see_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/iv_see_answer_selector" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="查看答案"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>

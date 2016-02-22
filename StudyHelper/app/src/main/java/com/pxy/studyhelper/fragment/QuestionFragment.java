@@ -3,6 +3,7 @@ package com.pxy.studyhelper.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,19 @@ public class QuestionFragment extends Fragment {
     private RadioButton[]  mRadioButtons=new RadioButton[5];
     private TextView tvExplaination;
 
+    private ViewPager mViewPager;
     private Question mQuestion;
     private int index;
+    private int mode;
 
     public QuestionFragment() {
         // Required empty public constructor
     }
 
+    public QuestionFragment(ViewPager  viewPager){
+        super();
+        mViewPager=viewPager;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +56,7 @@ public class QuestionFragment extends Fragment {
 //            getActivity().finish();
         }
         index=getArguments().getInt("index",0);
-
+        mode=getArguments().getInt("mode",0);
         initView(rootView);
         return rootView;
     }
@@ -78,13 +85,53 @@ public class QuestionFragment extends Fragment {
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                for(int i=0;i<mRadioButtons.length;i++){
-                    if(mRadioButtons[i].isChecked())mQuestion.setSelectedAnswer(i);
+                if(mode==1){//练习模式
+                    //todo  显示正确答案效果
+                    showAnswer();
+                }else {
+                    for (int i = 0; i < mRadioButtons.length; i++) {
+                        if (mRadioButtons[i].isChecked()) mQuestion.setSelectedAnswer(i);
+                    }
+                    if (mode == 2 ) {//错题模式 判断正误显示正确答案
+                        if(!CheckAnswer()) showAnswer();
+                        else {}// TODO: 2016-02-22   显示答对了
+                    } else if (mode == 0) {
+                        mViewPager.setCurrentItem(index++);
+                    }
                 }
             }
         });
 
+//        mRadioButtons[0].setButtonDrawable(R.drawable.);
+
     }
+
+    /**
+     * 显示正确答案
+     */
+    public void showAnswer(){
+        tvExplaination.setVisibility(View.VISIBLE);
+        tvExplaination.setText(mQuestion.getExplaination());
+        if(mQuestion==null) return;
+        String str=null;
+        switch (mQuestion.getRightAnswer()){
+            case 0:str="A";break;
+            case 1:str="B";break;
+            case 2:str="C";break;
+            case 3:str="D";break;
+            case 4:str="E";break;
+        }
+        tvExplaination.setText("正确答案: " + str + "\n" + "解析: " + mQuestion.getExplaination());
+    }
+
+    /**
+     * 检查答题正误
+     * @return
+     */
+    private boolean CheckAnswer(){
+        return  mQuestion.getRightAnswer()==mQuestion.getSelectedAnswer()?true:false;
+    }
+
 
 
 }

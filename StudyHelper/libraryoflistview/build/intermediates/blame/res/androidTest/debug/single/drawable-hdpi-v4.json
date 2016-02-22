@@ -1,7 +1,7 @@
 [
     {
-        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
-        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
+        "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
+        "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
     },
     {
         "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
@@ -10,17 +10,5 @@
     {
         "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
         "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
-        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
-        "source": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
-        "source": "F:\\MyGitHub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\indicator_arrow.png"
     }
 ]

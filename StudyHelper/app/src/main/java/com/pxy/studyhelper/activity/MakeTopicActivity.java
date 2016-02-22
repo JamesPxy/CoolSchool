@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.Topic;
+import com.pxy.studyhelper.utils.CompressImage;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.Tools;
 
@@ -55,11 +56,18 @@ public class MakeTopicActivity   extends Activity {
     private  boolean isCompressSuccess=false;
     private String  newPath;
     private final Topic  topic=new Topic();
+    private Bitmap mBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+
+        isCompressSuccess=getIntent().getBooleanExtra("boolean",false);
+        if(isCompressSuccess){
+            newPath=this.getCacheDir().getAbsolutePath()+"/topicImages.jpg";
+            mImageView.setImageBitmap(BitmapFactory.decodeFile(newPath));
+        }
     }
 
 
@@ -75,6 +83,7 @@ public class MakeTopicActivity   extends Activity {
             case R.id.iv_back:finish();break;
         }
     }
+
 
     private void selectImgPic() {
         Intent i = new Intent(
@@ -132,12 +141,12 @@ public class MakeTopicActivity   extends Activity {
             });
             return;
         }
-        //压缩图片
-        DialogUtil.showProgressDialog(context, "uploading...");
         if(!isCompressSuccess){
             Tools.ToastShort("压缩图片失败,请重试...");
             return;
         }
+        //压缩图片
+        DialogUtil.showProgressDialog(context, "uploading...");
         final BmobFile bmobFile = new BmobFile(new File(picPath));
         bmobFile.uploadblock(context, new UploadFileListener() {
             @Override
@@ -187,7 +196,6 @@ public class MakeTopicActivity   extends Activity {
         });
 
     }
-
 
 //    private Bitmap compressImageFromFile(String srcPath) {
 //        BitmapFactory.Options newOpts = new BitmapFactory.Options();
@@ -273,7 +281,12 @@ public class MakeTopicActivity   extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        compressImage(image);
+        newPath=this.getCacheDir().getAbsolutePath()+"/topicImages.jpg";
+        isCompressSuccess= CompressImage.compressFromBpToFile(MakeTopicActivity.this,image);
+    }
 
+    private void compressImage(Bitmap image) {
         //定义一个file，为压缩后的图片   File f = new File("图片保存路径","图片名称");
         newPath=MakeTopicActivity.this.getCacheDir().getAbsolutePath()+"/topicImages.jpg";
         File file=new File(newPath);

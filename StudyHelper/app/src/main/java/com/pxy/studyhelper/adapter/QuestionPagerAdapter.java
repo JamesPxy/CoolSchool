@@ -23,11 +23,18 @@ public class QuestionPagerAdapter  extends FragmentPagerAdapter {
     private ViewPager viewPager;
     private List<Question>  questionList;
     private Fragment mCurrentFragment;
+    private int mode;
+
+    public Fragment getCurrentFragment() {
+        return mCurrentFragment;
+    }
+
     private Question  mCurrentQuestion;
-    public QuestionPagerAdapter(FragmentManager  fm,List<Question>  questionList,ViewPager  viewPager){
+    public QuestionPagerAdapter(FragmentManager  fm,List<Question>  questionList,ViewPager  viewPager,int mode){
         super(fm);
         this.questionList=questionList;
         this.viewPager=viewPager;
+        this.mode=mode;
     }
 
     @Override
@@ -48,10 +55,11 @@ public class QuestionPagerAdapter  extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         mCurrentQuestion=questionList.get(position);
-        mCurrentFragment=new QuestionFragment();
+        mCurrentFragment=new QuestionFragment(viewPager);
         Bundle bundle=new Bundle();
         bundle.putSerializable("question",mCurrentQuestion);
         bundle.putSerializable("index",position+1);
+        bundle.putInt("mode",mode);
         mCurrentFragment.setArguments(bundle);
         return mCurrentFragment;
     }
@@ -66,5 +74,6 @@ public class QuestionPagerAdapter  extends FragmentPagerAdapter {
         super.setPrimaryItem(container, position, object);
         mCurrentFragment = (Fragment) object;
     }
+
 
 }

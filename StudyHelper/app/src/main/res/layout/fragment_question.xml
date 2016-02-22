@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
+    android:background="#DEDEDE"
     >
     <ScrollView
         android:id="@+id/scrollView"
@@ -17,7 +17,7 @@
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/question"
-                android:background="@color/whiteBg"
+                android:background="#E5E5E5"
                 android:padding="5dp"
                 android:textColor="@color/question_color"
                 android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_marginTop="10dp"
-                android:background="@null"
+                android:background="#DEDEDE"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"

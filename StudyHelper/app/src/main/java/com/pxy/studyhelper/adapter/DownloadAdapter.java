@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pxy.studyhelper.R;
-import com.pxy.studyhelper.activity.PracticeActivity;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
 import com.pxy.studyhelper.fragment.NewExamActivity;
@@ -83,6 +82,10 @@ public class DownloadAdapter  extends BaseAdapter {
             holder.mImageView.setImageResource(R.drawable.download_click_icon);
             holder.tvDownload.setText("已下载");
             holder.tvDownload.setTextColor(Color.BLUE);
+        }else{
+            holder.mImageView.setImageResource(R.drawable.download_unclick_icon);
+            holder.tvDownload.setText("未下载");
+            holder.tvDownload.setTextColor(Color.GRAY);
         }
         //点击item事件
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -90,29 +93,17 @@ public class DownloadAdapter  extends BaseAdapter {
             public void onClick(View v) {
                 // 2016/2/5  弹出对话框选择进入测试模式 或者练习模式 以及错题模式
                 AlertDialog.Builder  builder=new AlertDialog.Builder(context);
-                builder.setIcon(R.drawable.ic_luncher);
-                builder.setTitle("选择模式:");
-                builder.setItems(new String[]{"练习模式", "测试模式", "错题模式"}, new DialogInterface.OnClickListener() {
+//                builder.setIcon(R.drawable.ic_luncher);
+//                builder.setTitle("选择模式:");
+                builder.setItems(new String[]{"考核模式", "练习模式", "错题重做"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case 0:case 2:{
-                                Intent intent = new Intent(context, PracticeActivity.class);
+                                Intent intent = new Intent(context, NewExamActivity.class);
                                 //试题类别
                                 intent.putExtra("dbName", data.getTestFile().getFilename());
                                 //做题模式
                                 intent.putExtra("mode",which);
                                 context.startActivity(intent);
-                            }
-                            break;
-                            case 1:{
-                                Intent intent = new Intent(context, NewExamActivity.class);
-                                //试题类别
-                                intent.putExtra("dbName", data.getTestFile().getFilename());
-                                context.startActivity(intent);
-                            }
-
-                        }
                     }
                 });
                 builder.show();
@@ -120,6 +111,7 @@ public class DownloadAdapter  extends BaseAdapter {
             }
         });
         //下载按钮
+        final ViewHolder finalHolder = holder;
         holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +133,9 @@ public class DownloadAdapter  extends BaseAdapter {
                             }
                         }
                     }).start();
+                    finalHolder.mImageView.setImageResource(R.drawable.download_click_icon);
+                    finalHolder.tvDownload.setText("已下载");
+                    finalHolder.tvDownload.setTextColor(Color.BLUE);
                 }
             }
         });

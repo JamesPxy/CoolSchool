@@ -18,6 +18,7 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.adapter.DownloadAdapter;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
+import com.pxy.studyhelper.fragment.NewExamActivity;
 import com.pxy.studyhelper.utils.Constant;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
@@ -86,29 +87,17 @@ public class TestListActivity extends AppCompatActivity {
             if(IsDownload.isDownload(TestListActivity.this,uri)){
                 if(data==null)return;
                 AlertDialog.Builder  builder=new AlertDialog.Builder(context);
-                builder.setIcon(R.drawable.ic_luncher);
-                builder.setTitle("选择模式:");
-                builder.setItems(new String[]{"练习模式", "测试模式", "错题模式"}, new DialogInterface.OnClickListener() {
+//                builder.setIcon(R.drawable.ic_luncher);
+//                builder.setTitle("选择模式:");
+                builder.setItems(new String[]{"考核模式", "练习模式", "错题重做"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       switch (which){
-                           case 0:case 2:{
-                               Intent intent = new Intent(TestListActivity.this, PracticeActivity.class);
-                               //试题类别
-                               intent.putExtra("dbName", data.getTestFile().getFilename());
-                               //做题模式
-                               intent.putExtra("mode",which);
-                               context.startActivity(intent);
-                           }
-                           break;
-                           case 1:{
-                               Intent intent = new Intent(TestListActivity.this, ExamActivity.class);
-                               //试题类别
-                               intent.putExtra("dbName", data.getTestFile().getFilename());
-                               context.startActivity(intent);
-                           }
-
-                       }
+                        Intent intent = new Intent(context, NewExamActivity.class);
+                        //试题类别
+                        intent.putExtra("dbName", data.getTestFile().getFilename());
+                        //做题模式
+                        intent.putExtra("mode",which);
+                        context.startActivity(intent);
                     }
                 });
                 builder.show();
