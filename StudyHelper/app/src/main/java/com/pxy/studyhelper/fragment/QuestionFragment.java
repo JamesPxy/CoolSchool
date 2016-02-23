@@ -1,6 +1,7 @@
 package com.pxy.studyhelper.fragment;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,7 @@ public class QuestionFragment extends Fragment {
     private Question mQuestion;
     private int index;
     private int mode;
+    private int total;//问题总数量
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -57,6 +59,8 @@ public class QuestionFragment extends Fragment {
         }
         index=getArguments().getInt("index",0);
         mode=getArguments().getInt("mode",0);
+        total=getArguments().getInt("total",10);
+
         initView(rootView);
         return rootView;
     }
@@ -96,7 +100,17 @@ public class QuestionFragment extends Fragment {
                         if(!CheckAnswer()) showAnswer();
                         else {}// TODO: 2016-02-22   显示答对了
                     } else if (mode == 0) {
-                        mViewPager.setCurrentItem(index++);
+                        mViewPager.setCurrentItem(++index);
+                        if(total-1==index) {
+                            //todo  最后一题  交卷操作
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setIcon(R.drawable.ic_luncher)
+                                    .setTitle("提示")
+                                    .setMessage("当前是最后一题,可以交卷了")
+//                                    .setNegativeButton("取消",null)
+                                    .setPositiveButton("确定", null);
+                            builder.show();
+                        }
                     }
                 }
             }

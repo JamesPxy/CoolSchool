@@ -1,0 +1,195 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#f7f7f7"
+              tools:context="com.pxy.studyhelper.fragment.SettingFragment">
+
+    <!-- 带头像的横条 -->
+    <RelativeLayout
+        android:id="@+id/rv_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/selector_bg_ff_2_e5"
+        >
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/user_head"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="22sp"
+            android:text="KingJames"
+            android:layout_toRightOf="@+id/iv_head"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@+id/img_arrow1"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/img_arrow1"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:text="王者无敌"/>
+
+        <ImageView
+            android:id="@+id/img_arrow1"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"
+        android:layout_marginBottom="20dp"
+        />
+    <!-- 我的动态 -->
+
+    <RelativeLayout
+        android:id="@+id/rv_my_topic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/selector_bg_ff_2_e5"
+        >
+        <ImageView
+            android:id="@+id/img_user_photo"
+            android:src="@drawable/my_topic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_toBeTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的动态"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/img_user_photo"
+            android:layout_marginLeft="15dp"
+            />
+
+        <ImageView
+            android:id="@+id/img_arrows"
+            android:layout_width="@dimen/arrow_right_size"
+            android:layout_height="@dimen/arrow_right_size"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:indeterminateDrawable="@drawable/progressbar_bg"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/img_arrows"
+            android:layout_marginRight="30dp"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line_color"
+        />
+    <!-- 我的动态 -->
+
+    <RelativeLayout
+        android:id="@+id/rv_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/selector_bg_ff_2_e5"
+        >
+        <ImageView
+            android:id="@+id/img_user_photos"
+            android:src="@drawable/setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的设置"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/img_user_photos"
+            android:layout_marginLeft="15dp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/arrow_right_size"
+            android:layout_height="@dimen/arrow_right_size"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"
+        android:text="注销登录"
+        android:textColor="@drawable/selector_text_green_2_white"
+        android:background="@drawable/selector_bg_f9_green_2_green_con"
+        />
+
+
+</LinearLayout>

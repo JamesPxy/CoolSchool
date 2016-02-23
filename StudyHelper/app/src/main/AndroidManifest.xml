@@ -80,7 +80,15 @@
             android:name=".activity.CommentActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".fragment.NewExamActivity"
+        <activity
+            android:name=".fragment.NewExamActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.ShowTopicDetail"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".activity.PersonCenterActivity"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

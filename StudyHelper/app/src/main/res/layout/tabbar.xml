@@ -23,5 +23,18 @@
         android:text="登录"
         android:textColor="@color/whiteBg"
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_save"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:text="保存"
+        android:textColor="@drawable/tv_send_selector"
+        android:textSize="20sp" />
+
+
 
 </RelativeLayout>

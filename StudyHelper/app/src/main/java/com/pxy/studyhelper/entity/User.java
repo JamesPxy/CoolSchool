@@ -21,6 +21,9 @@ public class User  extends BmobUser {
  private String nickName;
  private Integer level;
  private Integer score;
+ private String  headUrl;
+ private String  school;
+ private String  sign;
 
  public Boolean getSex() {
   return sex;
@@ -53,6 +56,30 @@ public class User  extends BmobUser {
   this.score = score;
  }
 
+ public String getHeadUrl() {
+  return headUrl;
+ }
+
+ public void setHeadUrl(String headUrl) {
+  this.headUrl = headUrl;
+ }
+
+ public String getSchool() {
+  return school;
+ }
+
+ public void setSchool(String school) {
+  this.school = school;
+ }
+
+ public String getSign() {
+  return sign;
+ }
+
+ public void setSign(String sign) {
+  this.sign = sign;
+ }
+
  @Override
  public String toString() {
   return "User{" +
@@ -60,8 +87,7 @@ public class User  extends BmobUser {
           ", nickName='" + nickName + '\'' +
           ", level=" + level +
           ", score=" + score +
+          ", headUrl='" + headUrl + '\'' +
           '}';
  }
-
-
 }

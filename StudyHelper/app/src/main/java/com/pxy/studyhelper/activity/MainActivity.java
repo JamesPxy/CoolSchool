@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 
 import com.pxy.studyhelper.R;
+import com.pxy.studyhelper.fragment.SettingFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFragmentList.add(new TopicFragment());
         mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new TestBigFragment());
-        mFragmentList.add(new TestBigFragment());
+        mFragmentList.add(new SettingFragment());
 //        mFragmentList.add(new TopicFragment());
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

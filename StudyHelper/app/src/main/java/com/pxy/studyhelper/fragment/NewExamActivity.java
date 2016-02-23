@@ -175,6 +175,21 @@ public class NewExamActivity extends FragmentActivity implements ViewPager.OnPag
                 break;
             case R.id.iv_nextQ:
                 mViewPager.setCurrentItem(++mCurrentIndex);
+                if(mCurrentIndex==mTotalQusestion-1){
+                    //todo  最后一题  交卷操作
+                    AlertDialog.Builder  builder=new AlertDialog.Builder(NewExamActivity.this);
+                    builder.setIcon(R.drawable.ic_luncher)
+                            .setTitle("提示")
+                            .setMessage("当前是最后一题,是否现在交卷")
+                            .setNegativeButton("取消",null)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DialogUtil.showResultDialog(NewExamActivity.this,getScore());
+                                }
+                            });
+                    builder.show();
+                }
                 break;
             case R.id.iv_back:
                 finish();

@@ -60,6 +60,7 @@ public class QuestionPagerAdapter  extends FragmentPagerAdapter {
         bundle.putSerializable("question",mCurrentQuestion);
         bundle.putSerializable("index",position+1);
         bundle.putInt("mode",mode);
+        bundle.putInt("total",questionList.size());
         mCurrentFragment.setArguments(bundle);
         return mCurrentFragment;
     }

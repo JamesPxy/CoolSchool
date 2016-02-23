@@ -34,7 +34,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/whiteBg"
+            android:textColor="@drawable/tv_send_selector"
             android:textSize="26sp"
             android:text="发送" />
 

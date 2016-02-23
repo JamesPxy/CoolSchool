@@ -92,6 +92,10 @@ public class DownloadAdapter  extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // 2016/2/5  弹出对话框选择进入测试模式 或者练习模式 以及错题模式
+                if(!IsDownload.isDownload(context,data.getTestFile().getFileUrl(context))) {
+                    Tools.ToastShort("该试题还未下载...");
+                    return;
+                }
                 AlertDialog.Builder  builder=new AlertDialog.Builder(context);
 //                builder.setIcon(R.drawable.ic_luncher);
 //                builder.setTitle("选择模式:");

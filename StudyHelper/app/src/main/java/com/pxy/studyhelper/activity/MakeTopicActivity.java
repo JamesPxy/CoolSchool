@@ -157,8 +157,7 @@ public class MakeTopicActivity   extends Activity {
                 topic.setContent(content);
                 if (MyApplication.mCurrentUser != null) {
                     topic.setUserName(MyApplication.mCurrentUser.getUsername());
-                } else {
-                    topic.setUserName("null");
+                    topic.setHeadUrl(MyApplication.mCurrentUser.getHeadUrl());
                 }
                 topic.save(context, new SaveListener() {
                     @Override

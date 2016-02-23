@@ -2,6 +2,7 @@ package com.pxy.studyhelper;
 
 import android.app.Application;
 import android.content.Intent;
+import android.widget.ImageView;
 
 import com.bmob.BmobConfiguration;
 import com.bmob.BmobPro;
@@ -9,7 +10,9 @@ import com.pxy.studyhelper.activity.LoginActivity;
 import com.pxy.studyhelper.entity.User;
 
 import org.xutils.DbManager;
+import org.xutils.common.util.DensityUtil;
 import org.xutils.common.util.LogUtil;
+import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import cn.bmob.v3.Bmob;
@@ -23,13 +26,16 @@ import cn.bmob.v3.BmobUser;
  */
 public class MyApplication  extends Application {
 
-    public static User  mCurrentUser;
+    public  static User  mCurrentUser;
 
     public static boolean  isDebug=true;
 
     public static DbManager  dbManager;
 
-    public static  DbManager.DaoConfig daoConfig;
+    public static DbManager.DaoConfig  daoConfig;
+
+    public static ImageOptions  imageOptions;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -79,6 +85,15 @@ public class MyApplication  extends Application {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+
+        imageOptions = new ImageOptions.Builder()
+                .setSize(DensityUtil.dip2px(120), DensityUtil.dip2px(120))//图片大小
+                .setRadius(DensityUtil.dip2px(360))//ImageView圆角半径
+                .setCrop(true)// 如果ImageView的大小不是定义为wrap_content, 不要crop.
+                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                .setLoadingDrawableId(R.drawable.user_head)//加载中默认显示图片
+                .setFailureDrawableId(R.drawable.user_head)//加载失败后默认显示图片
+                .build();
     }
 
 }

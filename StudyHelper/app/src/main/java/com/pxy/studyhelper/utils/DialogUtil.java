@@ -3,6 +3,7 @@ package com.pxy.studyhelper.utils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,6 +55,21 @@ public class DialogUtil {
 				.setView(view)
 				.setIcon(R.drawable.ic_luncher);
 //        builder.setNegativeButton("取消",null);
+		builder.show();
+	}
+
+	public static void  showDialog(Context  context,String  msg){
+		AlertDialog.Builder  builder=new AlertDialog.Builder(context);
+		builder.setIcon(R.drawable.ic_luncher)
+				.setTitle("提示")
+				.setMessage(msg)
+				.setNegativeButton("取消",null)
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
 		builder.show();
 	}
 
