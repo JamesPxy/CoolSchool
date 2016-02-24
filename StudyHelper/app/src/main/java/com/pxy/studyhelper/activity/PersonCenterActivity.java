@@ -103,10 +103,9 @@ public class PersonCenterActivity extends AppCompatActivity {
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlert();
+               showAlert();
             }
         });
-
     }
 
     @Override
@@ -116,11 +115,11 @@ public class PersonCenterActivity extends AppCompatActivity {
 
     }
 
-    // TODO: 2016-02-23 ////  提醒用户保存信息,如果有更改信息 
+    //  2016-02-23 ////  提醒用户保存信息,如果有更改信息
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         showAlert();
+//        super.onBackPressed();
     }
 
     /**
@@ -131,7 +130,12 @@ public class PersonCenterActivity extends AppCompatActivity {
             new AlertDialog.Builder(PersonCenterActivity.this).setIcon(R.drawable.ic_luncher)
                     .setTitle("提醒")
                     .setMessage("是否保存并提交修改信息")
-                    .setNegativeButton("取消",null)
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -139,6 +143,8 @@ public class PersonCenterActivity extends AppCompatActivity {
                             finish();
                         }
                     }).show();
+        }else{
+            finish();
         }
     }
 
@@ -147,6 +153,7 @@ public class PersonCenterActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.tv_save:
                 updateUserInfo();
+                isUpdate=false;
                 break;
             case R.id.rv_mine:
                 //2016-02-23    更换头像

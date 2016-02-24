@@ -44,7 +44,6 @@ public class DownloadAdapter  extends BaseAdapter {
         }else{
             mList=new ArrayList<>();
         }
-
     }
     @Override
     public int getCount() {

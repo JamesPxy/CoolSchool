@@ -1,7 +1,6 @@
 package com.pxy.studyhelper.activity;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,7 +31,7 @@ import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * 展示动态fragemnt
+ * 展示所有人动态fragemnt
  */
 public class TopicFragment extends Fragment {
 
@@ -48,9 +47,6 @@ public class TopicFragment extends Fragment {
         setListView(view);
 
         DialogUtil.showProgressDialog(getActivity(), "正在拼命加载数据...");
-//        mGetTopicBiz=new GetTopicBiz();
-//        mGetTopicBiz.getTopicInfo(this,mCurrentPage);
-//        getTopicInfo(getActivity(),mCurrentPage);
         queryData(0, STATE_REFRESH);
         return view;
     }
@@ -96,7 +92,7 @@ public class TopicFragment extends Fragment {
 //        mTopicAdapter.notifyDataSetChanged();
 
     }
-    private  void updateview(){
+    private  void updateListView(){
         if(mTopicAdapter==null) {
             mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
             mListView.setAdapter(mTopicAdapter);
@@ -116,39 +112,6 @@ public class TopicFragment extends Fragment {
             mListView.onRefreshComplete();
         }
         DialogUtil.closeProgressDialog();
-    }
-
-    public  void  getTopicInfo(Context  context,int page){
-        BmobQuery<Topic> mTopicQuery =new BmobQuery<>();
-        mTopicQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);//先从网络读取数据，如果没有，再从缓存中获取。
-        //按时间  从最新动态  到之前发布动态
-        mTopicQuery.order("-createdAt");
-        // 返回50条数据，如果不加上这条语句，默认返回10条数据
-        mTopicQuery.setLimit(3);
-//        query.setSkip(10); // 忽略前10条数据（即第一页数据结果）
-        mTopicQuery.setSkip(3*page);
-        mTopicQuery.findObjects(context, new FindListener<Topic>() {
-            @Override
-            public void onSuccess(List<Topic> list) {
-                if (list != null) updateListView(list);
-                Tools.ToastShort(list.size() + list.get(0).toString());
-                LogUtil.i("get topic Info  666 success -----" + list.size() + "---"+list.get(0).toString());
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                if(i==9015){
-                    Tools.ToastShort("已是最新数据,没有更多了...");
-                }else{
-                    Tools.ToastShort(s);
-                }
-//                if (i == 9009) {//todo No cache data 没有缓存数据  9015error----Invalid index 0, size is 0
-//                }
-                LogUtil.e(i + "error----" + s);
-                //todo 处理错误情况
-                mListView.onRefreshComplete();
-            }
-        });
     }
 
 
@@ -237,7 +200,7 @@ public class TopicFragment extends Fragment {
                         }
                         curPage++;
                     }
-                    updateview();
+                    updateListView();
 //                    Tools.ToastShort("第"+curPage+"页数据加载完成");
                     LogUtil.i("666---第"+curPage+"页数据加载完成");
                 }else if(actionType == STATE_MORE){

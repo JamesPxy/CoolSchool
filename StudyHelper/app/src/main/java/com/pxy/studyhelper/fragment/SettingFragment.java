@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.LoginActivity;
+import com.pxy.studyhelper.activity.MyTopicActivity;
 import com.pxy.studyhelper.activity.PersonCenterActivity;
 
 import org.xutils.x;
@@ -70,8 +71,14 @@ public class SettingFragment extends Fragment {
         rv_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), PersonCenterActivity.class);
-                startActivity(intent);
+                if(MyApplication.mCurrentUser!=null) {
+                    Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -81,12 +88,27 @@ public class SettingFragment extends Fragment {
                 if(MyApplication.mCurrentUser!=null) {
                     BmobUser.logOut(getActivity());   //清除缓存用户对象
                     MyApplication.mCurrentUser=null;
+                    tvName.setText("登录/注册");
+                    x.image().bind(mImageView, null, MyApplication.imageOptions);
+                    tvTitle.setText("");
                     btn_logout.setText("立即登录");
+
                 }else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
+            }
+        });
+
+
+        //查看我的动态
+        rv_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(), MyTopicActivity.class);
+                i.putExtra("userId",MyApplication.mCurrentUser.getObjectId());
+                startActivity(i);
             }
         });
 
@@ -100,6 +122,7 @@ public class SettingFragment extends Fragment {
         }else{
             tvName.setText(MyApplication.mCurrentUser.getUsername());
             x.image().bind(mImageView, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
+            tvTitle.setText("王者荣耀"+MyApplication.mCurrentUser.getLevel());
             //todo  称号系统
 //            tvTitle.setText(MyApplication.mCurrentUser.getLevel());
         }

@@ -17,6 +17,7 @@ public class Topic  extends BmobObject implements Serializable{
     private BmobFile image;
     private Integer love=0;
     private String  headUrl;
+    private String  userId;
 
     public String getUserName() {
         return userName;
@@ -56,6 +57,15 @@ public class Topic  extends BmobObject implements Serializable{
 
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl;
+    }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

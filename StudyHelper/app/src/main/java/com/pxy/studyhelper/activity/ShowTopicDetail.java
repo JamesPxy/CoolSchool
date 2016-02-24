@@ -43,7 +43,7 @@ public class ShowTopicDetail extends AppCompatActivity {
 
     private void initView() {
         RelativeLayout rv= (RelativeLayout) findViewById(R.id.include_tabbar);
-        rv.setBackgroundColor(Color.BLUE);
+        rv.setBackgroundColor(Color.argb(0,0,0,0));
         ImageView iv_back= (ImageView) rv.findViewById(R.id.iv_back);
         TextView title=(TextView)rv.findViewById(R.id.tv_title);
         title.setText("图片详情");

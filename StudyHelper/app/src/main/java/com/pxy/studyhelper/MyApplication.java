@@ -1,12 +1,10 @@
 package com.pxy.studyhelper;
 
 import android.app.Application;
-import android.content.Intent;
 import android.widget.ImageView;
 
 import com.bmob.BmobConfiguration;
 import com.bmob.BmobPro;
-import com.pxy.studyhelper.activity.LoginActivity;
 import com.pxy.studyhelper.entity.User;
 
 import org.xutils.DbManager;
@@ -80,10 +78,6 @@ public class MyApplication  extends Application {
         if(mCurrentUser!=null){
             //缓存对象不为空时允许用户使用
             LogUtil.i(mCurrentUser.toString());
-        }else{
-            Intent  intent=new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
         }
 
         imageOptions = new ImageOptions.Builder()

@@ -14,9 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
+import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.fragment.SettingFragment;
 
 import org.xutils.view.annotation.ContentView;
@@ -34,19 +39,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private  DrawerLayout drawer;
     @ViewInject(value = R.id.nav_view)
     private  NavigationView navigationView;
-
     @ViewInject(value = R.id.radioGroup)
     private RadioGroup  mRadioGroup;
-
     @ViewInject(value = R.id.viewpager)
     private ViewPager  mViewPager;
 
+    private ImageView  mIvUserPhoto;
+    private TextView  tvUserName;
+    private TextView  tvSign;
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private List<Fragment> mFragmentList=new ArrayList<>();
+    private User  mUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
         x.view().inject(this);
         //初始化view
         initView();
@@ -57,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void initView() {
         //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -65,6 +73,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View view=navigationView.getHeaderView(0);
+        mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
+        tvUserName= (TextView) view.findViewById(R.id.tv_user_name);
+        tvSign= (TextView) view.findViewById(R.id.tv_sign);
+        if(MyApplication.mCurrentUser==null)mUser=new User();
+        else mUser=MyApplication.mCurrentUser;
+        x.image().bind(mIvUserPhoto,mUser.getHeadUrl(), MyApplication.imageOptions);
+        tvUserName.setText(mUser.getUsername());
+        tvSign.setText(mUser.getSign());
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -86,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        mFragmentList.add(new TopicFragment());
         mFragmentList.add(new TestBigFragment());
+        mFragmentList.add(new TopicFragment());
         mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new SettingFragment());
 //        mFragmentList.add(new TopicFragment());
@@ -100,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -129,19 +146,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // 处理侧滑菜单点击事件
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_test_center) {//试题中心
+            startActivity(new Intent(MainActivity.this,TestBigActivity.class));
+        } else if (id == R.id.nav_collection) {//我的收藏
+            startActivity(new Intent(MainActivity.this,MyCollectionActivity.class));
+
+        } else if (id == R.id.nav_wrong_test) {//错题中心
+            startActivity(new Intent(MainActivity.this,TestBigActivity.class));
+        } else if (id == R.id.nav_setting) {//我的设置
+
+        } else if (id == R.id.nav_challenge) {//挑战自我
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
-        } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_update) {//检查升级
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_back) {//问题反馈
 
-        } else if (id == R.id.nav_share) {
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-
-        } else if (id == R.id.nav_send) {
+        }else if(id==R.id.nav_share){//一键分享
 
         }
         //关闭侧滑菜单

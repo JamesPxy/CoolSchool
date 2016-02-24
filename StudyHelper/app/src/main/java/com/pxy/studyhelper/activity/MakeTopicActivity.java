@@ -124,6 +124,8 @@ public class MakeTopicActivity   extends Activity {
             topic.setContent(content);
             if(MyApplication.mCurrentUser!=null){
                 topic.setUserName(MyApplication.mCurrentUser.getUsername());
+                topic.setHeadUrl(MyApplication.mCurrentUser.getHeadUrl());
+                topic.setUserId(MyApplication.mCurrentUser.getObjectId());
             }else{
                 topic.setUserName("null");
             }
@@ -132,6 +134,7 @@ public class MakeTopicActivity   extends Activity {
                 public void onSuccess() {
                     LogUtil.i("动态发表成功 success");
                     Tools.ToastShort("动态发表成功...");
+                    finish();
                 }
                 @Override
                 public void onFailure(int i, String s) {
@@ -158,6 +161,7 @@ public class MakeTopicActivity   extends Activity {
                 if (MyApplication.mCurrentUser != null) {
                     topic.setUserName(MyApplication.mCurrentUser.getUsername());
                     topic.setHeadUrl(MyApplication.mCurrentUser.getHeadUrl());
+                    topic.setUserId(MyApplication.mCurrentUser.getObjectId());
                 }
                 topic.save(context, new SaveListener() {
                     @Override
@@ -165,6 +169,7 @@ public class MakeTopicActivity   extends Activity {
                         LogUtil.i("save  topic  success");
                         DialogUtil.closeProgressDialog();
                         Tools.ToastShort("动态发表成功...");
+                        finish();
                     }
 
                     @Override

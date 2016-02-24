@@ -5,7 +5,7 @@
     <item
         android:id="@+id/add_topic"
         android:orderInCategory="100"
-        android:icon="@drawable/icon_add_normal"
+        android:icon="@android:drawable/ic_input_add"
         app:showAsAction="always"
         android:title="发表动态"
         />

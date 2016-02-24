@@ -6,32 +6,41 @@
     >
     <ImageView
         android:id="@+id/img_user_photo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_margin="15dp"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         android:src="@drawable/user_head"/>
 
-    <TextView
-        android:id="@+id/tv_username"
+    <LinearLayout
         android:layout_toRightOf="@+id/img_user_photo"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="King james"
-        android:layout_centerVertical="true"
-        android:textColor="@color/whiteBg"
-        android:textSize="18sp"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:text="King james"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/whiteBg"
+            android:textSize="24sp"/>
 
-    <TextView
-        android:id="@+id/tv_character"
-        android:layout_below="@+id/tv_username"
-        android:layout_toRightOf="@+id/img_user_photo"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/whiteBg"
-        android:textSize="18sp"
-        android:text="我就是我,汹涌澎湃!"/>
+        <TextView
+            android:id="@+id/tv_sign"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:textColor="@color/whiteBg"
+            android:textSize="14sp"
+            android:text="我就是我,汹涌澎湃!"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

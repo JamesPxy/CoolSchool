@@ -49,8 +49,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="160dp"
+        android:layout_height="180dp"
         android:scaleType="centerCrop"
         android:layout_marginLeft="20dp"
         android:src="@drawable/image_grid_default"/>
@@ -62,7 +62,7 @@
         android:layout_height="2dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
         <LinearLayout
             android:gravity="center"
             android:layout_width="0dp"
@@ -77,6 +77,7 @@
                 android:src="@drawable/comment_icon"
                 />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_comment_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +111,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
-                android:text="8"/>
+                android:text="0"/>
         </LinearLayout>
 
     </LinearLayout>

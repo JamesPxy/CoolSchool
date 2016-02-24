@@ -20,8 +20,8 @@
         >
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/user_head"
             android:scaleType="centerCrop"
             android:layout_centerVertical="true"
@@ -67,14 +67,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line_color"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         />
     <!-- 我的动态 -->
 
     <RelativeLayout
         android:id="@+id/rv_my_topic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -129,12 +129,18 @@
         android:layout_height="2px"
         android:background="@color/line_color"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginBottom="5dp"
+        android:background="@color/line_color"
+        />
     <!-- 我的动态 -->
 
     <RelativeLayout
         android:id="@+id/rv_setting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"

@@ -16,7 +16,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="@drawable/selector_bg_ff_2_e5"
-        android:layout_marginTop="1px"
+        android:layout_marginTop="16px"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -28,8 +28,8 @@
 
         <ImageView
             android:id="@+id/iv_user_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="15dp"
             android:layout_toLeftOf="@+id/img_arrow1"
             android:layout_centerVertical="true"
@@ -54,10 +54,16 @@
         android:layout_height="3px"
         android:background="@color/line_color"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:layout_marginTop="36dp"
+        android:background="@color/line_color"
+        />
     <RelativeLayout
         android:id="@+id/rv_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -107,7 +113,7 @@
     <RelativeLayout
         android:id="@+id/rv_sex"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -155,7 +161,7 @@
     <RelativeLayout
         android:id="@+id/rv_school"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -203,7 +209,7 @@
     <RelativeLayout
         android:id="@+id/rv_sign"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_center_height"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -224,7 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="16dp"
             android:text="点击添加,做人不能太低调哦"
             android:layout_centerVertical="true"
             android:singleLine="true"

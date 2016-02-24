@@ -175,12 +175,12 @@ public class NewExamActivity extends FragmentActivity implements ViewPager.OnPag
                 break;
             case R.id.iv_nextQ:
                 mViewPager.setCurrentItem(++mCurrentIndex);
-                if(mCurrentIndex==mTotalQusestion-1){
+                if(mCurrentIndex==mTotalQusestion){
                     //todo  最后一题  交卷操作
                     AlertDialog.Builder  builder=new AlertDialog.Builder(NewExamActivity.this);
                     builder.setIcon(R.drawable.ic_luncher)
                             .setTitle("提示")
-                            .setMessage("当前是最后一题,是否现在交卷")
+                            .setMessage("当前是最后一题")
                             .setNegativeButton("取消",null)
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
@@ -318,10 +318,6 @@ public class NewExamActivity extends FragmentActivity implements ViewPager.OnPag
     }
 
 
-    public void showNextQ(int  index){
-        mCurrentIndex=index;
-        mViewPager.setCurrentItem(index);
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
