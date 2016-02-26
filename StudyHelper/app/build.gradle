@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    buildToolsVersion '23.0.0'
 
     defaultConfig {
         applicationId "com.pxy.studyhelper"
@@ -38,5 +38,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'org.xutils:xutils:3.3.4'
     compile 'cn.bmob.android:bmob-sdk:3.4.5'
+    compile 'cn.bmob.android:bmob-im:1.1.8'
     compile 'com.android.support:support-v4:23.1.1'
+    compile files('libs/baidumapapi_v3_0_0.jar')
 }

@@ -8,6 +8,9 @@ package com.pxy.studyhelper.utils;
  */
 public class Constant {
 
+    //这是Bmob的ApplicationId,用于初始化操作
+    public static String applicationId = "b6df61fc2e46b2ba781525d42e8b318a";
+
     public static final String RECEIVER_DOWNLOAD="com.pxy.download";
 
     public static final String[]  TEST_BIG_SORT={"中医基础理论","中医诊断学","中药学","方剂学","中医内科学","针灸学"};

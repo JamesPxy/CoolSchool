@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.User;
+import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.SettingFragment;
 
 import org.xutils.view.annotation.ContentView;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvSign= (TextView) view.findViewById(R.id.tv_sign);
         if(MyApplication.mCurrentUser==null)mUser=new User();
         else mUser=MyApplication.mCurrentUser;
-        x.image().bind(mIvUserPhoto,mUser.getHeadUrl(), MyApplication.imageOptions);
+        x.image().bind(mIvUserPhoto, mUser.getHeadUrl(), MyApplication.imageOptions);
         tvUserName.setText(mUser.getUsername());
         tvSign.setText(mUser.getSign());
 
@@ -104,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mFragmentList.add(new TestBigFragment());
+        mFragmentList.add(new RecentFragment());
         mFragmentList.add(new TopicFragment());
-        mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new SettingFragment());
 //        mFragmentList.add(new TopicFragment());
 
