@@ -22,27 +22,27 @@ import android.widget.TextView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.User;
+import com.pxy.studyhelper.fragment.ContactFragment;
 import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.SettingFragment;
+import com.pxy.studyhelper.utils.Tools;
 
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@ContentView(value = R.layout.activity_main)
+//@ContentView(value = R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    @ViewInject(value = R.id.toolbar)
-    private Toolbar  toolbar;
-    @ViewInject(value = R.id.drawer_layout)
-    private  DrawerLayout drawer;
-    @ViewInject(value = R.id.nav_view)
-    private  NavigationView navigationView;
-    @ViewInject(value = R.id.radioGroup)
+    //    @ViewInject(value = R.id.toolbar)
+//    private Toolbar  toolbar;
+//    @ViewInject(value = R.id.drawer_layout)
+//    private  DrawerLayout drawer;
+//    @ViewInject(value = R.id.nav_view)
+//    private  NavigationView navigationView;
+//    @ViewInject(value = R.id.radioGroup)
     private RadioGroup  mRadioGroup;
-    @ViewInject(value = R.id.viewpager)
+    //    @ViewInject(value = R.id.viewpager)
     private ViewPager  mViewPager;
 
     private ImageView  mIvUserPhoto;
@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+        setContentView(R.layout.activity_main);
+//        x.view().inject(this);
         //初始化view
         initView();
 
@@ -63,16 +64,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initView() {
-        //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mRadioGroup= (RadioGroup) findViewById(R.id.radioGroup);
+        mViewPager= (ViewPager) findViewById(R.id.viewpager);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View view=navigationView.getHeaderView(0);
         mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
@@ -104,21 +108,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+        mFragmentList.add(new TopicFragment());
         mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new RecentFragment());
-        mFragmentList.add(new TopicFragment());
+        mFragmentList.add(new ContactFragment());
         mFragmentList.add(new SettingFragment());
-//        mFragmentList.add(new TopicFragment());
+
+
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(3);//多缓存一个页面
+        mViewPager.setOffscreenPageLimit(4);//多缓存一个页面
     }
 
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -155,21 +162,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_wrong_test) {//错题中心
             startActivity(new Intent(MainActivity.this,TestBigActivity.class));
         } else if (id == R.id.nav_setting) {//我的设置
-
+            startActivity(new Intent(MainActivity.this,SettingActivity.class));
         } else if (id == R.id.nav_challenge) {//挑战自我
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+
+            ToMyTopic();
+//            startActivity(new Intent(MainActivity.this,LoginActivity.class));
 
         } else if (id == R.id.nav_update) {//检查升级
 
         } else if (id == R.id.nav_back) {//问题反馈
+            Tools.ToastShort("有待进一步开发,敬请期待...");
 
         }else if(id==R.id.nav_share){//一键分享
-
+            Tools.ToastShort("有待进一步开发,敬请期待...");
         }
         //关闭侧滑菜单
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void ToMyTopic() {
+        if(MyApplication.mCurrentUser==null){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }else {
+            Intent i = new Intent(MainActivity.this, MyTopicActivity.class);
+            i.putExtra("userId", MyApplication.mCurrentUser.getObjectId());
+            startActivity(i);
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -201,6 +224,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            return null;
 //        }
     }
+
+
 
 
 

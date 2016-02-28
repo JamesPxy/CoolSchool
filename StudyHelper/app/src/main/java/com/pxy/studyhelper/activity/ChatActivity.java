@@ -110,12 +110,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 
 	private ViewPager pager_emo;
 
-	private TextView tv_picture, tv_camera, tv_location;
+	private TextView tv_picture, tv_camera, tv_location,tvTitle;
 
 	// 语音有关
 	RelativeLayout layout_record;
 	TextView tv_voice_tips;
-	ImageView iv_record;
+	ImageView iv_record,ivBack;
 
 	private Drawable[] drawable_Anims;// 话筒动画
 
@@ -180,9 +180,16 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 	}
 
 	private void initView() {
-//		mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
 		mListView = (XListView) findViewById(R.id.mListView);
-//		initTopBarForLeft("与" + targetUser.getUsername() + "对话");
+		ivBack= (ImageView) findViewById(R.id.iv_back);
+		tvTitle= (TextView) findViewById(R.id.tv_title);
+		tvTitle.setText(targetUser.getUsername());
+		ivBack.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		initBottomView();
 		initXListView();
 		initVoiceView();
@@ -755,7 +762,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 				break;
 			case R.id.tv_location:// 位置
 				// TODO: 2016-02-26   屏蔽显示位置
-//				Tools.ToastShort("666666");
+				Tools.ToastShort("有待继续开发...");
 				selectLocationFromMap();
 				break;
 			default:

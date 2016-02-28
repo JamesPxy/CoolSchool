@@ -40,6 +40,7 @@ public class TestSmallActivity extends AppCompatActivity {
                 intent.putExtra("position1",position1);
                 intent.putExtra("position2",position);
                 startActivity(intent);
+                finish();
             }
         });
     }

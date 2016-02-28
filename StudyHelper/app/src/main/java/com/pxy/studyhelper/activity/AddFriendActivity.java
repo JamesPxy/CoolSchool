@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.adapter.AddFriendAdapter;
@@ -53,6 +54,13 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,X
 	}
 
 	private void initView(){
+		ImageView ivBack= (ImageView) findViewById(R.id.iv_back);
+		ivBack.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		et_find_name = (EditText)findViewById(R.id.et_find_name);
 		btn_search = (Button)findViewById(R.id.btn_search);
 		btn_search.setOnClickListener(this);
@@ -171,8 +179,8 @@ public class AddFriendActivity extends ActivityBase implements OnClickListener,X
 		// TODO Auto-generated method stub
 		BmobChatUser user = (BmobChatUser) adapter.getItem(position-1);
 		Intent intent =new Intent(this,PersonCenterActivity.class);
-		intent.putExtra("from", "add");
-		intent.putExtra("username", user.getUsername());
+		intent.putExtra("from",false);
+		intent.putExtra("user",user);
 		startActivity(intent);
 	}
 

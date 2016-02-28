@@ -75,11 +75,11 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_luncher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.WelcomeActivity"
+        <activity android:name=".activity.SplashActivity"
                   android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -165,6 +165,17 @@
         <activity android:name=".activity.AddFriendActivity"
                   android:theme="@style/AppTheme.NoActionBar"
             />
+        <activity android:name=".activity.NewFriendActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
+        <activity android:name=".activity.NearPeopleActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
+
+        <activity android:name=".activity.SettingActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
+
 
 
 
@@ -173,7 +184,7 @@
         <!-- baidu map-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="hfyMtrWcv6qTQyvwgtusaYGE" />
+            android:value="iXPfTlCuZfrbvMbKT7diQcwt" />
 
         <service
             android:name="com.baidu.location.f"

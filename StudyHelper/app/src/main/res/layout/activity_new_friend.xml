@@ -5,9 +5,32 @@
      android:background="@color/base_bg"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/common_actionbar"
-        layout="@layout/tabbar" />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/greenBg"
+        >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/sso_icon_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="添加好友申请列表"
+            android:textColor="@color/whiteBg"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list_newfriend"

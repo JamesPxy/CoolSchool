@@ -1,6 +1,7 @@
 package com.pxy.studyhelper.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,8 +37,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
+import cn.bmob.im.BmobChatManager;
+import cn.bmob.im.BmobUserManager;
+import cn.bmob.im.bean.BmobChatUser;
+import cn.bmob.im.config.BmobConfig;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.PushListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -54,64 +63,106 @@ public class PersonCenterActivity extends AppCompatActivity {
     private TextView tvSchool;
     @ViewInject(value = R.id.tv_sign)
     private TextView  tvSign;
+    @ViewInject(value = R.id.tv_account)
+    private TextView  tvAccount;
+    @ViewInject(value = R.id.tv_save)
+    private TextView  tvSend;
+    @ViewInject(value = R.id.rv_account)
+    private RelativeLayout  rvAccount;
+    @ViewInject(value = R.id.btn_add_friend)
+    private Button  btn_add_friends;
+    @ViewInject(value = R.id.btn_chat)
+    private Button  btn_chat;
+
+    @ViewInject(value = R.id.tv_title)
+    private TextView  tvTitle;
+    @ViewInject(value = R.id.tv_save)
+    private TextView  tvSave;
 
 
     private int RESULT_LOAD_IMG=100;
     boolean  isCompressSuccess=false;
-    private User  mUser;
     private String  newPath;
     private boolean  isUpdate=false;//标记用户是否有更改信息
     private boolean  isMale;//标记性别  男 true 女  false
+
+    private boolean from =false;
+    private User user;
+    private boolean isFromChat=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_person_center);
         x.view().inject(this);
-        setTitle();
+
+        isCurrentUserNull();
+
+
+        from = getIntent().getBooleanExtra("from", false);//me true add other  false
+        isFromChat=getIntent().getBooleanExtra("chat",false);
+        user = (User) getIntent().getSerializableExtra("user");
+
+        if(isFromChat){//网络查询
+            String  name=getIntent().getStringExtra("name");
+            queryOtherData(name);
+            LogUtil.i("is  from  chat  true  网络查询");
+        }else {
+            setView();
+        }
+
+    }
+
+    //判断当前用户是否为空
+    private void isCurrentUserNull() {
         if (MyApplication.mCurrentUser != null) {
-            mUser = MyApplication.mCurrentUser;
         } else {
             //登录
             Tools.ToastShort("请先登录");
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            return;
+            finish();
         }
-        setView();
-
     }
 
     private void setView() {
-        x.image().bind(ivHead, mUser.getHeadUrl(), MyApplication.imageOptions);
-        tvName.setText(mUser.getUsername());
-        if(mUser.getSex()!=null){
-            isMale=mUser.getSex();
+        x.image().bind(ivHead, user.getHeadUrl(), MyApplication.imageOptions);
+        tvName.setText(user.getUsername());
+        if(user.getSex()!=null){
+            isMale=user.getSex();
             tvSex.setText(isMale ? "男" : "女");
         }
-        tvSchool.setText(mUser.getSchool());
-        if(mUser.getSign()!=null)tvSign.setText(mUser.getSign());
+        tvSchool.setText(user.getSchool());
+        if(user.getSign()!=null)tvSign.setText(user.getSign());
+        if(from){//来自我自己
+            tvSave.setVisibility(View.VISIBLE);
+            tvTitle.setText("个人中心");
+            btn_chat.setVisibility(View.GONE);
+            btn_add_friends.setVisibility(View.GONE);
+            if(user.getMobilePhoneNumber()!=null)tvAccount.setText(user.getMobilePhoneNumber());
+            else  tvAccount.setText(user.getEmail());
+
+            if(user.getSign()!=null)tvSign.setText(user.getSign());
+
+        }else{//来自其他人
+            if(MyApplication.mInstance.getContactList().containsKey(user.getUsername())){
+                //隐藏添加好友按钮
+                btn_add_friends.setVisibility(View.GONE);
+            }
+            tvTitle.setText("详细资料");
+            rvAccount.setVisibility(View.GONE);
+            if(user.getSign()!=null)tvSign.setText(user.getSign());
+            else tvSign.setText("他很懒,暂无个性签名");
+
+        }
+
     }
 
-    private void setTitle() {
-        RelativeLayout rv= (RelativeLayout) findViewById(R.id.include_tabbar);
-        ImageView iv_back= (ImageView) rv.findViewById(R.id.iv_back);
-        TextView title=(TextView)rv.findViewById(R.id.tv_title);
-        TextView tvSave=(TextView)rv.findViewById(R.id.tv_save);
-        tvSave.setVisibility(View.VISIBLE);
-        title.setText("个人中心");
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               showAlert();
-            }
-        });
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        
+
 
     }
 
@@ -148,7 +199,7 @@ public class PersonCenterActivity extends AppCompatActivity {
         }
     }
 
-    @Event(value = {R.id.rv_mine,R.id.rv_name,R.id.rv_sex,R.id.rv_school,R.id.tv_save,R.id.rv_sign},type = View.OnClickListener.class)
+    @Event(value = {R.id.iv_back,R.id.rv_mine,R.id.rv_name,R.id.rv_sex,R.id.rv_school,R.id.tv_save,R.id.rv_sign,R.id.btn_chat,R.id.btn_add_friend},type = View.OnClickListener.class)
     private void doClick(View view){
         switch (view.getId()){
             case R.id.tv_save:
@@ -157,25 +208,91 @@ public class PersonCenterActivity extends AppCompatActivity {
                 break;
             case R.id.rv_mine:
                 //2016-02-23    更换头像
-                selectImgPic();
+                if(from)selectImgPic();
                 break;
-            case R.id.rv_name:updateUser(1);break;
-            case R.id.rv_sex:updateSex();break;
-            case R.id.rv_school:updateUser(2);break;
-            case R.id.rv_sign:updateUser(3);break;
+            case R.id.rv_name:if(from)updateUser(1);break;
+            case R.id.rv_sex:if(from)updateSex();break;
+            case R.id.rv_school:if(from)updateUser(2);break;
+            case R.id.rv_sign:if(from)updateUser(3);break;
+            case R.id.btn_add_friend:  addFriend();break;
+            case R.id.iv_back:  showAlert();break;
+            case R.id.btn_chat: {
+                // 判断是否是我的好友  mApplication.getContactList().containsKey
+                BmobChatUser  chatUser=new BmobChatUser();
+                chatUser.setAvatar(user.getHeadUrl());
+                chatUser.setNick(user.getUsername());
+                chatUser.setUsername(user.getUsername());
+                user.setContacts(user.getContacts());
+                chatUser.setInstallId(user.getInstallId());
+                chatUser.setDeviceType(user.getDeviceType());
+                chatUser.setBlacklist(user.getBlacklist());
+                chatUser.setObjectId(user.getObjectId());
+                Intent intent = new Intent(this, ChatActivity.class);
+                intent.putExtra("user", chatUser);
+                startActivity(intent);
+                finish();
+                break;
+            }
+
         }
     }
+
+    /**
+     * 添加好友请求
+     *
+     * @Title: addFriend
+     * @Description: TODO
+     * @param
+     * @return void
+     * @throws
+     */
+    private void addFriend() {
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("正在添加...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+        // 发送tag请求
+        BmobChatManager.getInstance(this).sendTagMessage(BmobConfig.TAG_ADD_CONTACT,
+                user.getObjectId(), new PushListener() {
+
+                    @Override
+                    public void onSuccess() {
+                        // TODO Auto-generated method stub
+                        progress.dismiss();
+                        Tools.ToastShort("发送请求成功，等待对方验证！");
+                    }
+
+                    @Override
+                    public void onFailure(int arg0, final String arg1) {
+                        // TODO Auto-generated method stub
+                        progress.dismiss();
+                        Tools.ToastShort("发送请求失败:" + arg1);
+                        LogUtil.e("发送请求失败:" + arg1);
+                    }
+                });
+    }
+
 
     private void updateSex() {
         AlertDialog.Builder  builder=new AlertDialog.Builder(PersonCenterActivity.this);
         String[]  data={"男","女"};
-        builder.setSingleChoiceItems(data,0, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(data, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                isUpdate=true;
-                switch (which){
-                    case 0:isMale=true;tvSex.setText("男");mUser.setSex(true);dialog.dismiss();break;
-                    case 1:isMale=false;tvSex.setText("女");mUser.setSex(false);dialog.dismiss();break;
+                isUpdate = true;
+                switch (which) {
+                    case 0:
+                        isMale = true;
+                        tvSex.setText("男");
+                        user.setSex(true);
+                        dialog.dismiss();
+                        break;
+                    case 1:
+                        isMale = false;
+                        tvSex.setText("女");
+                        user.setSex(false);
+                        dialog.dismiss();
+                        break;
                 }
             }
         });
@@ -192,13 +309,22 @@ public class PersonCenterActivity extends AppCompatActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String  s=edt.getText().toString().trim();
-                if(!TextUtils.isEmpty(s)){
-                    isUpdate=true;
-                    switch (type){
-                        case 1:tvName.setText(s);mUser.setUsername(s);break;
-                        case 2:tvSchool.setText(s);mUser.setSchool(s);break;
-                        case 3:tvSign.setText(s);mUser.setSign(s);break;
+                String s = edt.getText().toString().trim();
+                if (!TextUtils.isEmpty(s)) {
+                    isUpdate = true;
+                    switch (type) {
+                        case 1:
+                            tvName.setText(s);
+                            user.setUsername(s);
+                            break;
+                        case 2:
+                            tvSchool.setText(s);
+                            user.setSchool(s);
+                            break;
+                        case 3:
+                            tvSign.setText(s);
+                            user.setSign(s);
+                            break;
                     }
                 }
             }
@@ -269,7 +395,7 @@ public class PersonCenterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         LogUtil.i("上传头像成功");
-                        mUser.setHeadUrl(file.getFileUrl(context));
+                        user.setHeadUrl(file.getFileUrl(context));
                         updateUserInfo();
                     }
 
@@ -294,18 +420,43 @@ public class PersonCenterActivity extends AppCompatActivity {
 //        mUser.setSex(true);
 //        mUser.setScore(1000);
 //        mUser.setSchool("清华大学");
-        mUser.setLevel(6);
+        user.setLevel(6);
 //        mUser.setSign("我就是我,汹涌澎湃!");
 //            , MyApplication.mCurrentUser.getObjectId()
-        mUser.update(PersonCenterActivity.this,new UpdateListener() {
+        user.update(PersonCenterActivity.this,new UpdateListener() {
             @Override
             public void onSuccess() {
-                LogUtil.i(mUser.toString());
+                LogUtil.i(user.toString());
                 Tools.ToastShort("更新信息成功...");
             }
             @Override
             public void onFailure(int i, String s) {
                 Tools.ToastShort("更新信息失败..." + s);
+            }
+        });
+    }
+
+
+    private void queryOtherData(String name) {
+        BmobUserManager  userManager=BmobUserManager.getInstance(PersonCenterActivity.this);
+        userManager.queryUser(name, new FindListener<User>() {
+
+            @Override
+            public void onError(int arg0, String arg1) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onSuccess(List<User> arg0) {
+                // TODO Auto-generated method stub
+                if (arg0 != null && arg0.size() > 0) {
+                    user = arg0.get(0);
+//                    btn_chat.setVisibility(View.VISIBLE);
+//                    btn_add_friends.setVisibility(View.GONE);
+                    setView();
+                } else {
+                    Tools.ToastShort("onSuccess 查无此人");
+                }
             }
         });
     }

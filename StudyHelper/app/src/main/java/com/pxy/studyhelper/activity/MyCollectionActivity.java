@@ -49,7 +49,6 @@ public class MyCollectionActivity extends AppCompatActivity implements ViewPager
     private Question  mCurrentQuestion;
     private Context  context;
 
-    private List<FavoriteQuestion>  mFavoriteQuestionList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +56,7 @@ public class MyCollectionActivity extends AppCompatActivity implements ViewPager
         context=this;
         getFavQ();
         mTotalQSize =mQuestionList.size();
-        if(mTotalQSize >0){
-//            showQuestion(mCurrentIndex);
-        }else{
-            Tools.ToastShort("您暂时没有收藏题目,赶紧去题库中心做练习吧...");
-            this.finish();
-            return;
-        }
+        if(mTotalQSize<1)return;
         mCurrentQuestion=mQuestionList.get(0);
 
         adapter=new QuestionPagerAdapter(getSupportFragmentManager(),mQuestionList,mViewPager,1);
@@ -76,10 +69,11 @@ public class MyCollectionActivity extends AppCompatActivity implements ViewPager
     private void  getFavQ(){
         try {
             FavoriteQuestion f;
-            mFavoriteQuestionList= MyApplication.dbManager.selector(FavoriteQuestion.class).findAll();
-            if(mFavoriteQuestionList==null){
+             List<FavoriteQuestion> mFavoriteQuestionList= MyApplication.dbManager.selector(FavoriteQuestion.class).findAll();
+            if(mFavoriteQuestionList==null||mFavoriteQuestionList.size()<1){
                 Tools.ToastShort("您暂时没有收藏题目,赶紧去题库中心做练习吧...");
-                finish();
+                MyCollectionActivity.this.finish();
+                return;
             }
             for(int i=0;i<mFavoriteQuestionList.size();i++){
                 f=mFavoriteQuestionList.get(i);

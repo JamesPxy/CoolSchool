@@ -29,7 +29,7 @@
         android:layout_height="100dp"
         android:id="@+id/img_student"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_luncher"
+        android:src="@mipmap/ic_launcher"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:textSize="22sp"
-            android:text="KingJames"
+            android:text=""
             android:layout_toRightOf="@+id/iv_head"
             android:layout_marginLeft="15dp"
             android:layout_toLeftOf="@+id/img_arrow1"
@@ -48,7 +48,7 @@
             android:layout_toLeftOf="@+id/img_arrow1"
             android:layout_centerVertical="true"
             android:textSize="16sp"
-            android:text="王者无敌"/>
+            android:text=""/>
 
         <ImageView
             android:id="@+id/img_arrow1"
@@ -82,11 +82,20 @@
         android:background="@drawable/selector_bg_ff_2_e5"
         >
         <ImageView
+            android:visibility="gone"
             android:id="@+id/img_user_photo"
             android:src="@drawable/my_topic"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            />
+
+        <ProgressBar
+            android:id="@+id/test"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:indeterminateDrawable="@drawable/progressbar_bg"
             android:layout_centerVertical="true"
             />
 
@@ -98,7 +107,7 @@
             android:textSize="20sp"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:layout_toRightOf="@+id/img_user_photo"
+            android:layout_toRightOf="@+id/test"
             android:layout_marginLeft="15dp"
             />
 
@@ -114,6 +123,7 @@
             />
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/progressBar"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -179,10 +189,52 @@
             />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rv_my_friend"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/user_center_height"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/selector_bg_ff_2_e5"
+        >
+        <ImageView
+            android:id="@+id/iv3"
+            android:src="@drawable/setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的好友"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/iv3"
+            android:layout_marginLeft="15dp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/arrow_right_size"
+            android:layout_height="@dimen/arrow_right_size"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+
+    </RelativeLayout>
 
 
     <Button
-        android:id="@+id/btn_cancel"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -196,6 +248,17 @@
         android:textColor="@drawable/selector_text_green_2_white"
         android:background="@drawable/selector_bg_f9_green_2_green_con"
         />
+
+
+    <Button
+        android:id="@+id/btn_cancel"
+        style="@style/Smile.Button.logout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:text="@string/logout" />
 
 
 </LinearLayout>

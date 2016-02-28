@@ -1,6 +1,10 @@
 package com.pxy.studyhelper.entity;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobGeoPoint;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * User: Pxy(15602269883@163.com)
@@ -15,8 +19,14 @@ import cn.bmob.v3.BmobUser;
  mobilePhoneNumberVerified：手机号码的认证状态（可选）
  * FIXME
  */
-public class User  extends BmobUser {
+public class User  extends BmobUser implements Serializable{
 
+ private static final long serialVersionUID = 1L;
+
+
+ /**
+  * //性别-true-男
+  */
  private Boolean sex;
  private String nickName;
  private Integer level;
@@ -24,6 +34,25 @@ public class User  extends BmobUser {
  private String  headUrl;
  private String  school;
  private String  sign;
+
+
+
+
+ private BmobRelation contacts;
+ private String installId;
+ private String deviceType;
+ private BmobRelation blacklist;
+ /**
+  * //显示数据拼音的首字母
+  */
+ private String sortLetters;
+
+ /**
+  * 地理坐标
+  */
+ private BmobGeoPoint location;//
+
+// private Integer hight;
 
  public Boolean getSex() {
   return sex;
@@ -78,6 +107,55 @@ public class User  extends BmobUser {
 
  public void setSign(String sign) {
   this.sign = sign;
+ }
+
+ public String getSortLetters() {
+  return sortLetters;
+ }
+
+ public void setSortLetters(String sortLetters) {
+  this.sortLetters = sortLetters;
+ }
+
+ public BmobGeoPoint getLocation() {
+  return location;
+ }
+
+ public void setLocation(BmobGeoPoint location) {
+  this.location = location;
+ }
+
+
+ public BmobRelation getContacts() {
+  return contacts;
+ }
+
+ public void setContacts(BmobRelation contacts) {
+  this.contacts = contacts;
+ }
+
+ public String getInstallId() {
+  return installId;
+ }
+
+ public void setInstallId(String installId) {
+  this.installId = installId;
+ }
+
+ public String getDeviceType() {
+  return deviceType;
+ }
+
+ public void setDeviceType(String deviceType) {
+  this.deviceType = deviceType;
+ }
+
+ public BmobRelation getBlacklist() {
+  return blacklist;
+ }
+
+ public void setBlacklist(BmobRelation blacklist) {
+  this.blacklist = blacklist;
  }
 
  @Override

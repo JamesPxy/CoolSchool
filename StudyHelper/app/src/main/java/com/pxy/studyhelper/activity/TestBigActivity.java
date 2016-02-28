@@ -53,6 +53,7 @@ public class TestBigActivity extends AppCompatActivity {
                 Intent  mIntent=new Intent(TestBigActivity.this,TestSmallActivity.class);
                 mIntent.putExtra("position1",position);
                 startActivity(mIntent);
+                finish();
             }
         });
     }

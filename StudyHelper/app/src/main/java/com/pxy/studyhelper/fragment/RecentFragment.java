@@ -16,7 +16,10 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.ChatActivity;
 import com.pxy.studyhelper.adapter.MessageRecentAdapter;
 import com.pxy.studyhelper.utils.DialogTips;
-import com.pxy.studyhelper.utils.Tools;
+
+import org.xutils.common.util.LogUtil;
+
+import java.util.List;
 
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.bean.BmobRecent;
@@ -31,10 +34,11 @@ import cn.bmob.im.db.BmobDB;
  */
 public class RecentFragment extends Fragment implements OnItemClickListener,OnItemLongClickListener{
 
-    private View  rootView;
+	private View  rootView;
 	private ListView listview;
+	private List<BmobRecent> mBmobRecentList;
 
-	MessageRecentAdapter adapter;
+	private MessageRecentAdapter adapter;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (null == rootView) {
@@ -59,7 +63,8 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 		listview = (ListView)rootView.findViewById(R.id.list);
 		listview.setOnItemClickListener(this);
 		listview.setOnItemLongClickListener(this);
-		adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation, BmobDB.create(getActivity()).queryRecents());
+		mBmobRecentList=BmobDB.create(getActivity()).queryRecents();
+		adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation,mBmobRecentList);
 		listview.setAdapter(adapter);
 
 	}
@@ -71,9 +76,15 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 	 * @throws
 	 */
 	private void deleteRecent(BmobRecent recent){
-		adapter.remove(recent);
-		BmobDB.create(getActivity()).deleteRecent(recent.getTargetid());
-		BmobDB.create(getActivity()).deleteMessages(recent.getTargetid());
+		if(adapter!=null&&recent!=null) {
+			mBmobRecentList.remove(recent);
+//			adapter.remove(recent);
+			adapter.notifyDataSetChanged();
+			BmobDB.create(getActivity()).deleteRecent(recent.getTargetid());
+			BmobDB.create(getActivity()).deleteMessages(recent.getTargetid());
+		}else{
+			LogUtil.i("deleteRecent   error");
+		}
 	}
 
 	@Override
@@ -111,7 +122,6 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 		user.setUsername(recent.getUserName());
 		user.setObjectId(recent.getTargetid());
 		// TODO: 2016-02-26   启动聊天框
-		Tools.ToastShort("6666");
 		Intent intent = new Intent(getActivity(), ChatActivity.class);
 		intent.putExtra("user", user);
 		startActivity(intent);

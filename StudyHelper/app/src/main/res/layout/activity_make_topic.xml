@@ -15,8 +15,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@drawable/sso_icon_back" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_centerInParent="true"
             android:text="发表动态"
             android:textColor="@color/whiteBg"
-            android:textSize="26sp" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/iv_send"
             android:layout_alignParentRight="true"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@drawable/tv_send_selector"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:text="发送" />
 
     </RelativeLayout>

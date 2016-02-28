@@ -20,10 +20,12 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.ImageBrowserActivity;
 import com.pxy.studyhelper.activity.LocationActivity;
 import com.pxy.studyhelper.activity.PersonCenterActivity;
+import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.utils.FaceTextUtils;
 import com.pxy.studyhelper.utils.ImageLoadOptions;
 import com.pxy.studyhelper.utils.TimeUtil;
@@ -66,6 +68,8 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
 	String currentObjectId = "";
 
 	DisplayImageOptions options;
+
+	private User  mChatUser;
 
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
@@ -166,16 +170,19 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO 修改个人信息  PersonCenterActivity  需要整改
+				// PersonCenterActivity  需要整改
 				Intent intent =new Intent(mContext,PersonCenterActivity.class);
 				if(getItemViewType(position) == TYPE_RECEIVER_TXT
 						||getItemViewType(position) == TYPE_RECEIVER_IMAGE
 						||getItemViewType(position)==TYPE_RECEIVER_LOCATION
 						||getItemViewType(position)==TYPE_RECEIVER_VOICE){
-					intent.putExtra("from", "other");
-					intent.putExtra("username", item.getBelongUsername());
+					intent.putExtra("from", false);
+					intent.putExtra("chat",true);
+					//todo  检查传参是否正确
+					intent.putExtra("name", item.getBelongUsername());
 				}else{
-					intent.putExtra("from", "me");
+					intent.putExtra("from",true);
+					intent.putExtra("user", MyApplication.mCurrentUser);
 				}
 				mContext.startActivity(intent);
 			}
@@ -369,6 +376,7 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
 		}
 		return showUrl;
 	}
+
 
 
 	/** 处理图片

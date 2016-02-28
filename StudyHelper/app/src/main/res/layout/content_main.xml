@@ -32,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:background="#F8F8F8"
+        android:background="#FAF0E6"
         android:layout_height="65dp">
         <View
             android:layout_width="0dp"
@@ -78,7 +78,7 @@
             android:layout_width="@dimen/rb_height_width"
             android:layout_height="@dimen/rb_height_width"
             android:drawableTop="@drawable/rb_search_selector"
-            android:text="发现"
+            android:text="联系人"
             android:background="@null"
             android:textColor="@drawable/rb_text_selector"
             android:button="@null"

@@ -17,10 +17,9 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.LoginActivity;
 import com.pxy.studyhelper.activity.MyTopicActivity;
 import com.pxy.studyhelper.activity.PersonCenterActivity;
+import com.pxy.studyhelper.activity.SettingActivity;
 
 import org.xutils.x;
-
-import cn.bmob.v3.BmobUser;
 
 /**
  * 我的fragemnt
@@ -72,7 +71,9 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(MyApplication.mCurrentUser!=null) {
-                    Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
+                    Intent intent =new Intent(getActivity(),PersonCenterActivity.class);
+                    intent.putExtra("from",true);
+                    intent.putExtra("user",MyApplication.mCurrentUser);
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -86,12 +87,14 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(MyApplication.mCurrentUser!=null) {
-                    BmobUser.logOut(getActivity());   //清除缓存用户对象
-                    MyApplication.mCurrentUser=null;
-                    tvName.setText("登录/注册");
-                    x.image().bind(mImageView, null, MyApplication.imageOptions);
-                    tvTitle.setText("");
-                    btn_logout.setText("立即登录");
+//                    BmobUser.logOut(getActivity());   //清除缓存用户对象
+                    MyApplication.mInstance.logout();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+//                    tvName.setText("登录/注册");
+//                    x.image().bind(mImageView, null, MyApplication.imageOptions);
+//                    tvTitle.setText("");
+//                    btn_logout.setText("立即登录");
 
                 }else{
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -106,9 +109,23 @@ public class SettingFragment extends Fragment {
         rv_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(), MyTopicActivity.class);
-                i.putExtra("userId",MyApplication.mCurrentUser.getObjectId());
-                startActivity(i);
+                if(MyApplication.mCurrentUser==null){
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    getActivity().finish();
+                }else {
+                    Intent i = new Intent(getActivity(), MyTopicActivity.class);
+                    i.putExtra("userId", MyApplication.mCurrentUser.getObjectId());
+                    startActivity(i);
+                }
+            }
+        });
+
+        rv_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),SettingActivity.class));
             }
         });
 
@@ -122,7 +139,8 @@ public class SettingFragment extends Fragment {
         }else{
             tvName.setText(MyApplication.mCurrentUser.getUsername());
             x.image().bind(mImageView, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
-            tvTitle.setText("王者荣耀"+MyApplication.mCurrentUser.getLevel());
+            tvTitle.setText("");
+//            tvTitle.setText("王者荣耀"+MyApplication.mCurrentUser.getLevel());
             //todo  称号系统
 //            tvTitle.setText(MyApplication.mCurrentUser.getLevel());
         }

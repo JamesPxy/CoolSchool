@@ -1,6 +1,6 @@
 <resources>
     <!--<string name="app_name">中医学习助手</string>-->
-    <string name="app_name">酷学</string>
+    <string name="app_name">酷校</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -92,9 +92,9 @@
     <string name="username">用户名</string>
     <string name="search">搜索</string>
 
-    <string name="new_friends">新朋友</string>
+    <string name="new_friends">新的朋友</string>
 
-    <string name="near_people">附近的人</string>
+    <string name="near_people">附件的人</string>
 
     <string name="voice_up_tips">手指上滑,取消发送</string>
     <string name="voice_cancel_tips">松开手指，取消发送</string>

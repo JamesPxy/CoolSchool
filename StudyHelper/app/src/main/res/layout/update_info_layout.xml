@@ -3,16 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/theme_bg_color"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/editText"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:hint="请输入修改信息"
-        android:textSize="16sp"
+        android:background="@color/transparent"
         android:gravity="center"
-        android:layout_gravity="center"/>
+        android:hint="请输入修改信息"
+        android:layout_margin="5dp"
+        android:textSize="16sp"
+        />
 </LinearLayout>

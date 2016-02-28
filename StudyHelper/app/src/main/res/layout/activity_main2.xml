@@ -16,9 +16,6 @@
         android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include
-            android:id="@+id/include_tabbar"
-            layout="@layout/main_tabbar"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

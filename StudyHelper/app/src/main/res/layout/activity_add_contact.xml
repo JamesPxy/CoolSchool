@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/base_bg"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/base_bg"
+              android:orientation="vertical" >
 
-    <include
-        android:id="@+id/common_actionbar"
-        layout="@layout/tabbar" />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/greenBg"
+        >
 
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/sso_icon_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="搜索添加好友"
+            android:textColor="@color/whiteBg"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +61,7 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <com.bmob.im.demo.view.xlist.XListView
+    <com.pxy.studyhelper.view.XListView
         android:id="@+id/list_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

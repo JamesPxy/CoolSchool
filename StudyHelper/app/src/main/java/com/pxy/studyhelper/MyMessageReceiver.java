@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.pxy.studyhelper.activity.MainActivity;
+import com.pxy.studyhelper.activity.NewFriendActivity;
+import com.pxy.studyhelper.utils.CollectionUtils;
 import com.pxy.studyhelper.utils.Tools;
 
 import org.json.JSONObject;
@@ -52,7 +54,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		String json = intent.getStringExtra("msg");
-		LogUtil.e("--收到的message--:" + json);
+		LogUtil.e("--收到的message---:" + json);
 
 		userManager = BmobUserManager.getInstance(context);
 		currentUser = userManager.getCurrentUser();
@@ -116,7 +118,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 							@Override
 							public void onFailure(int code, String arg1) {
 								// TODO Auto-generated method stub
-								BmobLog.i("获取接收的消息失败："+arg1);
+								LogUtil.e("获取接收的消息失败：--"+arg1);
 							}
 						});
 
@@ -130,8 +132,8 @@ public class MyMessageReceiver extends BroadcastReceiver {
 										for (EventListener handler : ehList)
 											handler.onAddUser(message);
 									}else{
-										//todo 添加好友请求
-//										showOtherNotify(context, message.getFromname(), toId,  message.getFromname()+"请求添加好友", NewFriendActivity.class);
+										// 添加好友请求
+										showOtherNotify(context, message.getFromname(), toId,  message.getFromname()+"请求添加好友", NewFriendActivity.class);
 									}
 								}
 							}
@@ -143,14 +145,15 @@ public class MyMessageReceiver extends BroadcastReceiver {
 								@Override
 								public void onError(int arg0, final String arg1) {
 									// TODO Auto-generated method stub
+									LogUtil.e("addContactAfterAgree--"+arg1);
 
 								}
 
 								@Override
 								public void onSuccess(List<BmobChatUser> arg0) {
 									// TODO Auto-generated method stub
-									//todo 保存好友到内存中
-//									CustomApplcation.getInstance().setContactList(CollectionUtils.list2map(BmobDB.create(context).getContactList()));
+									//保存好友到内存中
+									MyApplication.mInstance.setContactList(CollectionUtils.list2map(BmobDB.create(context).getContactList()));
 								}
 							});
 							//显示通知
@@ -182,6 +185,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 			//这里截取到的有可能是web后台推送给客户端的消息，也有可能是开发者自定义发送的消息，需要开发者自行解析和处理
 			BmobLog.i("parseMessage错误："+e.getMessage());
+			LogUtil.e("parseMessage错误：------"+e.getMessage());
 		}
 	}
 
@@ -228,7 +232,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 		boolean isAllowVibrate =MyApplication.mInstance.getSpUtil().isAllowVibrate();
 		if(isAllow && currentUser!=null && currentUser.getObjectId().equals(toId)){
 			//todo 同时提醒通知
-//			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),NewFriendActivity.class);
+			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),NewFriendActivity.class);
 			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),MainActivity.class);
 		}
 	}

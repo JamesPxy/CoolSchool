@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.User;
+import com.pxy.studyhelper.utils.LoadingDialog;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -38,6 +39,7 @@ public class LoginActivity extends Activity {
 
     @Event(value = R.id.btn_login,type = View.OnClickListener.class)
     private  void  doLogin(View  v){
+//        LoadingDialog.showLoadingDialog(LoginActivity.this);
         String  userName=edt_username.getText().toString().trim();
         String password=edt_pwd.getText().toString().trim();
         if(TextUtils.isEmpty(userName)||
@@ -51,11 +53,12 @@ public class LoginActivity extends Activity {
         bu.login(this, new SaveListener() {
             @Override
             public void onSuccess() {
+//                LoadingDialog.dissmissDialog();
                 //给当前用户赋值
                 MyApplication.mCurrentUser = getCurrentUser(LoginActivity.this, User.class);
                 Toast.makeText(LoginActivity.this, "登录成功...", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                finish();
+                finish();
             }
 
             @Override
@@ -72,13 +75,12 @@ public class LoginActivity extends Activity {
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
                 break;
             case R.id.tv_forget_pwd:
-//                Toast.makeText(LoginActivity.this, "有待继续开发...", Toast.LENGTH_SHORT).show();
-//           LoadingDialog.showLoadingDialog(LoginActivity.this);
-                startActivity(new Intent(LoginActivity.this, TestBigActivity.class));
+                Toast.makeText(LoginActivity.this, "有待继续开发...", Toast.LENGTH_SHORT).show();
+                LoadingDialog.showLoadingDialog(LoginActivity.this);
+//                startActivity(new Intent(LoginActivity.this, TestBigActivity.class));
                 break;
             case R.id.tv_see_first:
-                startActivity(new Intent(LoginActivity.this, TestBigActivity.class));
-//                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
         }
     }
