@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.CommentActivity;
-import com.pxy.studyhelper.activity.ShowTopicDetail;
+import com.pxy.studyhelper.activity.ImageBrowserActivity;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.utils.Tools;
 
@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.listener.UpdateListener;
+
+import static com.pxy.studyhelper.R.id.iv_zan;
 
 /**
  * User: Pxy(15602269883@163.com)
@@ -70,8 +72,9 @@ public class TopicAdapter  extends BaseAdapter {
             holder.tvTime= (TextView) view.findViewById(R.id.tv_time);
             holder.tvContent= (TextView) view.findViewById(R.id.tv_content);
             holder.mImageView= (ImageView) view.findViewById(R.id.imageView);
-            holder.ivComment= (ImageView) view.findViewById(R.id.iv_comment);
-            holder.ivZan= (ImageView) view.findViewById(R.id.iv_zan);
+            holder.lvComment = (LinearLayout) view.findViewById(R.id.lv_comment);
+            holder.lvZan = (LinearLayout) view.findViewById(R.id.lv_zan);
+            holder.ivZan= (ImageView) view.findViewById(iv_zan);
             holder.tvZanNum= (TextView) view.findViewById(R.id.tv_zan);
             holder.lvTopic= (LinearLayout) view.findViewById(R.id.lv_topic);
 
@@ -108,42 +111,50 @@ public class TopicAdapter  extends BaseAdapter {
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 查看大图
-                Intent  intent=new Intent(context,ShowTopicDetail.class);
-                intent.putExtra("topic",topic);
+                // 查看大图 我自己写的
+//                Intent  intent=new Intent(context,ShowTopicDetail.class);
+//                intent.putExtra("topic",topic);
+//                context.startActivity(intent);
+                // TODO 浏览图片
+                Intent intent =new Intent(context,ImageBrowserActivity.class);
+                ArrayList<String> photos = new ArrayList<String>();
+                photos.add(topic.getImage().getFileUrl(context));
+                intent.putStringArrayListExtra("photos", photos);
+                intent.putExtra("position", 0);
+                context.startActivity(intent);
+
+            }
+        });
+        holder.lvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("topic", topic);
                 context.startActivity(intent);
             }
         });
-        holder.ivComment.setOnClickListener(new View.OnClickListener() {
+        holder.lvZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent=new Intent(context, CommentActivity.class);
-                intent.putExtra("topic",topic);
-                context.startActivity(intent);
-            }
-        });
-        holder.ivZan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((boolean)holder.ivZan.getTag()){
+                if ((boolean) holder.ivZan.getTag()) {
                     Tools.ToastShort("已经赞过");
                     return;
                 }
-                topic.setLove(topic.getLove().intValue()+1);
+                topic.setLove(topic.getLove().intValue() + 1);
                 topic.update(context, new UpdateListener() {
                     @Override
                     public void onSuccess() {
                         Tools.ToastShort("点赞成功...");
                         holder.ivZan.setTag(true);
-                        LogUtil.i("love ---"+topic.getLove().intValue());
-                        LogUtil.i("love --1---"+(topic.getLove().intValue()+1));
-                        holder.tvZanNum.setText(topic.getLove()+ "");
+                        LogUtil.i("love ---" + topic.getLove().intValue());
+                        LogUtil.i("love --1---" + (topic.getLove().intValue() + 1));
+                        holder.tvZanNum.setText(topic.getLove() + "");
                         holder.ivZan.setImageResource(R.drawable.love_down_press_small);
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Tools.ToastShort("点赞失败..."+s);
+                        Tools.ToastShort("点赞失败..." + s);
                     }
                 });
             }
@@ -158,8 +169,9 @@ public class TopicAdapter  extends BaseAdapter {
         private  TextView  tvTime;//动态时间
         private  TextView  tvContent;//动态内容
         private  ImageView mImageView;//单图用一个ImageView展示
-        private    ImageView ivComment;//评论按钮
-        private    ImageView  ivZan;//点赞按钮
+        private    LinearLayout lvComment;//评论
+        private    LinearLayout lvZan;//点赞
+        private    ImageView ivZan;//点赞按钮
         private   TextView  tvZanNum;//点赞数量
         private LinearLayout  lvTopic;//整个item
     }

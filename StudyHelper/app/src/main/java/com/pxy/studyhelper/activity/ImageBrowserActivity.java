@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,7 +31,6 @@ public class ImageBrowserActivity extends ActivityBase implements OnPageChangeLi
 
 	private CustomViewPager mSvpPager;
 	private ImageBrowserAdapter mAdapter;
-	LinearLayout layout_image;
 	private int mPosition;
 
 	private ArrayList<String> mPhotos;

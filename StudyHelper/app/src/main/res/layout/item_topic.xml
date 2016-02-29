@@ -24,7 +24,7 @@
             android:text="KingJames"
             android:layout_toRightOf="@+id/iv_user_icon"
             android:layout_margin="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             />
         <TextView
             android:id="@+id/tv_time"
@@ -34,7 +34,7 @@
             android:layout_toRightOf="@+id/iv_user_icon"
             android:layout_below="@+id/tv_username"
             android:layout_marginLeft="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             />
     </RelativeLayout>
 
@@ -42,8 +42,8 @@
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textSize="22sp"
+        android:layout_marginLeft="14dp"
+        android:textSize="18sp"
         android:text="discuss content"/>
 
 
@@ -56,23 +56,23 @@
         android:src="@drawable/image_grid_default"/>
 
     <View
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:background="#DADADA"
-        android:layout_height="2dp"/>
+        android:layout_height="1dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
         <LinearLayout
+            android:id="@+id/lv_comment"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_comment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:src="@drawable/comment_icon"
                 />
@@ -86,12 +86,13 @@
                 android:text="2"/>
         </LinearLayout>
         <View
-            android:layout_width="2dp"
-            android:layout_height="36dp"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="#DADADA"
             />
         <LinearLayout
+            android:id="@+id/lv_zan"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -99,8 +100,8 @@
 
             <ImageView
                 android:id="@+id/iv_zan"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/love_icon"
                 />
@@ -118,5 +119,6 @@
     <View
         android:layout_width="match_parent"
         android:background="#DADADA"
-        android:layout_height="2dp"/>
+        android:layout_height="1dp"/>
+
 </LinearLayout>

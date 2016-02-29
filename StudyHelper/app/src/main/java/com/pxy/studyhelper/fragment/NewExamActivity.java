@@ -18,7 +18,7 @@ import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.MakeTopicActivity;
 import com.pxy.studyhelper.adapter.QuestionPagerAdapter;
-import com.pxy.studyhelper.dao.TestDao;
+import com.pxy.studyhelper.biz.TestDao;
 import com.pxy.studyhelper.entity.FavoriteQuestion;
 import com.pxy.studyhelper.entity.Question;
 import com.pxy.studyhelper.utils.CompressImage;

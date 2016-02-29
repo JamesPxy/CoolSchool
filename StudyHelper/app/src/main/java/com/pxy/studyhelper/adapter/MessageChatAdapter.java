@@ -252,7 +252,6 @@ public class MessageChatAdapter extends BaseListAdapter<BmobMsg> {
 
 						@Override
 						public void onClick(View arg0) {
-							// TODO 浏览图片
 							Intent intent =new Intent(mContext,ImageBrowserActivity.class);
 							ArrayList<String> photos = new ArrayList<String>();
 							photos.add(getImageUrl(item));
