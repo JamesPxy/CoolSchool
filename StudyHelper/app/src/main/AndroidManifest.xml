@@ -121,11 +121,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".activity.MakeTopicActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

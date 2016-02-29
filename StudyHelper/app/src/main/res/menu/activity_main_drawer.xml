@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_challenge"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="挑战自我"/>
+            android:title="我的动态"/>
     </group>
 
     <item android:title="个性设置">

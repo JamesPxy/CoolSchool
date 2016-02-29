@@ -32,8 +32,9 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:background="#FAF0E6"
-        android:layout_height="65dp">
+        android:gravity="center_vertical"
+        android:background="#FAFFF0"
+        android:layout_height="55dp">
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -50,6 +51,7 @@
             android:textColor="@drawable/rb_text_selector"
             android:drawableTop="@drawable/rb_home_selector"
             android:drawablePadding="@dimen/rb_drawable_top_padding_width"
+
             android:checked="true"
             />
         <View

@@ -1,4 +1,4 @@
-package com.pxy.studyhelper.activity;
+package com.pxy.studyhelper.fragment;
 
 
 import android.os.Bundle;
@@ -134,6 +134,7 @@ public class TopicFragment extends Fragment {
         BmobQuery<Topic> query = new BmobQuery<>();
         // 按时间降序查询
         query.order("-createdAt");
+        query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
         // 如果是加载更多
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

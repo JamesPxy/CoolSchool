@@ -62,9 +62,9 @@ public class NewFriendAdapter extends BaseListAdapter<BmobInvitation> {
 
 		int status = msg.getStatus();
 		if(status==BmobConfig.INVITE_ADD_NO_VALIDATION||status==BmobConfig.INVITE_ADD_NO_VALI_RECEIVED){
-//			btn_add.setText("同意");
-//			btn_add.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_login_selector));
-//			btn_add.setTextColor(mContext.getResources().getColor(R.color.base_color_text_white));
+			btn_add.setText("同意");
+			btn_add.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_login_selector));
+			btn_add.setTextColor(mContext.getResources().getColor(R.color.base_color_text_white));
 			btn_add.setOnClickListener(new OnClickListener() {
 
 				@Override

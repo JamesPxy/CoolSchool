@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -25,25 +26,36 @@ import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.fragment.ContactFragment;
 import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.SettingFragment;
+import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.utils.Tools;
 
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//@ContentView(value = R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    //    @ViewInject(value = R.id.toolbar)
-//    private Toolbar  toolbar;
-//    @ViewInject(value = R.id.drawer_layout)
-//    private  DrawerLayout drawer;
-//    @ViewInject(value = R.id.nav_view)
-//    private  NavigationView navigationView;
-//    @ViewInject(value = R.id.radioGroup)
+@ContentView(value = R.layout.activity_main)
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+    @ViewInject(value = R.id.toolbar)
+    private Toolbar  toolbar;
+    @ViewInject(value = R.id.drawer_layout)
+    private  DrawerLayout drawer;
+    @ViewInject(value = R.id.nav_view)
+    private  NavigationView navigationView;
+    @ViewInject(value = R.id.radioGroup)
     private RadioGroup  mRadioGroup;
-    //    @ViewInject(value = R.id.viewpager)
+    @ViewInject(value = R.id.viewpager)
     private ViewPager  mViewPager;
+    @ViewInject(value = R.id.rb_index)
+    private RadioButton  rbIndex;
+    @ViewInject(value = R.id.rb_msg)
+    private RadioButton  rbMsg;
+    @ViewInject(value = R.id.rb_search)
+    private RadioButton  rbSearch;
+    @ViewInject(value = R.id.rb_mine)
+    private RadioButton  rbMine;
 
     private ImageView  mIvUserPhoto;
     private TextView  tvUserName;
@@ -52,11 +64,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private List<Fragment> mFragmentList=new ArrayList<>();
     private User  mUser;
+    private RadioButton[] mRadioButton=new RadioButton[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        x.view().inject(this);
+//        setContentView(R.layout.activity_main);
+        x.view().inject(this);
         //初始化view
         initView();
 
@@ -64,19 +77,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mRadioButton[0]=rbIndex;
+        mRadioButton[1]=rbMsg;
+        mRadioButton[2]=rbSearch;
+        mRadioButton[3]=rbMine;
+
+//        mRadioButton=
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRadioGroup= (RadioGroup) findViewById(R.id.radioGroup);
-        mViewPager= (ViewPager) findViewById(R.id.viewpager);
+//        mRadioGroup= (RadioGroup) findViewById(R.id.radioGroup);
+//        mViewPager= (ViewPager) findViewById(R.id.viewpager);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View view=navigationView.getHeaderView(0);
         mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
@@ -110,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         mFragmentList.add(new TopicFragment());
-        mFragmentList.add(new TestBigFragment());
+//        mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new RecentFragment());
         mFragmentList.add(new ContactFragment());
         mFragmentList.add(new SettingFragment());
@@ -121,11 +140,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);//多缓存一个页面
+        mViewPager.setOnPageChangeListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -195,6 +215,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mRadioButton[position].setChecked(true);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -207,25 +242,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
+        public int getCount() {return mFragmentList.size();}
 
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            switch (position) {
-//                case 0:
-//                    return "动态";
-//                case 1:
-//                    return "题库";
-//                case 2:
-//                    return "我的";
-//            }
-//            return null;
-//        }
     }
-
-
 
 
 

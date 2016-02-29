@@ -2,7 +2,7 @@ package com.pxy.studyhelper.biz;
 
 import android.content.Context;
 
-import com.pxy.studyhelper.activity.TopicFragment;
+import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.utils.Tools;

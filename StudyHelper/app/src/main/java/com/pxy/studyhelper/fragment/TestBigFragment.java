@@ -1,4 +1,4 @@
-package com.pxy.studyhelper.activity;
+package com.pxy.studyhelper.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.pxy.studyhelper.R;
+import com.pxy.studyhelper.activity.TestSmallActivity;
 import com.pxy.studyhelper.utils.Constant;
 
 /**

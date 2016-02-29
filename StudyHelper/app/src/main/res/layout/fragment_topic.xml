@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pxy.studyhelper.activity.TopicFragment">
+    tools:context=".fragment.TopicFragment">
     <!--<View
         android:layout_width="match_parent"
         android:layout_height="2dp"/>

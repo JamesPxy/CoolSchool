@@ -124,7 +124,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 
 					}else{//带tag标签
 						if(tag.equals(BmobConfig.TAG_ADD_CONTACT)){
-							//保存好友请求道本地，并更新后台的未读字段
+							//保存好友请求到本地，并更新后台的未读字段
 							BmobInvitation message = BmobChatManager.getInstance(context).saveReceiveInvite(json, toId);
 							if(currentUser!=null){//有登陆用户
 								if(toId.equals(currentUser.getObjectId())){
