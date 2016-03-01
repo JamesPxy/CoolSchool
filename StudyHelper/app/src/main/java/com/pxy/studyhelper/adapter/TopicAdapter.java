@@ -14,6 +14,7 @@ import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.CommentActivity;
 import com.pxy.studyhelper.activity.ImageBrowserActivity;
+import com.pxy.studyhelper.activity.PersonCenterActivity;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.utils.Tools;
 
@@ -98,6 +99,25 @@ public class TopicAdapter  extends BaseAdapter {
             holder.mImageView.setVisibility(View.GONE);
         }
         x.image().bind(holder.ivUserHead, topic.getHeadUrl(), MyApplication.imageOptions);
+
+        holder.ivUserHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 2016-03-01 跳转至好友空间  个人中心
+                String userId=topic.getUserId();
+                Intent intent =new Intent(context,PersonCenterActivity.class);
+                if(userId!=MyApplication.mCurrentUser.getObjectId()){
+                    intent.putExtra("from",false);
+                    intent.putExtra("chat",true);
+                    intent.putExtra("name",topic.getUserName());
+                    context.startActivity(intent);
+                }else{
+                    intent.putExtra("from",true);
+                    intent.putExtra("user",MyApplication.mCurrentUser);
+                    context.startActivity(intent);
+                }
+            }
+        });
 
         holder.lvTopic.setOnClickListener(new View.OnClickListener() {
             @Override

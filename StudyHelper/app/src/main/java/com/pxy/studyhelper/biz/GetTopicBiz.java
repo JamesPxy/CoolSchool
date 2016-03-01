@@ -2,14 +2,13 @@ package com.pxy.studyhelper.biz;
 
 import android.content.Context;
 
-import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.entity.Topic;
 import com.pxy.studyhelper.entity.User;
+import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.utils.Tools;
 
 import org.xutils.common.util.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -41,14 +40,14 @@ public class GetTopicBiz  {
             @Override
             public void onSuccess(List<Topic> list) {
                 LogUtil.i("get topic Info  success  666---" + list.size()+list.get(0).toString());
-                if (list != null) topicFragment.updateListView(list);
-                else{LogUtil.e("get  topic  info  list  null");}
+//                if (list != null) topicFragment.updateListView(list);
+//                else{LogUtil.e("get  topic  info  list  null");}
             }
 
             @Override
             public void onError(int i, String s) {
                 if(i==9009){//No cache data 没有更多数据
-                    topicFragment.updateListView(new ArrayList<Topic>());
+//                    topicFragment.updateListView(new ArrayList<Topic>());
                 }
                 LogUtil.e(i + "error----" + s);
                 Tools.ToastShort("error--"+s);

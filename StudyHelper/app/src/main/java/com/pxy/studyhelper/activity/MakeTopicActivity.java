@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.Topic;
+import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.utils.CompressImage;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.Tools;
@@ -169,6 +170,7 @@ public class MakeTopicActivity   extends Activity {
                         LogUtil.i("save  topic  success");
                         DialogUtil.closeProgressDialog();
                         Tools.ToastShort("动态发表成功...");
+                        TopicFragment.mTopicList.addFirst(topic);
                         finish();
                     }
 
@@ -200,70 +202,6 @@ public class MakeTopicActivity   extends Activity {
         });
 
     }
-
-//    private Bitmap compressImageFromFile(String srcPath) {
-//        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-//        newOpts.inJustDecodeBounds = true;//只读边,不读内容
-//
-//        newOpts.inJustDecodeBounds = false;
-//        int w = newOpts.outWidth;
-//        int h = newOpts.outHeight;
-//        float hh = 800f;//
-//        float ww = 480f;//
-//        int be = 1;
-//        if (w > h && w > ww) {
-//            be = (int) (newOpts.outWidth / ww);
-//        } else if (w < h && h > hh) {
-//            be = (int) (newOpts.outHeight / hh);
-//        }
-//        if (be <= 0)
-//            be = 1;
-//        newOpts.inSampleSize = be;//设置采样率
-//
-//        newOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;//该模式是默认的,可不设
-//        newOpts.inPurgeable = true;// 同时设置才会有效
-//        newOpts.inInputShareable = true;//。当系统内存不够时候图片自动被回收
-//
-//        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-//
-//        return bitmap;
-//    }
-//
-//    public  boolean compressBmpToFile(Bitmap bmp){
-//        //todo  判断file是否存在
-//        LogUtil.i("new path---"+newPath);
-//        File file=new File(newPath);
-//        if(file.exists()){
-//            file.delete();
-//        }
-//        try {
-//            file.createNewFile();
-//        } catch (IOException e) {
-//            LogUtil.e(e.getMessage());
-//        }
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        int options = 80;//个人喜欢从80开始,
-//        bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
-//        try {
-//            // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-//            while (baos.toByteArray().length / 1024 > 100) {
-//                baos.reset();
-//                options -= 10;
-//                if(options<0)options=80;
-//                bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
-//            }
-//
-//            FileOutputStream fos = new FileOutputStream(file);
-//            fos.write(baos.toByteArray());
-//            fos.flush();
-//            fos.close();
-//        } catch (Exception e) {
-//            LogUtil.e(e.getMessage());
-//            return false;
-//        }
-//        LogUtil.e("压缩后文件大小---"+file.length()/ 1048576);
-//        return true;
-//    }
 
     private void  compressImageFile(String  path){
         //先将所选图片转化为流的形式，path所得到的图片路径

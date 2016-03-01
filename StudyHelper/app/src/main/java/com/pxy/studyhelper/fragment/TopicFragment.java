@@ -38,7 +38,7 @@ public class TopicFragment extends Fragment {
     private PullToRefreshListView   mListView;
     private TopicAdapter  mTopicAdapter;
     private GetTopicBiz  mGetTopicBiz;
-    private LinkedList<Topic> mTopicList=new LinkedList<>();
+    public static LinkedList<Topic> mTopicList=new LinkedList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,31 +66,20 @@ public class TopicFragment extends Fragment {
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                mGetTopicBiz.getTopicInfo(TopicFragment.this, mCurrentPage++);
-//                if(isNewExist){
-//                    getTopicInfo(getActivity(), ++mCurrentPage);
-//                }else{
-//                    Tools.ToastShort("已是最新数据,没有更多了...");
-//                    mListView.onRefreshComplete();
-//                }
                 // 下拉刷新(从第一页开始装载数据)
                 queryData(0, STATE_REFRESH);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                mGetTopicBiz.getTopicInfo(TopicFragment.this, mCurrentPage++);
-//                getTopicInfo(getActivity(),++mCurrentPage);
                 // 上拉加载更多(加载下一页数据)
                 queryData(curPage, STATE_MORE);
             }
         });
-
 //        ListView mMsgListView = mListView.getRefreshableView();
 //        // 再设置adapter
 //        mMsgListView.setAdapter(new TopicAdapter(getActivity(), mTopicList));
 //        mTopicAdapter.notifyDataSetChanged();
-
     }
     private  void updateListView(){
         if(mTopicAdapter==null) {
@@ -102,18 +91,26 @@ public class TopicFragment extends Fragment {
         }
     }
 
-    public void updateListView(List<Topic> list) {
-        if(mTopicAdapter==null) {
-            mTopicList.addAll(list);
-            mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
-            mListView.setAdapter(mTopicAdapter);
-        }else{
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mTopicAdapter!=null){
             mTopicAdapter.notifyDataSetChanged();
-            mListView.onRefreshComplete();
         }
-        DialogUtil.closeProgressDialog();
     }
 
+    //
+//    public void updateListView(List<Topic> list) {
+//        if(mTopicAdapter==null) {
+//            mTopicList.addAll(list);
+//            mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
+//            mListView.setAdapter(mTopicAdapter);
+//        }else{
+//            mTopicAdapter.notifyDataSetChanged();
+//            mListView.onRefreshComplete();
+//        }
+//        DialogUtil.closeProgressDialog();
+//    }
 
     private static final int STATE_REFRESH = 0;// 下拉刷新
     private static final int STATE_MORE = 1;// 加载更多

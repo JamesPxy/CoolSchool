@@ -24,24 +24,24 @@
             android:text="KingJames"
             android:layout_toRightOf="@+id/iv_user_icon"
             android:layout_margin="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             />
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username"
+            android:text="time"
             android:layout_toRightOf="@+id/iv_user_icon"
             android:layout_below="@+id/tv_username"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/iv_zan"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="9dp"
             android:layout_toLeftOf="@+id/tv_zan"
             android:src="@drawable/love_icon"/>
         <TextView

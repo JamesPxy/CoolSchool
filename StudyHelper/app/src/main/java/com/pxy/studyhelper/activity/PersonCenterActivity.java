@@ -420,7 +420,7 @@ public class PersonCenterActivity extends AppCompatActivity {
 //        mUser.setSex(true);
 //        mUser.setScore(1000);
 //        mUser.setSchool("清华大学");
-        user.setLevel(6);
+        user.setLevel(1);
 //        mUser.setSign("我就是我,汹涌澎湃!");
 //            , MyApplication.mCurrentUser.getObjectId()
         user.update(PersonCenterActivity.this,new UpdateListener() {
@@ -455,7 +455,8 @@ public class PersonCenterActivity extends AppCompatActivity {
 //                    btn_add_friends.setVisibility(View.GONE);
                     setView();
                 } else {
-                    Tools.ToastShort("onSuccess 查无此人");
+                    Tools.ToastShort("onSuccess but 查无此人");
+                    finish();
                 }
             }
         });

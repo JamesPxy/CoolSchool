@@ -1,6 +1,7 @@
 package com.pxy.studyhelper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
+import com.pxy.studyhelper.activity.PersonCenterActivity;
 import com.pxy.studyhelper.entity.Comment;
 import com.pxy.studyhelper.utils.Tools;
 
-import org.xutils.common.util.DensityUtil;
-import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import cn.bmob.v3.listener.UpdateListener;
 public class CommentAdapter extends BaseAdapter {
     private Context context;
     private List<Comment> mCommentList;
-    private ImageOptions imageOptions;
     public CommentAdapter(Context  context,List<Comment>  list){
         this.context=context;
         if(list!=null){
@@ -36,14 +36,6 @@ public class CommentAdapter extends BaseAdapter {
         }else{
             mCommentList=new ArrayList<>();
         }
-        imageOptions = new ImageOptions.Builder()
-                .setSize(DensityUtil.dip2px(120), DensityUtil.dip2px(120))//图片大小
-                .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
-                .setCrop(true)// 如果ImageView的大小不是定义为wrap_content, 不要crop.
-                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-                .setLoadingDrawableId(R.drawable.user_head)//加载中默认显示图片
-                .setFailureDrawableId(R.drawable.user_head)//加载失败后默认显示图片
-                .build();
 
     }
 
@@ -88,7 +80,26 @@ public class CommentAdapter extends BaseAdapter {
         holder.tvZan.setText("赞(" + mComment.getLove() + ")");
         holder.ivZan.setTag(false);
 
-        x.image().bind(holder.ivUserHead, mComment.getHeadUrl(), imageOptions);
+        x.image().bind(holder.ivUserHead, mComment.getHeadUrl(), MyApplication.imageOptions);
+
+        holder.ivUserHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 2016-03-01 跳转至好友空间  个人中心
+                String userName=mComment.getUserName();
+                Intent intent =new Intent(context,PersonCenterActivity.class);
+                if(!userName.equals(MyApplication.mCurrentUser.getUsername())){
+                    intent.putExtra("from",false);
+                    intent.putExtra("chat",true);
+                    intent.putExtra("name",mComment.getUserName());
+                    context.startActivity(intent);
+                }else{
+                    intent.putExtra("from",true);
+                    intent.putExtra("user",MyApplication.mCurrentUser);
+                    context.startActivity(intent);
+                }
+            }
+        });
 
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override

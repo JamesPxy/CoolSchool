@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.adapter.CommentAdapter;
 import com.pxy.studyhelper.entity.Comment;
@@ -54,8 +55,12 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        initView();
+        if(MyApplication.mCurrentUser==null){
+            Tools.ToastShort("请先登录,再发表动态");
+            finish();
+        }
 
+        initView();
         mTopic= (Topic) getIntent().getSerializableExtra("topic");
         if(mTopic==null){
             this.finish();
@@ -67,6 +72,9 @@ public class CommentActivity extends AppCompatActivity {
 
     private void initView() {
         tvTitle.setText("评论详情");
+//        LayoutInflater mInflater=LayoutInflater.from(this);
+//        RelativeLayout headView = (RelativeLayout) mInflater.inflate(R.layout.include_new_friend, null);
+//        mListView.addView(headView);
 
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         //刷新时可以滚动listView
@@ -155,10 +163,12 @@ public class CommentActivity extends AppCompatActivity {
         comment.setContent(str);
         comment.setTopicId(mTopic.getObjectId());
         //todo  获取当前用户
-        comment.setUserName("username");
-        comment.setHeadUrl("null");
-
+        comment.setUserName(MyApplication.mCurrentUser.getUsername());
+        comment.setHeadUrl(MyApplication.mCurrentUser.getHeadUrl());
         comment.setLove(0);
+
+
+
 
         comment.save(context, new SaveListener() {
             @Override
