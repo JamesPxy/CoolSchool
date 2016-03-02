@@ -1,7 +1,6 @@
 package com.pxy.studyhelper.activity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -10,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.pxy.studyhelper.R;
-import com.pxy.studyhelper.utils.ImageLoadOptions;
 import com.pxy.studyhelper.view.CustomViewPager;
+
+import org.xutils.common.Callback;
+import org.xutils.x;
 
 import java.util.ArrayList;
 
@@ -102,35 +100,57 @@ public class ImageBrowserActivity extends ActivityBase implements OnPageChangeLi
 			final ProgressBar progress = (ProgressBar)imageLayout.findViewById(R.id.progress);
 
 			final String imgUrl = mPhotos.get(position);
-			ImageLoader.getInstance().displayImage(imgUrl, photoView, ImageLoadOptions.getOptions(),new SimpleImageLoadingListener() {
-
+			x.image().bind(photoView,imgUrl, new Callback.CommonCallback() {
 				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					progress.setVisibility(View.VISIBLE);
-				}
-
-				@Override
-				public void onLoadingFailed(String imageUri, View view,
-											FailReason failReason) {
-					// TODO Auto-generated method stub
-					progress.setVisibility(View.GONE);
-
-				}
-
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					// TODO Auto-generated method stub
+				public void onSuccess(Object o) {
 					progress.setVisibility(View.GONE);
 				}
 
 				@Override
-				public void onLoadingCancelled(String imageUri, View view) {
-					// TODO Auto-generated method stub
+				public void onError(Throwable throwable, boolean b) {
 					progress.setVisibility(View.GONE);
+				}
 
+				@Override
+				public void onCancelled(CancelledException e) {
+					progress.setVisibility(View.GONE);
+				}
+
+				@Override
+				public void onFinished() {
+					progress.setVisibility(View.GONE);
 				}
 			});
+
+//			ImageLoader.getInstance().displayImage(imgUrl, photoView, ImageLoadOptions.getOptions(),new SimpleImageLoadingListener() {
+//
+//				@Override
+//				public void onLoadingStarted(String imageUri, View view) {
+//					// TODO Auto-generated method stub
+//					progress.setVisibility(View.VISIBLE);
+//				}
+//
+//				@Override
+//				public void onLoadingFailed(String imageUri, View view,
+//											FailReason failReason) {
+//					// TODO Auto-generated method stub
+//					progress.setVisibility(View.GONE);
+//
+//				}
+//
+//				@Override
+//				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//					// TODO Auto-generated method stub
+//					progress.setVisibility(View.GONE);
+//				}
+//
+//				@Override
+//				public void onLoadingCancelled(String imageUri, View view) {
+//					// TODO Auto-generated method stub
+//					progress.setVisibility(View.GONE);
+//
+//				}
+//			});
 
 			container.addView(imageLayout, 0);
 			return imageLayout;

@@ -35,6 +35,4 @@
         android:textColor="@drawable/tv_send_selector"
         android:textSize="20sp" />
 
-
-
 </RelativeLayout>

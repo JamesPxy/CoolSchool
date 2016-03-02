@@ -9,7 +9,8 @@
         android:id="@+id/photoview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        app:scaleType="fitCenter" />
+        android:src="@drawable/image_grid_default"
+        app:scaleType="centerInside" />
 
     <RelativeLayout
         android:layout_width="fill_parent"

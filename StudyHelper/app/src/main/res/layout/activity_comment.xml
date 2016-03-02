@@ -3,31 +3,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/lv_topic"
     >
     <include
         android:id="@+id/include_tabbar"
         layout="@layout/tabbar"/>
-    <TextView
-        android:id="@+id/tv_no_comment"
-        android:layout_below="@+id/include_tabbar"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="暂时没有更多评论..."/>
+        android:orientation="vertical"
+        android:id="@+id/lv_topics"
+        android:layout_below="@+id/include_tabbar"
+        >
+        <RelativeLayout
+            android:id="@+id/rv_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <ImageView
+                android:id="@+id/iv_user_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/user_head"/>
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KingJames"
+                android:layout_toRightOf="@+id/iv_user_icon"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:layout_toRightOf="@+id/iv_user_icon"
+                android:layout_below="@+id/tv_username"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:textSize="18sp"
+            android:text="discuss content"/>
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="160dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/image_grid_default"/>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:background="#DADADA"
+            android:layout_height="1dp"/>
+    </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_listview"
-        android:layout_below="@+id/tv_no_comment"
-        android:layout_above="@+id/rv_send_comment"
+        android:layout_above="@+id/tv_no_comment"
+        android:layout_below="@+id/lv_topics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="@color/black"
         ></com.handmark.pulltorefresh.library.PullToRefreshListView>
+    <TextView
+        android:id="@+id/tv_no_comment"
+        android:layout_above="@+id/rv_send_comment"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂时没有更多评论..."/>
     <RelativeLayout
         android:id="@+id/rv_send_comment"
         android:focusable="true"

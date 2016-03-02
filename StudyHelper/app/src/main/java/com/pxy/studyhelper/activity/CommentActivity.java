@@ -1,11 +1,15 @@
 package com.pxy.studyhelper.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +30,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,10 +50,35 @@ public class CommentActivity extends AppCompatActivity {
     @ViewInject(value = R.id.tv_no_comment)
     private   TextView  tvNoComment;
 
+    /**
+     * 当没有评论是显示的动态详情
+     *
+     */
+    @ViewInject(value = R.id.lv_topics)
+    private LinearLayout  lvTopics;
+    @ViewInject(value = R.id.iv_user_icon)
+    private ImageView  ivUserHead;
+    @ViewInject(value = R.id.tv_username)
+    private TextView  tvUsername;
+    @ViewInject(value = R.id.tv_time)
+    private TextView  tvTime;
+    @ViewInject(value = R.id.tv_content)
+    private TextView  tvContent;
+    @ViewInject(value = R.id.imageView)
+    private  ImageView  ivTopic;
+
     private CommentAdapter  mCommentAdapter;
     private LinkedList<Comment>  mCommentList=new LinkedList<>();
     private int  curPage=0;
     private Topic mTopic;
+
+
+    ImageView  head;
+    TextView  name;
+    TextView  time;
+    TextView  content;
+    ImageView  imageViews;
+
 
 
     @Override
@@ -60,31 +90,71 @@ public class CommentActivity extends AppCompatActivity {
             finish();
         }
 
-        initView();
+
         mTopic= (Topic) getIntent().getSerializableExtra("topic");
         if(mTopic==null){
             this.finish();
         }
 
-        DialogUtil.showProgressDialog(this,"努力加载中...");
+        DialogUtil.showProgressDialog(this, "努力加载中...");
         getCommentInfo(this, mTopic.getObjectId(), curPage);
+
+        initView();
     }
 
     private void initView() {
-        tvTitle.setText("评论详情");
-//        LayoutInflater mInflater=LayoutInflater.from(this);
-//        RelativeLayout headView = (RelativeLayout) mInflater.inflate(R.layout.include_new_friend, null);
-//        mListView.addView(headView);
+        tvTitle.setText("动态详情");
+
+        if(mCommentList.size()==0){//没有评论的情况下
+            lvTopics.setVisibility(View.VISIBLE);
+            x.image().bind(ivUserHead, mTopic.getHeadUrl(), MyApplication.imageOptions);
+            tvUsername.setText(mTopic.getUserName());
+            tvTime.setText(mTopic.getCreatedAt());
+            tvContent.setText(mTopic.getContent());
+            if(mTopic.getImage()!=null) {
+                ivTopic.setVisibility(View.VISIBLE);
+                x.image().bind(ivTopic, mTopic.getImage().getFileUrl(this));
+            }else{
+                ivTopic.setVisibility(View.GONE);
+            }
+        }
+        ivTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO 浏览图片
+                Intent intent =new Intent(CommentActivity.this,ImageBrowserActivity.class);
+                ArrayList<String> photos = new ArrayList<String>();
+                photos.add(mTopic.getImage().getFileUrl(CommentActivity.this));
+                intent.putStringArrayListExtra("photos", photos);
+                intent.putExtra("position", 0);
+                startActivity(intent);
+            }
+        });
+
+
+        LayoutInflater mInflater=LayoutInflater.from(this);
+        LinearLayout headView = (LinearLayout) mInflater.inflate(R.layout.topic_detail, null);
+        ListView  listview=mListView.getRefreshableView();
+        listview.addHeaderView(headView);
+        head= (ImageView)headView.findViewById(R.id.user_head);
+        name= (TextView) headView.findViewById(R.id.tv_username);
+        time= (TextView) headView.findViewById(R.id.tv_time);
+        content= (TextView) headView.findViewById(R.id.tv_content);
+        imageViews= (ImageView) headView.findViewById(R.id.imageView);
+
+
+
+
 
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         //刷新时可以滚动listView
         mListView.setScrollingWhileRefreshingEnabled(true);
 //        mListView.setShowIndicator(true);
         mListView.setShowViewWhileRefreshing(true);
-        ILoadingLayout startLabels = mListView.getLoadingLayoutProxy(true, true);
-        startLabels.setPullLabel("上拉刷新...");// 刚下拉时，显示的提示
-        startLabels.setRefreshingLabel("正在载入...");// 刷新时
-        startLabels.setReleaseLabel("松开刷新...");// 下拉达到一定距离时，显示的提示
+        ILoadingLayout endLables = mListView.getLoadingLayoutProxy(false, true);
+        endLables.setPullLabel("上拉刷新...");// 刚下拉时，显示的提示
+        endLables.setRefreshingLabel("正在载入...");// 刷新时
+        endLables.setReleaseLabel("松开刷新...");// 下拉达到一定距离时，显示的提示
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -103,6 +173,32 @@ public class CommentActivity extends AppCompatActivity {
         if(mCommentAdapter==null){
             mCommentAdapter=new CommentAdapter(this,mCommentList);
             mListView.setAdapter(mCommentAdapter);
+
+            lvTopics.setVisibility(View.GONE);
+
+            x.image().bind(head, mTopic.getHeadUrl(), MyApplication.imageOptions);
+            name.setText(mTopic.getUserName());
+            time.setText(mTopic.getCreatedAt());
+            content.setText(mTopic.getContent());
+            if (mTopic.getImage() != null) {
+                imageViews.setVisibility(View.VISIBLE);
+                x.image().bind(imageViews, mTopic.getImage().getFileUrl(this));
+            } else {
+                imageViews.setVisibility(View.GONE);
+            }
+            imageViews.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO 浏览图片
+                    Intent intent =new Intent(CommentActivity.this,ImageBrowserActivity.class);
+                    ArrayList<String> photos = new ArrayList<String>();
+                    photos.add(mTopic.getImage().getFileUrl(CommentActivity.this));
+                    intent.putStringArrayListExtra("photos", photos);
+                    intent.putExtra("position", 0);
+                    startActivity(intent);
+                }
+            });
+
             DialogUtil.closeProgressDialog();
         }else{
             mCommentAdapter.notifyDataSetChanged();
@@ -159,7 +255,7 @@ public class CommentActivity extends AppCompatActivity {
             Tools.ToastShort("评论内容不能为空...");
             return;
         }
-        Comment  comment=new Comment();
+        final Comment  comment=new Comment();
         comment.setContent(str);
         comment.setTopicId(mTopic.getObjectId());
         //todo  获取当前用户
@@ -167,14 +263,13 @@ public class CommentActivity extends AppCompatActivity {
         comment.setHeadUrl(MyApplication.mCurrentUser.getHeadUrl());
         comment.setLove(0);
 
-
-
-
         comment.save(context, new SaveListener() {
             @Override
             public void onSuccess() {
                 Tools.ToastShort("发送评论成功...");
-                getCommentInfo(context, mTopic.getObjectId(), curPage);
+//                getCommentInfo(context, mTopic.getObjectId(), curPage);
+                mCommentList.addLast(comment);
+                updateListView();
             }
 
             @Override
