@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.pxy.studyhelper.R;
@@ -37,8 +36,6 @@ public class RegisterActivity extends Activity {
     private EditText edt_pwd;
     @ViewInject(value = R.id.imglabel)
     private ImageView  mImageLabel;
-    @ViewInject(value = R.id.radioGroup)
-    private RadioGroup  mRadioGroup;
     @ViewInject(value = R.id.hidePwdImg)
     private ImageView  mImgShowPwd;
 

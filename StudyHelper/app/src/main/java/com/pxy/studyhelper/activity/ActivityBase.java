@@ -37,7 +37,8 @@ public class ActivityBase extends AppCompatActivity {
 	public void checkLogin() {
 		BmobUserManager userManager = BmobUserManager.getInstance(this);
 		if (userManager.getCurrentUser() == null) {
-			Tools.ToastShort("您的账号已在其他设备上登录!");
+//			Tools.ToastShort("您的账号已在其他设备上登录!");
+			Tools.ToastShort("请先登录...");
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 		}

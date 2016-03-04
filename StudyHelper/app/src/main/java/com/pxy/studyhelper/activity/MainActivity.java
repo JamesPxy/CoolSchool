@@ -164,8 +164,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        tvUserName.setText(MyApplication.mCurrentUser.getUsername());
-        tvSign.setText(MyApplication.mCurrentUser.getSign());
+        if(MyApplication.mCurrentUser!=null) {
+            tvUserName.setText(MyApplication.mCurrentUser.getUsername());
+            tvSign.setText(MyApplication.mCurrentUser.getSign());
+        }
     }
 
     @Override
