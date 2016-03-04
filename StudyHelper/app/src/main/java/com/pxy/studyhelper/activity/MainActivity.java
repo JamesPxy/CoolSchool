@@ -1,5 +1,6 @@
 package com.pxy.studyhelper.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -35,7 +37,12 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Created by:Pxy
+ * Date: 2016-01-04
+ * Time: 10:36
+ * 应用主界面
+ */
 @ContentView(value = R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
     @ViewInject(value = R.id.toolbar)
@@ -101,11 +108,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
         tvUserName= (TextView) view.findViewById(R.id.tv_user_name);
         tvSign= (TextView) view.findViewById(R.id.tv_sign);
+
         if(MyApplication.mCurrentUser==null)mUser=new User();
         else mUser=MyApplication.mCurrentUser;
         x.image().bind(mIvUserPhoto, mUser.getHeadUrl(), MyApplication.imageOptions);
         tvUserName.setText(mUser.getUsername());
         tvSign.setText(mUser.getSign());
+        mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,PersonCenterActivity.class);
+                intent.putExtra("from",true);
+                intent.putExtra("user",MyApplication.mCurrentUser);
+                startActivity(intent);
+            }
+        });
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -143,13 +160,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mViewPager.setOnPageChangeListener(this);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvUserName.setText(MyApplication.mCurrentUser.getUsername());
+        tvSign.setText(MyApplication.mCurrentUser.getSign());
+    }
+
     @Override
     public void onBackPressed() {
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setTitle("友情提示")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setMessage("不再多停留一下了么,确认退出?")
+                    .setNegativeButton("取消",null)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
         }
     }
 
@@ -189,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            startActivity(new Intent(MainActivity.this,LoginActivity.class));
 
         } else if (id == R.id.nav_update) {//检查升级
-
+            Tools.ToastShort("有待进一步开发,敬请期待...");
         } else if (id == R.id.nav_back) {//问题反馈
             Tools.ToastShort("有待进一步开发,敬请期待...");
 

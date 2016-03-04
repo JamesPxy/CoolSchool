@@ -43,7 +43,6 @@
                     android:button="@null"
                     android:drawableLeft="@drawable/rb_a_selector"
                     android:text="AnswerA"
-                    android:drawablePadding="5dp"
                     android:layout_margin="5dp"
                     android:textColor="@color/answer_color"
                     android:textSize="@dimen/answerSize" />
@@ -58,7 +57,6 @@
                     android:button="@null"
                     android:drawableLeft="@drawable/rb_b_selector"
                     android:textColor="@color/answer_color"
-                    android:drawablePadding="5dp"
                     android:layout_margin="5dp"
                     android:textSize="@dimen/answerSize" />
 
@@ -71,7 +69,6 @@
                     android:button="@null"
                     android:drawableLeft="@drawable/rb_c_selector"
                     android:textColor="@color/answer_color"
-                    android:drawablePadding="5dp"
                     android:layout_margin="5dp"
                     android:text="AnswerC"
                     android:textSize="@dimen/answerSize" />
@@ -86,7 +83,6 @@
                     android:button="@null"
                     android:drawableLeft="@drawable/rb_d_selector"
                     android:textColor="@color/answer_color"
-                    android:drawablePadding="5dp"
                     android:layout_margin="5dp"
                     android:textSize="@dimen/answerSize" />
                 <RadioButton
@@ -99,7 +95,6 @@
                     android:button="@null"
                     android:drawableLeft="@drawable/rb_e_selector"
                     android:textColor="@color/answer_color"
-                    android:drawablePadding="5dp"
                     android:layout_margin="5dp"
                     android:visibility="gone"
                     android:textSize="@dimen/answerSize" />

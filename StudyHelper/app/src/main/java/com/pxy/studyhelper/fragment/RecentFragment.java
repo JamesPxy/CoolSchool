@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.activity.ChatActivity;
@@ -36,6 +37,7 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 
 	private View  rootView;
 	private ListView listview;
+	private TextView tvAlert;
 	private List<BmobRecent> mBmobRecentList;
 
 	private MessageRecentAdapter adapter;
@@ -48,22 +50,25 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 		if (parent != null) {
 			parent.removeAllViewsInLayout();
 		}
-
-
+		initView();
 		return rootView;
 	}
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		initView();
+
 	}
 
 	private void initView(){
+		tvAlert= (TextView) rootView.findViewById(R.id.tv_alert);
 		listview = (ListView)rootView.findViewById(R.id.list);
 		listview.setOnItemClickListener(this);
 		listview.setOnItemLongClickListener(this);
 		mBmobRecentList=BmobDB.create(getActivity()).queryRecents();
+		if(mBmobRecentList.size()<1){
+			tvAlert.setVisibility(View.VISIBLE);
+		}
 		adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation,mBmobRecentList);
 		listview.setAdapter(adapter);
 
@@ -77,13 +82,13 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 	 */
 	private void deleteRecent(BmobRecent recent){
 		if(adapter!=null&&recent!=null) {
-			mBmobRecentList.remove(recent);
-//			adapter.remove(recent);
-			adapter.notifyDataSetChanged();
+//			mBmobRecentList.remove(recent);
+//			adapter.notifyDataSetChanged();
+			adapter.remove(recent);
 			BmobDB.create(getActivity()).deleteRecent(recent.getTargetid());
 			BmobDB.create(getActivity()).deleteMessages(recent.getTargetid());
 		}else{
-			LogUtil.i("deleteRecent   error");
+			LogUtil.e("delete Recent   error");
 		}
 	}
 
@@ -141,8 +146,15 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 		try {
 			getActivity().runOnUiThread(new Runnable() {
 				public void run() {
-					adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation, BmobDB.create(getActivity()).queryRecents());
+					mBmobRecentList= BmobDB.create(getActivity()).queryRecents();
+					if(mBmobRecentList.size()<1){
+						tvAlert.setVisibility(View.VISIBLE);
+					}else {
+						tvAlert.setVisibility(View.GONE);
+					}
+					adapter = new MessageRecentAdapter(getActivity(), R.layout.item_conversation,mBmobRecentList);
 					listview.setAdapter(adapter);
+//					adapter.notifyDataSetChanged();
 				}
 			});
 		} catch (Exception e) {

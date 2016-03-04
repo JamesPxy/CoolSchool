@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.pxy.studyhelper.activity.TestListActivity;
 import com.pxy.studyhelper.entity.Test;
 import com.pxy.studyhelper.utils.Constant;
+import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
 import com.pxy.studyhelper.utils.LoadingDialog;
 import com.pxy.studyhelper.utils.Tools;
@@ -44,10 +45,10 @@ public class GetExamDataBiz {
     public static void getExamData(final Context context,int sort1,int sort2){
         BmobQuery<Test>  bmobQuery=new BmobQuery<>();
         bmobQuery.addWhereEqualTo("sorts1", sort1);
-        bmobQuery.addWhereEqualTo("sorts2",sort2);
+        bmobQuery.addWhereEqualTo("sorts2", sort2);
 
-        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);    // 先从缓存获取数据，如果没有，再从网络获取。
-//        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);//先从网络读取数据，如果没有，再从缓存中获取。
+//        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);    // 先从缓存获取数据，如果没有，再从网络获取。
+        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);//先从网络读取数据，如果没有，再从缓存中获取。
         // 返回50条数据，如果不加上这条语句，默认返回10条数据
         bmobQuery.setLimit(50);
         bmobQuery.findObjects(context, new FindListener<Test>() {
@@ -59,8 +60,9 @@ public class GetExamDataBiz {
             }
             @Override
             public void onError(int code, String msg) {
-                Tools.ShowToast(context, "get data error--" + msg);
-                LoadingDialog.dissmissDialog();
+                LogUtil.e("get exam data error--" + msg);
+//                LoadingDialog.dissmissDialog();
+                DialogUtil.closeProgressDialog();
             }
         });
     }

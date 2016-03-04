@@ -1,4 +1,4 @@
-package com.pxy.studyhelper.fragment;
+package com.pxy.studyhelper.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
-import com.pxy.studyhelper.activity.MakeTopicActivity;
 import com.pxy.studyhelper.adapter.QuestionPagerAdapter;
 import com.pxy.studyhelper.biz.TestDao;
 import com.pxy.studyhelper.entity.FavoriteQuestion;
 import com.pxy.studyhelper.entity.Question;
+import com.pxy.studyhelper.fragment.QuestionFragment;
 import com.pxy.studyhelper.utils.CompressImage;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.Tools;
@@ -158,18 +158,18 @@ public class NewExamActivity extends FragmentActivity implements ViewPager.OnPag
         }
     }
 
-    @Event(value ={R.id.iv_preQ,R.id.iv_submit,R.id.iv_add_collection,R.id.iv_nextQ,R.id.iv_back,R.id.iv_share,R.id.iv_time,R.id.iv_see_answer},
+    @Event(value ={R.id.iv_preQ,R.id.lv_submit,R.id.lv_add_collection,R.id.iv_nextQ,R.id.iv_back,R.id.iv_share,R.id.iv_time,R.id.lv_see_answer},
             type = View.OnClickListener.class)
     private  void  doClick(View view){
         switch (view.getId()){
             case R.id.iv_preQ:
                 mViewPager.setCurrentItem(--mCurrentIndex);
                 break;
-            case R.id.iv_submit:
+            case R.id.lv_submit:
                 //交卷操作
                 DialogUtil.showResultDialog(NewExamActivity.this, getScore());
                 break;
-            case R.id.iv_add_collection:
+            case R.id.lv_add_collection:
                 //todo 加入收藏
                 addToFav();
                 break;
@@ -201,7 +201,7 @@ public class NewExamActivity extends FragmentActivity implements ViewPager.OnPag
             case R.id.iv_time:
                 PauseTime();
                 break;
-            case R.id.iv_see_answer:
+            case R.id.lv_see_answer:
                 //todo  查看答案
                 ((QuestionFragment) adapter.getCurrentFragment()).showAnswer();
                 break;

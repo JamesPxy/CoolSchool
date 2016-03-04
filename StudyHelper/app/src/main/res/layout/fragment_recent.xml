@@ -5,6 +5,16 @@
               android:background="@color/base_bg"
               android:orientation="vertical" >
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_alert"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="暂无会话,赶紧去添加好友吧..."/>
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

@@ -98,18 +98,29 @@ public class MakeTopicActivity   extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMG&& resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
+            LogUtil.i("onActivityResult---data--"+data.getData());
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String  picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            mImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+//            Cursor cursor =managedQuery(selectedImage, filePathColumn, null, null, null);
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            String picturePath="";
+            if(cursor!=null) {
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                picturePath = cursor.getString(columnIndex);
+                cursor.close();
+                LogUtil.e("cursor not  null---picturePath---" + picturePath);
+            }else {
+                picturePath=selectedImage.toString().replace("file://","");
+                LogUtil.e("cursor  null---picturePath---"+picturePath);
+            }
             //todo  压缩文件
-            if(picturePath!=null)compressImageFile(picturePath);
-            LogUtil.e("img  path--"+picturePath);
+            if(!picturePath.equals("")){
+//                picturePath="/storage/emulated/0/DCIM/Camera/IMG_20160222_153056_HDR.jpg";
+                mImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                compressImageFile(picturePath);
+                LogUtil.e("img  path----" + picturePath);
+            }
         }
     }
 

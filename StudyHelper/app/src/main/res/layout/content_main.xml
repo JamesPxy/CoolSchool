@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#FAFFF0"
+        android:background="#F0FFFF"
         android:layout_height="55dp">
         <View
             android:layout_width="0dp"

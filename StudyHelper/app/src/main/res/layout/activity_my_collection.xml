@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pxy.studyhelper.fragment.NewExamActivity">
+    tools:context="com.pxy.studyhelper.activity.NewExamActivity">
     <RelativeLayout
         android:id="@+id/rv_tab"
         android:layout_width="match_parent"

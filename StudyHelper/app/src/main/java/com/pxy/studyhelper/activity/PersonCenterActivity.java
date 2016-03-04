@@ -138,7 +138,8 @@ public class PersonCenterActivity extends AppCompatActivity {
             tvSave.setVisibility(View.VISIBLE);
             tvTitle.setText("个人中心");
             btn_chat.setVisibility(View.GONE);
-            btn_add_friends.setVisibility(View.GONE);
+            btn_add_friends.setVisibility(View.INVISIBLE);
+            rvAccount.setVisibility(View.VISIBLE);
             if(user.getMobilePhoneNumber()!=null)tvAccount.setText(user.getMobilePhoneNumber());
             else  tvAccount.setText(user.getEmail());
 
@@ -147,12 +148,13 @@ public class PersonCenterActivity extends AppCompatActivity {
         }else{//来自其他人
             if(MyApplication.mInstance.getContactList().containsKey(user.getUsername())){
                 //隐藏添加好友按钮
-                btn_add_friends.setVisibility(View.GONE);
+                btn_add_friends.setVisibility(View.INVISIBLE);
+            }else {
+                btn_add_friends.setVisibility(View.VISIBLE);
             }
             tvTitle.setText("详细资料");
-            rvAccount.setVisibility(View.GONE);
             if(user.getSign()!=null)tvSign.setText(user.getSign());
-            else tvSign.setText("他很懒,暂无个性签名");
+            else tvSign.setText("他太忙了,暂无个性签名");
 
         }
 
@@ -316,6 +318,7 @@ public class PersonCenterActivity extends AppCompatActivity {
                         case 1:
                             tvName.setText(s);
                             user.setUsername(s);
+                            MyApplication.mCurrentUser.setUsername(s);
                             break;
                         case 2:
                             tvSchool.setText(s);
@@ -345,19 +348,24 @@ public class PersonCenterActivity extends AppCompatActivity {
         if (requestCode == RESULT_LOAD_IMG&& resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String  picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            ivHead.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-            //todo  压缩文件
-            if(picturePath!=null)compressImageFile(picturePath);
-
+            String picturePath="";
+            if(cursor!=null) {
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                picturePath = cursor.getString(columnIndex);
+                cursor.close();
+                LogUtil.e("cursor not  null---picturePath---" + picturePath);
+            }else {
+                picturePath=selectedImage.toString().replace("file://","");
+                LogUtil.e("cursor  null---picturePath---"+picturePath);
+            }
+            //todo  压缩图片  并上传
+            compressImageFile(picturePath);
             uploadHead(PersonCenterActivity.this);
-            LogUtil.e("img  path--" + picturePath);
+            LogUtil.e("finially  img  path----" + picturePath);
+
         }
     }
 
@@ -396,6 +404,8 @@ public class PersonCenterActivity extends AppCompatActivity {
                     public void onSuccess() {
                         LogUtil.i("上传头像成功");
                         user.setHeadUrl(file.getFileUrl(context));
+                        MyApplication.mCurrentUser.setHeadUrl(file.getFileUrl(context));
+                        x.image().bind(ivHead, user.getHeadUrl(), MyApplication.imageOptions);
                         updateUserInfo();
                     }
 

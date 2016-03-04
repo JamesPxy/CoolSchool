@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
-import com.pxy.studyhelper.fragment.NewExamActivity;
+import com.pxy.studyhelper.activity.NewExamActivity;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
 import com.pxy.studyhelper.utils.Tools;

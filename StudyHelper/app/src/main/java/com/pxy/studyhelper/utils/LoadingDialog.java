@@ -17,6 +17,8 @@ public class LoadingDialog {
     public static void showLoadingDialog(Context context){
         AlertDialog.Builder  builder=new AlertDialog.Builder(context);
         ImageView  mImageView=new ImageView(context);
+//        ViewGroup.LayoutParams  params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        mImageView.setLayoutParams(params);
 //        builder.setTitle("login")
 //                .setView(view)
 //                .setCancelable(true)
@@ -24,6 +26,7 @@ public class LoadingDialog {
 //                .setMessage("拼命加载中...");
 //        builder.setNegativeButton(null);
         builder.setView(mImageView);
+//        builder.setMessage(msg);
 
         //加载动画
         mImageView.setImageResource(R.drawable.annimation_loading);
@@ -33,11 +36,13 @@ public class LoadingDialog {
         mAlertDialog=builder.create();
         mAlertDialog.show();
     }
-    public    static  void dissmissDialog(){
+    public   static  void dissmissDialog(){
         if(mAlertDialog!=null){
             mAlertDialog.dismiss();
+        }else {
+            mAlertDialog = null;
+            System.gc();
         }
-        mAlertDialog=null;
     }
 
 

@@ -18,11 +18,9 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.adapter.DownloadAdapter;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
-import com.pxy.studyhelper.fragment.NewExamActivity;
 import com.pxy.studyhelper.utils.Constant;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
-import com.pxy.studyhelper.utils.LoadingDialog;
 import com.pxy.studyhelper.utils.Tools;
 
 import java.util.List;
@@ -43,8 +41,9 @@ public class TestListActivity extends AppCompatActivity {
         initView();
         sort1=getIntent().getIntExtra("position1",0);
         sort2=getIntent().getIntExtra("position2",0);
-        LoadingDialog.showLoadingDialog(this);
         //请求获取试题内容
+//        LoadingDialog.showLoadingDialog(this);
+        DialogUtil.showProgressDialog(this, "拼命加载中...");
         GetExamDataBiz.getExamData(this, sort1, sort2);
         myReceiver=new MyReceiver();
         IntentFilter filter=new IntentFilter(Constant.RECEIVER_DOWNLOAD);
@@ -67,9 +66,9 @@ public class TestListActivity extends AppCompatActivity {
     }
 
     public void setListView(List<Test>  mTestArrayList) {
+        DialogUtil.closeProgressDialog();
         mDownloadAdapter=new DownloadAdapter(this,mTestArrayList);
         mListView.setAdapter(mDownloadAdapter);
-        LoadingDialog.dissmissDialog();
     }
 
     @Override
@@ -87,8 +86,8 @@ public class TestListActivity extends AppCompatActivity {
             if(IsDownload.isDownload(TestListActivity.this,uri)){
                 if(data==null)return;
                 AlertDialog.Builder  builder=new AlertDialog.Builder(context);
-//                builder.setIcon(R.drawable.ic_luncher);
-//                builder.setTitle("选择模式:");
+                builder.setIcon(R.mipmap.ic_launcher);
+                builder.setTitle("选择做题模式:");
                 builder.setItems(new String[]{"考核模式", "练习模式", "错题重做"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

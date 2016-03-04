@@ -3,6 +3,7 @@ package com.pxy.studyhelper.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class QuestionFragment extends Fragment {
     private int index;
     private int mode;
     private int total;//问题总数量
+
+    private Handler  handler=new Handler();
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -100,7 +103,13 @@ public class QuestionFragment extends Fragment {
                         if(!CheckAnswer()) showAnswer();
                         else {}// TODO: 2016-02-22   显示答对了
                     } else if (mode == 0) {
-                        mViewPager.setCurrentItem(++index);
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mViewPager.setCurrentItem(++index);
+                            }
+                        },200);
                     }
                 }
                 if(total==index) {

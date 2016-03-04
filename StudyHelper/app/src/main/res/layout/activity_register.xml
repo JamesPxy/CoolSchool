@@ -20,45 +20,75 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="新用户注册"
+            android:text="注册"
             android:textColor="@color/whiteBg"
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_height="50dp">
-        <RadioButton
-            android:id="@+id/rbt_phone"
-            android:button="@null"
-            android:background="@drawable/reg_top_leftbtn_selector"
-            android:drawableLeft="@drawable/reg_top_leftimg_selector"
-            android:text="手机号注册"
-            android:drawablePadding="10dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@drawable/reg_top_textcolor_selector"
-            android:checked="true"
-            android:layout_weight="1"/>
-        <RadioButton
-            android:id="@+id/rbt_email"
-            android:button="@null"
-            android:background="@drawable/reg_top_rightbtn_selector"
-            android:drawableLeft="@drawable/reg_top_rightimg_selector"
-            android:drawablePadding="10dp"
-            android:text="邮箱注册"
-            android:textColor="@drawable/reg_top_textcolor_selector"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
 
-    </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp">
 
+            <LinearLayout
+                android:id="@+id/phone_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/reg_top_leftbtn_selector"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/top_phone_label"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/reg_top_leftimg_selector" />
+
+                <TextView
+                    android:id="@+id/top_phone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="手机注册"
+                    android:textColor="@drawable/reg_top_textcolor_selector"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mail_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.46"
+                android:background="@drawable/reg_top_rightbtn_selector"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/top_mail_label"
+                    android:layout_width="17dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/reg_top_rightimg_selector" />
+
+                <TextView
+                    android:id="@+id/top_mail_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="邮箱注册"
+                    android:textColor="@drawable/reg_top_textcolor_selector"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout

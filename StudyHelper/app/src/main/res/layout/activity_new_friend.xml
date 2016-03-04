@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="添加好友申请列表"
+            android:text="好友申请详情"
             android:textColor="@color/whiteBg"
             android:textSize="18sp" />
 

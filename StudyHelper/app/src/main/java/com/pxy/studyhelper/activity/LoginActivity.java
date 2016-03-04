@@ -18,7 +18,6 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 
 import static cn.bmob.v3.BmobUser.getCurrentUser;
@@ -31,29 +30,42 @@ public class LoginActivity extends Activity {
     @ViewInject(value = R.id.pwd)
     private EditText  edt_pwd;
 
+    String  userName;
+    String  password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+
+        userName=getIntent().getStringExtra("name");
+        password=getIntent().getStringExtra("password");
+
+        if(userName!=null&&password!=null){
+            edt_username.setText(userName);
+            edt_pwd.setText(password);
+        }
     }
 
     @Event(value = R.id.btn_login,type = View.OnClickListener.class)
     private  void  doLogin(View  v){
-//        LoadingDialog.showLoadingDialog(LoginActivity.this);
-        String  userName=edt_username.getText().toString().trim();
-        String password=edt_pwd.getText().toString().trim();
+        LoadingDialog.showLoadingDialog(LoginActivity.this);
+        userName=edt_username.getText().toString().trim();
+        password=edt_pwd.getText().toString().trim();
         if(TextUtils.isEmpty(userName)||
                 TextUtils.isEmpty(password)){
             Toast.makeText(LoginActivity.this, "用户名和密码不能为空...", Toast.LENGTH_SHORT).show();
             return;
         }
-        BmobUser bu = new BmobUser();
-        bu.setUsername(userName);
-        bu.setPassword(password);
-        bu.login(this, new SaveListener() {
+        User  user=new User();
+        user.setUsername(userName);
+        user.setPassword(password);
+        user.setEmail(userName);
+        user.setMobilePhoneNumber(userName);
+
+        user.login(this, new SaveListener() {
             @Override
             public void onSuccess() {
-//                LoadingDialog.dissmissDialog();
+                LoadingDialog.dissmissDialog();
                 //给当前用户赋值
                 MyApplication.mCurrentUser = getCurrentUser(LoginActivity.this, User.class);
                 Toast.makeText(LoginActivity.this, "登录成功...", Toast.LENGTH_SHORT).show();
@@ -63,6 +75,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onFailure(int code, String msg) {
+                LoadingDialog.dissmissDialog();
                 Toast.makeText(LoginActivity.this, "登录失败..." + code + "---" + msg, Toast.LENGTH_SHORT).show();
             }
         });
@@ -75,9 +88,9 @@ public class LoginActivity extends Activity {
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
                 break;
             case R.id.tv_forget_pwd:
-                Toast.makeText(LoginActivity.this, "有待继续开发...", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "有待进一步开发...", Toast.LENGTH_SHORT).show();
                 LoadingDialog.showLoadingDialog(LoginActivity.this);
-//                startActivity(new Intent(LoginActivity.this, TestBigActivity.class));
+                startActivity(new Intent(this,RegisterActivity.class));
                 break;
             case R.id.tv_see_first:
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
