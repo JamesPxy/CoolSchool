@@ -77,6 +77,14 @@ public class MyMessageReceiver extends BroadcastReceiver {
 	 */
 	private void parseMessage(final Context context, String json) {
 		JSONObject jo;
+		try{
+			jo=new JSONObject(json);
+			String msg=jo.getString("alert");
+			LogUtil.i(msg);
+			BmobNotifyManager.getInstance(context).showNotifyWithExtras(true, true, R.mipmap.ic_launcher,msg, "酷校推送",msg,new Intent(context,MainActivity.class));			return;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		try {
 			jo = new JSONObject(json);
 			String tag = BmobJsonUtil.getString(jo, BmobConstant.PUSH_KEY_TAG);
@@ -198,7 +206,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 	public void showMsgNotify(Context context,BmobMsg msg) {
 		// 更新通知栏
 		int icon = R.drawable.ic_luncher;
-		String trueMsg = "";
+		String trueMsg;
 		if(msg.getMsgType()==BmobConfig.TYPE_TEXT && msg.getContent().contains("\\ue")){
 			trueMsg = "[表情]";
 		}else if(msg.getMsgType()==BmobConfig.TYPE_IMAGE){

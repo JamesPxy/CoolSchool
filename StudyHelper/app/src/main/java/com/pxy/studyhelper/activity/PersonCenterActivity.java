@@ -305,7 +305,8 @@ public class PersonCenterActivity extends AppCompatActivity {
         AlertDialog.Builder  builder=new AlertDialog.Builder(PersonCenterActivity.this);
         View view=View.inflate(PersonCenterActivity.this, R.layout.update_info_layout, null);
         final EditText  edt= (EditText) view.findViewById(R.id.editText);
-        builder.setTitle("  ");
+//        builder.setTitle("修改个人信息");
+//        builder.setIcon(R.mipmap.ic_launcher);
         builder.setView(view);
         builder.setNegativeButton("取消",null);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -350,7 +351,7 @@ public class PersonCenterActivity extends AppCompatActivity {
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
-            String picturePath="";
+            String picturePath;
             if(cursor!=null) {
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);

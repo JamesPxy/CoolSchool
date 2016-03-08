@@ -58,11 +58,17 @@ public class Tools {
      * @return
      * @throws Exception
      */
-    public static  String  getCurrentVersion(Context  context) throws PackageManager.NameNotFoundException {
+    public static  String  getCurrentVersion(Context  context){
         PackageManager manager=context.getPackageManager();
         String packageName=context.getPackageName();
-        PackageInfo packageInfo=manager.getPackageInfo(packageName,0);
-        return packageInfo.versionName;
+        PackageInfo packageInfo= null;
+        try {
+            packageInfo = manager.getPackageInfo(packageName,0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /** 检查是否有网络 */

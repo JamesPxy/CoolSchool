@@ -132,10 +132,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.ShowTopicDetail"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".activity.PersonCenterActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

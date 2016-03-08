@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bmob.BmobPro;
 import com.pxy.studyhelper.MyApplication;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.User;
@@ -31,6 +32,7 @@ import com.pxy.studyhelper.fragment.SettingFragment;
 import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.utils.Tools;
 
+import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -221,23 +223,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this,TestBigActivity.class));
         } else if (id == R.id.nav_setting) {//我的设置
             startActivity(new Intent(MainActivity.this,SettingActivity.class));
-        } else if (id == R.id.nav_challenge) {//挑战自我
-
+        } else if (id == R.id.nav_challenge) {//我的个人动态
             ToMyTopic();
-//            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-
         } else if (id == R.id.nav_update) {//检查升级
-            Tools.ToastShort("有待进一步开发,敬请期待...");
+            new AlertDialog.Builder(this)
+                    .setTitle("更新提示")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setMessage("当前已是最新版本，无需更新")
+                    .setNegativeButton("取消",null)
+                    .setPositiveButton("确定",null)
+                    .show();
+
         } else if (id == R.id.nav_back) {//问题反馈
             Tools.ToastShort("有待进一步开发,敬请期待...");
 
         }else if(id==R.id.nav_share){//一键分享
-            Tools.ToastShort("有待进一步开发,敬请期待...");
+//            Tools.ToastShort("有待进一步开发,敬请期待...");
+            clearCache();
         }
         //关闭侧滑菜单
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * 清除缓存
+     */
+    private void clearCache() {
+        //文件大小（单位：字节）
+        String cacheSize = String.valueOf(BmobPro.getInstance(this).getCacheFileSize());
+        //对文件大小进行格式化，转化为'B'、'K'、'M'、'G'等单位
+        String formatSize = BmobPro.getInstance(this).getCacheFormatSize();
+        LogUtil.i(formatSize);
+        //        清除缓存：
+//        BmobPro.getInstance(this).clearCache();
     }
 
     private void ToMyTopic() {

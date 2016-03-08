@@ -78,17 +78,6 @@ public class MyApplication  extends Application {
         //初始化相关api
         init();
 
-//        //初始化Bmob
-//        Bmob.initialize(this, "b6df61fc2e46b2ba781525d42e8b318a");
-//
-//        BmobChat.DEBUG_MODE = true;
-//        //BmobIM SDK初始化--只需要这一段代码即可完成初始化
-//        BmobChat.getInstance(this).init("b6df61fc2e46b2ba781525d42e8b318a");
-
-        //BmobFile缓存目录  缓存总目录下，包含上面两个分目录，分别用于保存下载文件和缩略图
-//        BmobConfiguration config = new BmobConfiguration.Builder(this).customExternalCacheDir("myBmobFile").build();
-//        BmobPro.getInstance(this).initConfig(config);
-
 
         daoConfig = new DbManager.DaoConfig()
                 .setDbName("FavoriteQuestion")//创建数据库的名称
@@ -338,13 +327,14 @@ public class MyApplication  extends Application {
 
 
 
+//        //初始化Bmob
+//        Bmob.initialize(this, "b6df61fc2e46b2ba781525d42e8b318a");
+//
+//        BmobChat.DEBUG_MODE = true;
+//        //BmobIM SDK初始化--只需要这一段代码即可完成初始化
+//        BmobChat.getInstance(this).init("b6df61fc2e46b2ba781525d42e8b318a");
 
-////        通过如下方法可获取保存下载文件的完整路径：
-////可自行打印此路径，通过文件管理器查看文件是否下载成功
-//        BmobPro.getInstance(this).getCacheDownloadDir();
-////获取缓存大小  文件大小（单位：字节）
-//        String cacheSize = String.valueOf(BmobPro.getInstance(this).getCacheFileSize());
-////对文件大小进行格式化，转化为'B'、'K'、'M'、'G'等单位
-//        String formatSize = BmobPro.getInstance(this).getCacheFormatSize();
-////        清除缓存：
-//        BmobPro.getInstance(this).clearCache();
+//BmobFile缓存目录  缓存总目录下，包含上面两个分目录，分别用于保存下载文件和缩略图
+//        BmobConfiguration config = new BmobConfiguration.Builder(this).customExternalCacheDir("myBmobFile").build();
+//        BmobPro.getInstance(this).initConfig(config);
+

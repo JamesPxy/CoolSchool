@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -28,6 +29,7 @@ import cn.bmob.im.BmobUserManager;
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.config.BmobConfig;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -48,12 +50,19 @@ public class WelcomeActivity extends ActivityBase {
 	private BaiduReceiver mReceiver;// 注册广播接收器，用于监听网络以及验证key
 
 	private BmobUserManager  userManager;
+	private TextView tvVersion;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
+
+		tvVersion= (TextView) findViewById(R.id.tv_version);
+
+		String version=Tools.getCurrentVersion(this);
+		LogUtil.i("onCreate version" + version);
+		tvVersion.setText("Version: 2.2");
 
 		userManager=BmobUserManager.getInstance(this);
 		//初始化Bmob
@@ -63,6 +72,8 @@ public class WelcomeActivity extends ActivityBase {
 		//BmobIM SDK初始化--只需要这一段代码即可完成初始化
 		//请到Bmob官网(http://www.bmob.cn/)申请ApplicationId,具体地址:http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android
 		BmobChat.getInstance(this).init("b6df61fc2e46b2ba781525d42e8b318a");
+		//保存设备信息
+		BmobInstallation.getCurrentInstallation(this).save();
 		// 开启定位
 		initLocClient();
 		// 注册地图 SDK 广播监听者

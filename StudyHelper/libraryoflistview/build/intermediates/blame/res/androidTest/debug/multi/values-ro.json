@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ro\\values-ro.xml",
+        "outputFile": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ro\\values-ro.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 134
                 },
                 "from": {
-                    "file": "F:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
+                    "file": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 206
                 },
                 "from": {
-                    "file": "F:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
+                    "file": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,69 +49,7 @@
                     "endOffset": 298
                 },
                 "from": {
-                    "file": "F:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 211,
-                        "endColumn": 91,
-                        "endOffset": 298
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "G:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ro\\values-ro.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 83,
-                    "endOffset": 134
-                },
-                "from": {
-                    "file": "G:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 83,
-                        "endOffset": 134
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 139,
-                    "endColumn": 71,
-                    "endOffset": 206
-                },
-                "from": {
-                    "file": "G:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 139,
-                        "endColumn": 71,
-                        "endOffset": 206
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 211,
-                    "endColumn": 91,
-                    "endOffset": 298
-                },
-                "from": {
-                    "file": "G:\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
+                    "file": "E:\\MyGithub\\CoolSchool\\StudyHelper\\libraryoflistview\\build\\intermediates\\bundles\\debug\\res\\values-ro\\values-ro.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
