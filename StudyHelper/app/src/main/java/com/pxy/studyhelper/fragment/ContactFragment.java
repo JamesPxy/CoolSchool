@@ -62,8 +62,6 @@ import cn.bmob.v3.listener.UpdateListener;
  * 联系人
  * @ClassName: ContactFragment
  * @Description: TODO
- * @author smile
- * @date 2014-6-7 下午1:02:05
  */
 @SuppressLint("DefaultLocale")
 public class ContactFragment extends Fragment implements OnItemClickListener,OnItemLongClickListener{

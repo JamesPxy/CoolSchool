@@ -82,9 +82,9 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 	 */
 	private void deleteRecent(BmobRecent recent){
 		if(adapter!=null&&recent!=null) {
-//			mBmobRecentList.remove(recent);
-//			adapter.notifyDataSetChanged();
-			adapter.remove(recent);
+			mBmobRecentList.remove(recent);
+			adapter.notifyDataSetChanged();
+//			adapter.remove(recent);
 			BmobDB.create(getActivity()).deleteRecent(recent.getTargetid());
 			BmobDB.create(getActivity()).deleteMessages(recent.getTargetid());
 		}else{

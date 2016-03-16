@@ -12,13 +12,13 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
+import com.bmob.utils.BmobLog;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.utils.CollectionUtils;
 import com.pxy.studyhelper.utils.SharePreferenceUtil;
@@ -33,11 +33,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.bmob.im.BmobChat;
 import cn.bmob.im.BmobUserManager;
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.db.BmobDB;
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobGeoPoint;
 
@@ -78,7 +76,6 @@ public class MyApplication  extends Application {
         //初始化相关api
         init();
 
-
         daoConfig = new DbManager.DaoConfig()
                 .setDbName("FavoriteQuestion")//创建数据库的名称
                 .setDbVersion(1)//数据库版本号
@@ -99,6 +96,9 @@ public class MyApplication  extends Application {
             LogUtil.i(mCurrentUser.toString());
         }
 
+        /**
+         * 用户头像 一般处理方式
+         */
         imageOptions = new ImageOptions.Builder()
                 .setSize(DensityUtil.dip2px(120), DensityUtil.dip2px(120))//图片大小
                 .setRadius(DensityUtil.dip2px(360))//ImageView圆角半径
@@ -110,10 +110,10 @@ public class MyApplication  extends Application {
     }
 
     private void init() {
-//        mMediaPlayer = MediaPlayer.create(this, R.raw.notify);
+        mMediaPlayer = MediaPlayer.create(this, R.raw.notify);
         mNotificationManager = (NotificationManager) getSystemService(android.content.Context.NOTIFICATION_SERVICE);
         initImageLoader(getApplicationContext());
-        // 若用户登陆过，则先从好友数据库中取出好友list存入内存中
+        // 若用户登录过，则先从好友数据库中取出好友list存入内存中
         if (BmobUserManager.getInstance(getApplicationContext())
                 .getCurrentUser() != null) {
             // 获取本地好友user list到内存,方便以后获取好友list
@@ -126,8 +126,7 @@ public class MyApplication  extends Application {
      * 初始化ImageLoader
      */
     public static void initImageLoader(Context context) {
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context,
-                "bmobim/Cache");// 获取到缓存的目录地址
+        File cacheDir =context.getCacheDir();// 获取到缓存的目录地址
         // 创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 context)
@@ -206,8 +205,8 @@ public class MyApplication  extends Application {
     MediaPlayer mMediaPlayer;
 
     public synchronized MediaPlayer getMediaPlayer() {
-//        if (mMediaPlayer == null)
-//            mMediaPlayer = MediaPlayer.create(this, R.raw.notify);
+        if (mMediaPlayer == null)
+            mMediaPlayer = MediaPlayer.create(this, R.raw.notify);
         return mMediaPlayer;
     }
 
@@ -313,7 +312,7 @@ public class MyApplication  extends Application {
             if (lastPoint != null) {
                 if (lastPoint.getLatitude() == location.getLatitude()
                         && lastPoint.getLongitude() == location.getLongitude()) {
-//					BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
+					BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
                     mLocationClient.stop();
                     return;
                 }

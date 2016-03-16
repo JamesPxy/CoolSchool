@@ -51,7 +51,7 @@
             android:textColor="@drawable/rb_text_selector"
             android:drawableTop="@drawable/rb_home_selector"
             android:drawablePadding="@dimen/rb_drawable_top_padding_width"
-
+            android:layout_marginTop="3dp"
             android:checked="true"
             />
         <View
@@ -69,6 +69,7 @@
             android:textColor="@drawable/rb_text_selector"
             android:layout_gravity="center_vertical"
             android:drawablePadding="@dimen/rb_drawable_top_padding_width"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             />
         <View
@@ -86,6 +87,7 @@
             android:button="@null"
             android:layout_gravity="center_vertical"
             android:drawablePadding="@dimen/rb_drawable_top_padding_width"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             />
         <View
@@ -103,6 +105,7 @@
             android:textColor="@drawable/rb_text_selector"
             android:layout_gravity="center_vertical"
             android:drawablePadding="@dimen/rb_drawable_top_padding_width"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             />
         <View

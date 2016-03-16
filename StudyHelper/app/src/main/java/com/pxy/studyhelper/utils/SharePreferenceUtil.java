@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/** 首选项管理
+/** 偏好设置存储管理
  * @ClassName: SharePreferenceUtil
- * @Description: TODO
- * @author smile
- * @date 2014-6-10 下午4:20:14
+ * @author pxy
  */
 @SuppressLint("CommitPrefEdits")
 public class SharePreferenceUtil {

@@ -255,7 +255,7 @@
         style="@style/Smile.Button.logout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:text="@string/logout" />

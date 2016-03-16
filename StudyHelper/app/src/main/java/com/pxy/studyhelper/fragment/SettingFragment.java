@@ -18,8 +18,11 @@ import com.pxy.studyhelper.activity.LoginActivity;
 import com.pxy.studyhelper.activity.MyTopicActivity;
 import com.pxy.studyhelper.activity.PersonCenterActivity;
 import com.pxy.studyhelper.activity.SettingActivity;
+import com.pxy.studyhelper.entity.User;
 
 import org.xutils.x;
+
+import cn.bmob.v3.BmobUser;
 
 /**
  * 我的fragemnt
@@ -137,6 +140,8 @@ public class SettingFragment extends Fragment {
         if(MyApplication.mCurrentUser==null){
             btn_logout.setText("立即登录");
         }else{
+            //刷新当前用户个人信息
+            MyApplication.mCurrentUser= BmobUser.getCurrentUser(MyApplication.mInstance, User.class);
             tvName.setText(MyApplication.mCurrentUser.getUsername());
             x.image().bind(mImageView, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
             tvTitle.setText("");

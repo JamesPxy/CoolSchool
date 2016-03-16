@@ -32,8 +32,6 @@ import cn.bmob.v3.listener.FindListener;
 /** 添加好友
  * @ClassName: AddFriendActivity
  * @Description: TODO
- * @author smile
- * @date 2014-6-5 下午5:26:41
  */
 public class AddFriendActivity extends ActivityBase implements OnClickListener,XListView.IXListViewListener,OnItemClickListener{
 

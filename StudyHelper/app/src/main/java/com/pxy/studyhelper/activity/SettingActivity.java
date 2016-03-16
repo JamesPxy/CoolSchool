@@ -57,7 +57,7 @@ public class SettingActivity  extends ActivityBase {
     }
 
 
-    @Event(value = {R.id.btn_logout,R.id.layout_info,R.id.rl_switch_notification,R.id.rl_switch_vibrate,R.id.rl_switch_voice},
+    @Event(value = {R.id.iv_back,R.id.btn_logout,R.id.layout_info,R.id.rl_switch_notification,R.id.rl_switch_vibrate,R.id.rl_switch_voice},
             type = View.OnClickListener.class)
     private void doCLick(View  view){
         switch (view.getId()){
@@ -107,6 +107,7 @@ public class SettingActivity  extends ActivityBase {
                 }
 
                 break;
+            case R.id.iv_back:finish();break;
         }
     }
 

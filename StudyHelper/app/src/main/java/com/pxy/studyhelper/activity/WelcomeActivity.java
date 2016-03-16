@@ -143,8 +143,8 @@ public class WelcomeActivity extends ActivityBase {
 			String saveLongtitude = MyApplication.mInstance.getLongtitude();
 			String newLat = String.valueOf(MyApplication.mInstance.lastPoint.getLatitude());
 			String newLong = String.valueOf(MyApplication.mInstance.lastPoint.getLongitude());
-//			ShowLog("saveLatitude ="+saveLatitude+",saveLongtitude = "+saveLongtitude);
-//			ShowLog("newLat ="+newLat+",newLong = "+newLong);
+			LogUtil.i("saveLatitude =" + saveLatitude + ",saveLongtitude = " + saveLongtitude);
+			LogUtil.i("newLat =" + newLat + ",newLong = " + newLong);
 			if(!saveLatitude.equals(newLat)|| !saveLongtitude.equals(newLong)){//只有位置有变化就更新当前位置，达到实时更新的目的
 				User u = (User) userManager.getCurrentUser(User.class);
 				final User user = new User();
@@ -156,16 +156,16 @@ public class WelcomeActivity extends ActivityBase {
 						// TODO Auto-generated method stub
 						MyApplication.mInstance.setLatitude(String.valueOf(user.getLocation().getLatitude()));
 						MyApplication.mInstance.setLongtitude(String.valueOf(user.getLocation().getLongitude()));
-//						ShowLog("经纬度更新成功");
+						LogUtil.i("经纬度更新成功");
 					}
 					@Override
 					public void onFailure(int code, String msg) {
 						// TODO Auto-generated method stub
-//						ShowLog("经纬度更新 失败:"+msg);
+						LogUtil.i("经纬度更新 失败:"+msg);
 					}
 				});
 			}else{
-//				ShowLog("用户位置未发生过变化");
+				LogUtil.i("用户位置未发生过变化");
 			}
 		}
 	}

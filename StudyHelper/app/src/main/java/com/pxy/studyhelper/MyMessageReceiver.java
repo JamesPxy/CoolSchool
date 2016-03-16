@@ -35,8 +35,7 @@ import cn.bmob.v3.listener.FindListener;
  * 推送消息接收器
  * @ClassName: MyMessageReceiver
  * @Description: TODO
- * @author smile
- * @date 2014-5-30 下午4:01:13
+ * @author pxy
  */
 public class MyMessageReceiver extends BroadcastReceiver {
 
@@ -240,8 +239,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 		boolean isAllowVibrate =MyApplication.mInstance.getSpUtil().isAllowVibrate();
 		if(isAllow && currentUser!=null && currentUser.getObjectId().equals(toId)){
 			//todo 同时提醒通知
-			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),NewFriendActivity.class);
-			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),MainActivity.class);
+			BmobNotifyManager.getInstance(context).showNotify(isAllowVoice,isAllowVibrate, R.drawable.ic_luncher, ticker,username, ticker.toString(),cls);
 		}
 	}
 

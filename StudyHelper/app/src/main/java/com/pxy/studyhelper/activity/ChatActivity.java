@@ -81,14 +81,8 @@ import cn.bmob.v3.listener.PushListener;
  *
  * @ClassName: ChatActivity
  * @Description: TODO
- * @author smile
- * @date 2014-6-3 下午4:33:11
- */
-/**
- * @ClassName: ChatActivity
- * @Description: TODO
- * @author smile
- * @date 2014-6-23 下午3:28:49
+ * @author pxy
+ * @date 2015-2-23
  */
 @SuppressLint({ "ClickableViewAccessibility", "InflateParams" })
 public class ChatActivity extends ActivityBase implements OnClickListener,

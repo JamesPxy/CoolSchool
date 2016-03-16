@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fram"
-    xmlns:app="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -10,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:src="@drawable/image_grid_default"
-        app:scaleType="centerInside" />
+        android:scaleType="centerInside" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -24,7 +23,7 @@
             android:layout_centerInParent="true"
             android:indeterminate="false"
             android:indeterminateDrawable="@drawable/progress_black"
-            android:visibility="gone" 
+            android:visibility="gone"
             />
 
     </RelativeLayout>

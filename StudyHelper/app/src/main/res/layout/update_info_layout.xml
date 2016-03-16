@@ -16,20 +16,4 @@
         android:textSize="16sp"
         />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/image_grid_default"
-        android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:gravity="center"
-        android:hint="请输入修改信息"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
-        />
-
 </LinearLayout>

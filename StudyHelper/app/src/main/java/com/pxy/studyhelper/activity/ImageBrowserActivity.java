@@ -24,8 +24,7 @@ import uk.co.senab.photoview.PhotoView;
 /**图片浏览
  * @ClassName: ImageBrowserActivity
  * @Description: TODO
- * @author smile
- * @date 2014-6-19 下午8:22:49
+ * @author pxy
  */
 public class ImageBrowserActivity extends ActivityBase implements OnPageChangeListener{
 

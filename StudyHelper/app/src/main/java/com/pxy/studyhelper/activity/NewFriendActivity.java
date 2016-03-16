@@ -19,8 +19,6 @@ import cn.bmob.im.db.BmobDB;
 /** 新朋友
  * @ClassName: NewFriendActivity
  * @Description: TODO
- * @author smile
- * @date 2014-6-6 下午4:28:09
  */
 public class NewFriendActivity extends ActivityBase implements OnItemLongClickListener{
 

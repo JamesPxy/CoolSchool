@@ -1,6 +1,5 @@
 package com.pxy.studyhelper.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,7 +22,7 @@ import cn.bmob.v3.listener.SaveListener;
 import static cn.bmob.v3.BmobUser.getCurrentUser;
 
 @ContentView(value = R.layout.activity_login)
-public class LoginActivity extends Activity {
+public class LoginActivity extends ActivityBase {
 
     @ViewInject(value = R.id.username)
     private EditText  edt_username;
