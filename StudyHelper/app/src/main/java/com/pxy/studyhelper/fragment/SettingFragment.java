@@ -19,6 +19,7 @@ import com.pxy.studyhelper.activity.MyTopicActivity;
 import com.pxy.studyhelper.activity.PersonCenterActivity;
 import com.pxy.studyhelper.activity.SettingActivity;
 import com.pxy.studyhelper.entity.User;
+import com.pxy.studyhelper.utils.Constant;
 
 import org.xutils.x;
 
@@ -103,6 +104,7 @@ public class SettingFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
@@ -144,10 +146,8 @@ public class SettingFragment extends Fragment {
             MyApplication.mCurrentUser= BmobUser.getCurrentUser(MyApplication.mInstance, User.class);
             tvName.setText(MyApplication.mCurrentUser.getUsername());
             x.image().bind(mImageView, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
-            tvTitle.setText("");
-//            tvTitle.setText("王者荣耀"+MyApplication.mCurrentUser.getLevel());
             //todo  称号系统
-//            tvTitle.setText(MyApplication.mCurrentUser.getLevel());
+            tvTitle.setText(Constant.level[MyApplication.mCurrentUser.getLevel()]);
         }
     }
 }

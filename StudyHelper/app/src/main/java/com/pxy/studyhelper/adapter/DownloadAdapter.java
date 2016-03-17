@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.biz.GetExamDataBiz;
 import com.pxy.studyhelper.entity.Test;
-import com.pxy.studyhelper.activity.NewExamActivity;
+import com.pxy.studyhelper.activity.ExamActivity;
 import com.pxy.studyhelper.utils.DialogUtil;
 import com.pxy.studyhelper.utils.IsDownload;
 import com.pxy.studyhelper.utils.Tools;
@@ -101,7 +101,7 @@ public class DownloadAdapter  extends BaseAdapter {
                 builder.setItems(new String[]{"考核模式", "练习模式", "错题重做"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(context, NewExamActivity.class);
+                                Intent intent = new Intent(context, ExamActivity.class);
                                 //试题类别
                                 intent.putExtra("dbName", data.getTestFile().getFilename());
                                 //做题模式

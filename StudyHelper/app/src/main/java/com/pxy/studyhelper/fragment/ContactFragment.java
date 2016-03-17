@@ -319,9 +319,9 @@ public class ContactFragment extends Fragment implements OnItemClickListener,OnI
 	private void queryMyfriends() {
 		//todo 是否有新的好友请求 if(iv_msg_tips!=null)
 		if(BmobDB.create(MyApplication.mInstance.getApplicationContext()).hasNewInvite()){
-			iv_msg_tips.setVisibility(View.VISIBLE);
+			if(iv_msg_tips!=null)iv_msg_tips.setVisibility(View.VISIBLE);
 		}else{
-			iv_msg_tips.setVisibility(View.GONE);
+			if(iv_msg_tips!=null)iv_msg_tips.setVisibility(View.GONE);
 		}
 		//在这里再做一次本地的好友数据库的检查，是为了本地好友数据库中已经添加了对方，但是界面却没有显示出来的问题
 		// 重新设置下内存中保存的好友列表

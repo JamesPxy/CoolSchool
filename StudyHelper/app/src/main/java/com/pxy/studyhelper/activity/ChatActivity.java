@@ -367,10 +367,12 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 				for(int i=(news-1);i>=0;i--){
 					mAdapter.add(initMsgData().get(size-(i+1)));// 添加最后一条消息到界面显示
 				}
+				MyMessageReceiver.mNewNum=0;
 				mListView.setSelection(mAdapter.getCount() - 1);
-			} else {
-				mAdapter.notifyDataSetChanged();
 			}
+//			else {
+//				mAdapter.notifyDataSetChanged();
+//			}
 		} else {
 			mAdapter = new MessageChatAdapter(this, initMsgData());
 			mListView.setAdapter(mAdapter);
@@ -521,7 +523,10 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 		mListView.pullRefreshing();
 		mListView.setDividerHeight(0);
 		// 加载数据
-		initOrRefresh();
+//		initOrRefresh();
+		mAdapter = new MessageChatAdapter(this, initMsgData());
+		mListView.setAdapter(mAdapter);
+
 		mListView.setSelection(mAdapter.getCount() - 1);
 		mListView.setOnTouchListener(new OnTouchListener() {
 
@@ -755,8 +760,7 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 				selectImageFromLocal();
 				break;
 			case R.id.tv_location:// 位置
-				// TODO: 2016-02-26   屏蔽显示位置
-				Tools.ToastShort("有待继续开发...");
+				// TODO: 2016-02-26   发送显示位置
 				selectLocationFromMap();
 				break;
 			default:
@@ -970,13 +974,31 @@ public class ChatActivity extends ActivityBase implements OnClickListener,
 		// TODO Auto-generated method stub
 		super.onResume();
 		// 新消息到达，重新刷新界面
-		initOrRefresh();
+//		initOrRefresh();
+		if (mAdapter != null&&MyMessageReceiver.mNewNum != 0) {
+			// 用于更新当在聊天界面锁屏期间来了消息，这时再回到聊天页面的时候需要显示新来的消息
+//			int news=  MyMessageReceiver.mNewNum;//有可能锁屏期间，来了N条消息,因此需要倒叙显示在界面上
+//			int size = initMsgData().size();
+//			for(int i=(news-1);i>=0;i--){
+//				mAdapter.add(initMsgData().get(size-(i+1)));// 添加最后一条消息到界面显示
+//			}
+//			mListView.setSelection(mAdapter.getCount() - 1);
+//			mAdapter.notifyDataSetChanged();
+
+
+//			mAdapter = new MessageChatAdapter(this, initMsgData());
+//			mListView.setAdapter(mAdapter);
+			mAdapter.notifyDataSetChanged();
+			mListView.setSelection(mAdapter.getCount() - 1);
+			MyMessageReceiver.mNewNum=0;
+		}
+
 		MyMessageReceiver.ehList.add(this);// 监听推送的消息
 		// 有可能锁屏期间，在聊天界面出现通知栏，这时候需要清除通知和清空未读消息数
 		BmobNotifyManager.getInstance(this).cancelNotify();
 		BmobDB.create(this).resetUnread(targetId);
 		//清空消息未读数-这个要在刷新之后
-		MyMessageReceiver.mNewNum=0;
+//		MyMessageReceiver.mNewNum=0;
 	}
 
 	@Override

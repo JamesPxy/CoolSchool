@@ -137,6 +137,7 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
 		this.hidden = hidden;
+		LogUtil.i("onHiddenChanged"+hidden);
 		if(!hidden){
 			refresh();
 		}
@@ -144,6 +145,7 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 
 	public void refresh(){
 		try {
+			LogUtil.i("refresh()"+hidden);
 			getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					mBmobRecentList= BmobDB.create(getActivity()).queryRecents();
@@ -165,9 +167,18 @@ public class RecentFragment extends Fragment implements OnItemClickListener,OnIt
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.i("onResume()" + hidden);
 		if(!hidden){
 			refresh();
 		}
 	}
 
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		LogUtil.i("isVisibleToUser--"+isVisibleToUser);
+		if(isVisibleToUser){
+			refresh();
+		}
+	}
 }

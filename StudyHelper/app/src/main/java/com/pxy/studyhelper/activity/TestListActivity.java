@@ -91,7 +91,7 @@ public class TestListActivity extends AppCompatActivity {
                 builder.setItems(new String[]{"考核模式", "练习模式", "错题重做"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(context, NewExamActivity.class);
+                        Intent intent = new Intent(context, ExamActivity.class);
                         //试题类别
                         intent.putExtra("dbName", data.getTestFile().getFilename());
                         //做题模式

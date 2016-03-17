@@ -1,7 +1,9 @@
 package com.pxy.studyhelper.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,9 +16,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -30,7 +34,6 @@ import com.pxy.studyhelper.fragment.ContactFragment;
 import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.SettingFragment;
 import com.pxy.studyhelper.fragment.TopicFragment;
-import com.pxy.studyhelper.utils.Tools;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
@@ -81,8 +84,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         x.view().inject(this);
         //初始化view
         initView();
+        LogUtil.i("on create");
 
+    }
 
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        LogUtil.i(" onCreateView");
+        return super.onCreateView(name, context, attrs);
     }
 
     private void initView() {
@@ -119,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this,PersonCenterActivity.class);
-                intent.putExtra("from",true);
-                intent.putExtra("user",MyApplication.mCurrentUser);
+                Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
+                intent.putExtra("from", true);
+                intent.putExtra("user", MyApplication.mCurrentUser);
                 startActivity(intent);
             }
         });
@@ -158,8 +167,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);//多缓存一个页面
+        mViewPager.setOffscreenPageLimit(3);//多缓存一个页面
         mViewPager.setOnPageChangeListener(this);
+//        mFragmentList.get(1).setUserVisibleHint(false);//取消预加载
     }
 
 
@@ -169,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(MyApplication.mCurrentUser!=null) {
             tvUserName.setText(MyApplication.mCurrentUser.getUsername());
             tvSign.setText(MyApplication.mCurrentUser.getSign());
+            x.image().bind(mIvUserPhoto, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
         }
     }
 
@@ -226,16 +237,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_challenge) {//我的个人动态
             ToMyTopic();
         } else if (id == R.id.nav_update) {//检查升级
-            new AlertDialog.Builder(this)
-                    .setTitle("更新提示")
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setMessage("当前已是最新版本，无需更新")
-                    .setNegativeButton("取消",null)
-                    .setPositiveButton("确定",null)
-                    .show();
+            check4Update();
 
         } else if (id == R.id.nav_back) {//问题反馈
-            Tools.ToastShort("有待进一步开发,敬请期待...");
+            startActivity(new Intent(MainActivity.this,ActivityFeedBack.class));
 
         }else if(id==R.id.nav_share){//一键分享
 //            Tools.ToastShort("有待进一步开发,敬请期待...");
@@ -245,6 +250,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void check4Update() {
+        try {
+            // TODO: 2016-03-17 获取网络编号versioncode  检查更新升级
+            if(getPackageManager().getPackageInfo(getPackageName(),0).versionCode<3) {
+                new AlertDialog.Builder(this)
+                        .setTitle("更新提示")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setMessage("发现新版内容，修复bug，增加人机对战,是否立即更新")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", null)
+                        .show();
+            }else{
+                new AlertDialog.Builder(this)
+                        .setTitle("更新提示")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setMessage("当前已是最新版本，无需更新")
+                        .setPositiveButton("确定", null)
+                        .show();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -302,6 +331,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {return mFragmentList.size();}
 
+//        @Override
+//        public int getItemPosition(Object object) {
+//            return POSITION_NONE;
+//        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+//            LogUtil.i("---destroyItem---"+position);
+//            if(position==1) {
+//                LogUtil.i("---destroyItem---"+position);
+//                super.destroyItem(container, position, object);
+//            }
+        }
     }
 
 

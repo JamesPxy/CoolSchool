@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     package="com.pxy.studyhelper"
-    android:versionCode="2"
-    android:versionName="2.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -117,10 +115,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.ExamActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".activity.MakeTopicActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -128,7 +122,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.NewExamActivity"
+            android:name=".activity.ExamActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
@@ -166,10 +160,9 @@
         <activity android:name=".activity.SettingActivity"
                   android:theme="@style/AppTheme.NoActionBar"
             />
-
-
-
-
+        <activity android:name=".activity.ActivityFeedBack"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
 
 
         <!-- baidu map-->

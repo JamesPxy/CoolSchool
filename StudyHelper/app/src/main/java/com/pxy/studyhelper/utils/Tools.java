@@ -58,7 +58,7 @@ public class Tools {
      * @return
      * @throws Exception
      */
-    public static  String  getCurrentVersion(Context  context){
+    public static  String  getCurrentVersionName(Context  context){
         PackageManager manager=context.getPackageManager();
         String packageName=context.getPackageName();
         PackageInfo packageInfo= null;

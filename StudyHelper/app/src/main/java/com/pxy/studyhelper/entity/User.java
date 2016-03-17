@@ -29,7 +29,7 @@ public class User  extends BmobUser implements Serializable{
   */
  private Boolean sex;
  private String nickName;
- private Integer level;
+ private Integer level=0;
  private Integer score;
  private String  headUrl;
  private String  school;

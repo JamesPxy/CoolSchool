@@ -60,9 +60,9 @@ public class WelcomeActivity extends ActivityBase {
 
 		tvVersion= (TextView) findViewById(R.id.tv_version);
 
-		String version=Tools.getCurrentVersion(this);
+		String version=Tools.getCurrentVersionName(this);
 		LogUtil.i("onCreate version" + version);
-		tvVersion.setText("Version: 2.2");
+		tvVersion.setText("Version: "+version);
 
 		userManager=BmobUserManager.getInstance(this);
 		//初始化Bmob
