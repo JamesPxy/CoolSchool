@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.List;
+
+import cn.bmob.v3.listener.UpdateListener;
 
 @ContentView(value = R.layout.activity_new_exam)
 public class ExamActivity extends FragmentActivity implements ViewPager.OnPageChangeListener{
@@ -64,6 +68,8 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean  isRuning=true;
     //三种模式  0---测试模式  1---练习模式  3---错题模式
     private int mode;
+    //添加笔记及注释
+    private String explain;
 
 
     @Override
@@ -142,23 +148,26 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         //todo  根据答题情况修改数据库
-        updateQuestionData();
+//        updateQuestionData();
+        super.onDestroy();
     }
 
     private void updateQuestionData() {
         if(mode==2) {//错题模式  ,练习模式不修改答题正误情况
+            LogUtil.i("save6666666666");
             for (int i = 0; i < mTotalQusestion; i++) {
                 mCurrentQuestion = mQuestionList.get(i);
                 if (mCurrentQuestion.getRightAnswer() == mCurrentQuestion.getSelectedAnswer()) {
                     mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
+                    LogUtil.i("save6666666666");
                 }
             }
+
         }
     }
 
-    @Event(value ={R.id.iv_preQ,R.id.lv_submit,R.id.lv_add_collection,R.id.iv_nextQ,R.id.iv_back,R.id.iv_share,R.id.iv_time,R.id.lv_see_answer},
+    @Event(value ={R.id.iv_preQ,R.id.lv_submit,R.id.lv_add_collection,R.id.iv_nextQ,R.id.iv_back,R.id.iv_share,R.id.iv_time,R.id.lv_see_answer,R.id.lv_add_note},
             type = View.OnClickListener.class)
     private  void  doClick(View view){
         switch (view.getId()){
@@ -168,6 +177,10 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
             case R.id.lv_submit:
                 //交卷操作
                 DialogUtil.showResultDialog(ExamActivity.this, getScore());
+                break;
+            case R.id.lv_add_note:
+                // TODO: 2016-03-18 添加笔记
+                addNote();
                 break;
             case R.id.lv_add_collection:
                 //todo 加入收藏
@@ -206,6 +219,37 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
                 ((QuestionFragment) adapter.getCurrentFragment()).showAnswer();
                 break;
         }
+    }
+
+    private void addNote() {
+        AlertDialog.Builder  builder=new AlertDialog.Builder(ExamActivity.this);
+        View view=View.inflate(ExamActivity.this, R.layout.update_info_layout, null);
+        final EditText edt= (EditText) view.findViewById(R.id.editText);
+        edt.setHint("请输入笔记");
+        builder.setTitle("添加笔记");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setView(view);
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                explain = edt.getText().toString().trim();
+                if (TextUtils.isEmpty(explain)) {
+                    Tools.ToastShort("所添加笔记不能为空...");
+                    return;
+                }
+                if (!mCurrentQuestion.getExplaination().equals("暂无"))
+                    explain = mCurrentQuestion.getExplaination() + "--" + explain;
+                boolean isAddSuccess = mTestDao.addNote(mCurrentQuestion.getId(), explain);
+                if (isAddSuccess) {
+                    Tools.ToastShort("添加笔记成功");
+                    mCurrentQuestion.setExplaination(explain);
+                }
+            }
+        });
+        builder.show();
+
+
     }
 
     private void showMenu() {
@@ -314,7 +358,22 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
             }
         }
         score=(int)((right*1.0/mTotalQusestion)*100);
-        LogUtil.e("get score----------"+score);
+
+        updateQuestionData();
+        LogUtil.e("get score----------" + score);
+        int currentScore=MyApplication.mCurrentUser.getScore();
+        MyApplication.mCurrentUser.setScore(currentScore+score);
+        MyApplication.mCurrentUser.update(this, new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                LogUtil.i("save score success");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                LogUtil.i("save score failure" + s);
+            }
+        });
         return  score;
     }
 

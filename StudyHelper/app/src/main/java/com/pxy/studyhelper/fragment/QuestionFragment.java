@@ -117,7 +117,7 @@ public class QuestionFragment extends Fragment {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setIcon(R.drawable.ic_luncher)
                             .setTitle("提示")
-                            .setMessage("当前是最后一题")
+                            .setMessage("当前是最后一题，可以交卷了！")
 //                                    .setNegativeButton("取消",null)
                             .setPositiveButton("确定", null);
                     builder.show();

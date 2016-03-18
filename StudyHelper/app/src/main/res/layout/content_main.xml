@@ -58,6 +58,26 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
+
+
+        <RadioButton
+            android:id="@+id/rb_search"
+            android:layout_width="@dimen/rb_height_width"
+            android:layout_height="@dimen/rb_height_width"
+            android:drawableTop="@drawable/rb_search_selector"
+            android:text="动态"
+            android:background="@null"
+            android:textColor="@drawable/rb_text_selector"
+            android:button="@null"
+            android:layout_gravity="center_vertical"
+            android:drawablePadding="@dimen/rb_drawable_top_padding_width"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
         <RadioButton
             android:id="@+id/rb_msg"
             android:layout_width="@dimen/rb_height_width"
@@ -76,30 +96,13 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
-        <RadioButton
-            android:id="@+id/rb_search"
-            android:layout_width="@dimen/rb_height_width"
-            android:layout_height="@dimen/rb_height_width"
-            android:drawableTop="@drawable/rb_search_selector"
-            android:text="联系人"
-            android:background="@null"
-            android:textColor="@drawable/rb_text_selector"
-            android:button="@null"
-            android:layout_gravity="center_vertical"
-            android:drawablePadding="@dimen/rb_drawable_top_padding_width"
-            android:layout_marginTop="3dp"
-            android:gravity="center"
-            />
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"/>
+
         <RadioButton
             android:id="@+id/rb_mine"
             android:layout_width="@dimen/rb_height_width"
             android:layout_height="@dimen/rb_height_width"
             android:drawableTop="@drawable/rb_user_selector"
-            android:text="我的"
+            android:text="联系人"
             android:button="@null"
             android:background="@null"
             android:textColor="@drawable/rb_text_selector"

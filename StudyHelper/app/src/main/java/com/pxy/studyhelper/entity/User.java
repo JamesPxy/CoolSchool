@@ -30,7 +30,7 @@ public class User  extends BmobUser implements Serializable{
  private Boolean sex;
  private String nickName;
  private Integer level=0;
- private Integer score;
+ private Integer score=0;
  private String  headUrl;
  private String  school;
  private String  sign;
@@ -166,6 +166,14 @@ public class User  extends BmobUser implements Serializable{
           ", level=" + level +
           ", score=" + score +
           ", headUrl='" + headUrl + '\'' +
+          ", school='" + school + '\'' +
+          ", sign='" + sign + '\'' +
+          ", contacts=" + contacts +
+          ", installId='" + installId + '\'' +
+          ", deviceType='" + deviceType + '\'' +
+          ", blacklist=" + blacklist +
+          ", sortLetters='" + sortLetters + '\'' +
+          ", location=" + location +
           '}';
  }
 }

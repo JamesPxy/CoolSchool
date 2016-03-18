@@ -3,6 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:visible="false"
             android:id="@+id/nav_test_center"
             android:icon="@drawable/icon_mode_normal1"
             android:title="试题中心"/>

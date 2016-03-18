@@ -96,6 +96,9 @@ public class RegisterActivity extends Activity {
         }
         user.setUsername(userName);
         user.setPassword(password);
+        user.setSex(false);
+        user.setLevel(0);
+        user.setScore(0);
         user.signUp(this, new SaveListener() {
             @Override
             public void onSuccess() {
@@ -116,17 +119,18 @@ public class RegisterActivity extends Activity {
 
     @Event(value = R.id.hidePwdImg,type = View.OnClickListener.class)
     private void  showPwd(View view){
+        String password=edt_pwd.getText().toString().trim();
         if(isShowPwd){
             mImgShowPwd.setImageResource(R.drawable.sso_showpwd);
-            isShowPwd=false;
             edt_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 
         }else{
             mImgShowPwd.setImageResource(R.drawable.sso_hidepwd);
-            isShowPwd=true;
             edt_pwd.setInputType(InputType.TYPE_CLASS_TEXT
                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
+        isShowPwd=!isShowPwd;
+        edt_pwd.setSelection(password.length());
     }
 
     @Event(value = R.id.img_back,type = View.OnClickListener.class)

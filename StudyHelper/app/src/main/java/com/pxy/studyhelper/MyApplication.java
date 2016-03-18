@@ -89,7 +89,6 @@ public class MyApplication  extends Application {
                     }
                 });//数据库更新操作
         dbManager = x.getDb(daoConfig);
-
         mCurrentUser = BmobUser.getCurrentUser(this, User.class);
         if (mCurrentUser != null) {
             //缓存对象不为空时允许用户使用

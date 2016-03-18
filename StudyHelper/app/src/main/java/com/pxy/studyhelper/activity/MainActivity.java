@@ -32,7 +32,7 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.User;
 import com.pxy.studyhelper.fragment.ContactFragment;
 import com.pxy.studyhelper.fragment.RecentFragment;
-import com.pxy.studyhelper.fragment.SettingFragment;
+import com.pxy.studyhelper.fragment.TestBigFragment;
 import com.pxy.studyhelper.fragment.TopicFragment;
 
 import org.xutils.common.util.LogUtil;
@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initView() {
         mRadioButton[0]=rbIndex;
-        mRadioButton[1]=rbMsg;
-        mRadioButton[2]=rbSearch;
+        mRadioButton[1]=rbSearch;
+        mRadioButton[2]=rbMsg;
         mRadioButton[3]=rbMine;
 
 //        mRadioButton=
@@ -142,10 +142,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.rb_index:
                         mViewPager.setCurrentItem(0);
                         break;
-                    case R.id.rb_msg:
+                    case R.id.rb_search:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.rb_search:
+                    case R.id.rb_msg:
                         mViewPager.setCurrentItem(2);
                         break;
                     case R.id.rb_mine:
@@ -156,11 +156,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+        mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new TopicFragment());
-//        mFragmentList.add(new TestBigFragment());
         mFragmentList.add(new RecentFragment());
         mFragmentList.add(new ContactFragment());
-        mFragmentList.add(new SettingFragment());
+//        mFragmentList.add(new SettingFragment());
 
 
 
@@ -169,6 +169,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);//多缓存一个页面
         mViewPager.setOnPageChangeListener(this);
+        mViewPager.setCurrentItem(1);
+//        mRadioButton[1].setChecked(true);
+//        mViewPager.setSystemUiVisibility(0);
 //        mFragmentList.get(1).setUserVisibleHint(false);//取消预加载
     }
 

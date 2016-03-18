@@ -93,7 +93,7 @@ public class TestDao {
 			}
 		}
 		db.close();
-		LogUtil.i("wrong Quesion size--"+wrongList.size());
+		LogUtil.i("wrong Quesion size--" + wrongList.size());
 		return wrongList;
 	}
 
@@ -109,19 +109,24 @@ public class TestDao {
 		if(rows!=-1) return   true;
 		return false;
 	}
-//	//更新错题记录
-//	public boolean getIsFavorite(String  where){
-//		db = SQLiteDatabase.openDatabase(context.getFilesDir().getAbsolutePath()+"/"+dataName,null, SQLiteDatabase.OPEN_READWRITE);
-//		String  data= dataName.replace(".db", "");
-//		ContentValues contentValues=new ContentValues();
-//		contentValues.put("isWrong", wrongNum);
-//		int rows=db.update(data, contentValues,"answerA=?",new String[]{where});
-//		db.rawQuery()
-//		db.close();//释放资源
-//		LogUtil.i("update wrong  question  success...");
-//		if(rows!=-1) return   true;
-//		return false;
-//	}
+
+	/**
+	 * 添加笔记
+	 * @param id  问题id
+	 * @param explain 所添加笔记  追加添加
+	 * @return
+	 */
+	public boolean addNote(int  id,String explain){
+		db = SQLiteDatabase.openDatabase(context.getFilesDir().getAbsolutePath()+"/"+dataName,null, SQLiteDatabase.OPEN_READWRITE);
+		String  data= dataName.replace(".db", "");
+		ContentValues contentValues=new ContentValues();
+		contentValues.put("explaination",explain);
+		int rows=db.update(data, contentValues,"ID=?",new String[]{String.valueOf(id)});
+		db.close();//释放资源
+		LogUtil.i("add note success...");
+		if(rows!=-1) return   true;
+		return false;
+	}
 
 
 }
