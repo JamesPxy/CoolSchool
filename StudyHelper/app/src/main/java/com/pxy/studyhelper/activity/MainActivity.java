@@ -34,6 +34,7 @@ import com.pxy.studyhelper.fragment.ContactFragment;
 import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.TestBigFragment;
 import com.pxy.studyhelper.fragment.TopicFragment;
+import com.pxy.studyhelper.utils.Constant;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
@@ -118,13 +119,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View view=navigationView.getHeaderView(0);
         mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
         tvUserName= (TextView) view.findViewById(R.id.tv_user_name);
-        tvSign= (TextView) view.findViewById(R.id.tv_sign);
+        tvSign= (TextView) view.findViewById(R.id.tv_signs);
 
         if(MyApplication.mCurrentUser==null)mUser=new User();
         else mUser=MyApplication.mCurrentUser;
         x.image().bind(mIvUserPhoto, mUser.getHeadUrl(), MyApplication.imageOptions);
         tvUserName.setText(mUser.getUsername());
-        tvSign.setText(mUser.getSign());
+        // TODO: 2016-03-21 称号系统
+        tvSign.setText("称号: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
         mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +183,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         if(MyApplication.mCurrentUser!=null) {
             tvUserName.setText(MyApplication.mCurrentUser.getUsername());
-            tvSign.setText(MyApplication.mCurrentUser.getSign());
+//            tvSign.setText(MyApplication.mCurrentUser.getSign());
+            tvSign.setText("称号: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
             x.image().bind(mIvUserPhoto, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
         }
     }

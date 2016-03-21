@@ -85,7 +85,6 @@ public class TopicFragment extends Fragment {
         if(mTopicAdapter==null) {
             mTopicAdapter = new TopicAdapter(getActivity(), mTopicList);
             mListView.setAdapter(mTopicAdapter);
-            DialogUtil.closeProgressDialog();
         }else{
             mTopicAdapter.notifyDataSetChanged();
         }
@@ -206,12 +205,15 @@ public class TopicFragment extends Fragment {
                 }else if(actionType == STATE_REFRESH){
                     Tools.ToastShort("没有最新数据了");
                 }
+                DialogUtil.closeProgressDialog();
                 mListView.onRefreshComplete();
             }
 
             @Override
             public void onError(int arg0, String arg1) {
-                Tools.ToastShort(arg0+"查询失败:"+arg1);
+                DialogUtil.closeProgressDialog();
+                LogUtil.e(arg0+"查询动态数据失败:"+arg1);
+                Tools.ToastShort("获取数据失败,请检查网络");
                 mListView.onRefreshComplete();
             }
         });

@@ -17,6 +17,8 @@ import com.pxy.studyhelper.R;
 import com.pxy.studyhelper.entity.Question;
 import com.pxy.studyhelper.utils.Tools;
 
+import org.xutils.common.util.LogUtil;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -107,7 +109,8 @@ public class QuestionFragment extends Fragment {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mViewPager.setCurrentItem(++index);
+                                mViewPager.setCurrentItem(index++);
+                                LogUtil.i("index------"+index);
                             }
                         },200);
                     }
@@ -117,9 +120,9 @@ public class QuestionFragment extends Fragment {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setIcon(R.drawable.ic_luncher)
                             .setTitle("提示")
-                            .setMessage("当前是最后一题，可以交卷了！")
-//                                    .setNegativeButton("取消",null)
                             .setPositiveButton("确定", null);
+                    if(mode==0)builder.setMessage("当前是最后一题，可以交卷了！");
+                    else builder.setMessage("当前是最后一题!");
                     builder.show();
                 }
             }

@@ -151,19 +151,56 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
         //todo  根据答题情况修改数据库
 //        updateQuestionData();
         super.onDestroy();
+        if(mTestDao.getDb()!=null&&mTestDao.getDb().isOpen()){
+            mTestDao.getDb().close();
+            mTestDao=null;
+        }
     }
 
-    private void updateQuestionData() {
-        if(mode==2) {//错题模式  ,练习模式不修改答题正误情况
-            LogUtil.i("save6666666666");
-            for (int i = 0; i < mTotalQusestion; i++) {
-                mCurrentQuestion = mQuestionList.get(i);
-                if (mCurrentQuestion.getRightAnswer() == mCurrentQuestion.getSelectedAnswer()) {
-                    mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
-                    LogUtil.i("save6666666666");
-                }
-            }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if(mode==0&mCurrentIndex!=mQuestionList.size()-1) {
+            new AlertDialog.Builder(this).setTitle("提醒")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setMessage("试题还没有答完，是否要现在退出")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            for (int i = 0; i <=mCurrentIndex; i++) {
+                                mCurrentQuestion = mQuestionList.get(i);
+                                if (mCurrentQuestion.isWrong==0&&mCurrentQuestion.getRightAnswer()!= mCurrentQuestion.getSelectedAnswer()) {
+                                    mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),1);
+                                    LogUtil.i("save6666666666");
+                                }
+                            }
+                            finish();
+                        }
+                    })
+                    .show();
+        }else if(mode==2){
+            new AlertDialog.Builder(this).setTitle("提醒")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setMessage("错题还没有做完，是否要现在退出")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            for (int i = 0; i<mTotalQusestion; i++) {
+                                mCurrentQuestion = mQuestionList.get(i);
+                                if (mCurrentQuestion.getRightAnswer()== mCurrentQuestion.getSelectedAnswer()) {
+                                    mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),0);
+                                    LogUtil.i("错题模式 save6666666666");
+                                }
+                            }
+                            finish();
+                        }
+                    }).show();
+
+        }else {
+            finish();
         }
     }
 
@@ -191,9 +228,10 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
                 if(mCurrentIndex==mTotalQusestion){
                     //todo  最后一题  交卷操作
                     AlertDialog.Builder  builder=new AlertDialog.Builder(ExamActivity.this);
+                    if(mode==0)builder.setMessage("当前是最后一题，可以交卷了！");
+                    else builder.setMessage("当前是最后一题!");
                     builder.setIcon(R.drawable.ic_luncher)
                             .setTitle("提示")
-                            .setMessage("当前是最后一题")
                             .setNegativeButton("取消",null)
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
@@ -351,17 +389,34 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
         for(int i=0;i<mTotalQusestion;i++) {
             mCurrentQuestion=mQuestionList.get(i);
             if (mCurrentQuestion.getRightAnswer() == mCurrentQuestion.getSelectedAnswer()) {
-                mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
+                if(mCurrentQuestion.isWrong!=0) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
                 right++;
             } else {//答错
-                mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 1);
+                if(mCurrentQuestion.isWrong!=1) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 1);
             }
         }
         score=(int)((right*1.0/mTotalQusestion)*100);
 
-        updateQuestionData();
         LogUtil.e("get score----------" + score);
+        //保存分数至用户个人信息数据库
         int currentScore=MyApplication.mCurrentUser.getScore();
+        if(10<currentScore&&currentScore<100){
+            MyApplication.mCurrentUser.setLevel(1);
+        }
+        else if(100<currentScore&&currentScore<200){
+            MyApplication.mCurrentUser.setLevel(2);
+        }
+        else if(200<currentScore&&currentScore<300){
+            MyApplication.mCurrentUser.setLevel(3);
+        }
+        else if(300<currentScore&&currentScore<400){
+            MyApplication.mCurrentUser.setLevel(4);
+        }
+        else if(400<currentScore&&currentScore<500){
+            MyApplication.mCurrentUser.setLevel(5);
+        }else{
+            MyApplication.mCurrentUser.setLevel(6);
+        }
         MyApplication.mCurrentUser.setScore(currentScore+score);
         MyApplication.mCurrentUser.update(this, new UpdateListener() {
             @Override

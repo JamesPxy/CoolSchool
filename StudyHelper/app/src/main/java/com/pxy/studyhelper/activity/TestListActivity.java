@@ -69,6 +69,7 @@ public class TestListActivity extends AppCompatActivity {
         DialogUtil.closeProgressDialog();
         mDownloadAdapter=new DownloadAdapter(this,mTestArrayList);
         mListView.setAdapter(mDownloadAdapter);
+        if(mTestArrayList.size()<1)Tools.ToastShort("暂时没有该章节对应试题,敬请期待~");
     }
 
     @Override

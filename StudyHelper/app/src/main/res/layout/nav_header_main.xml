@@ -30,14 +30,14 @@
             android:textSize="24sp"/>
 
         <TextView
-            android:id="@+id/tv_sign"
+            android:id="@+id/tv_signs"
             android:layout_below="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:gravity="center_vertical"
             android:textColor="@color/whiteBg"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:text="我就是我,汹涌澎湃!"/>
 
     </LinearLayout>

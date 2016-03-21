@@ -88,7 +88,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(int code, String msg) {
                 LoadingDialog.dissmissDialog();
-                Toast.makeText(LoginActivity.this, "登录失败..." + code + "---" + msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -101,7 +101,7 @@ public class LoginActivity extends Activity {
                 break;
             case R.id.tv_forget_pwd:
 //                Toast.makeText(LoginActivity.this, "有待进一步开发...", Toast.LENGTH_SHORT).show();
-                LoadingDialog.showLoadingDialog(LoginActivity.this);
+//                LoadingDialog.showLoadingDialog(LoginActivity.this);
                 startActivity(new Intent(this,RegisterActivity.class));
                 break;
             case R.id.tv_see_first:

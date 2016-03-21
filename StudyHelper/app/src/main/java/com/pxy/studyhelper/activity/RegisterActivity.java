@@ -112,7 +112,7 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onFailure(int code, String msg) {
-                Toast.makeText(RegisterActivity.this, "注册失败..." + msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "注册失败:" + msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
