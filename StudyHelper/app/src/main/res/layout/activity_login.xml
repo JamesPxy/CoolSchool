@@ -172,6 +172,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="36dp" >
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_see_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

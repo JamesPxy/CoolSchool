@@ -41,6 +41,7 @@ public class TestListActivity extends AppCompatActivity {
         initView();
         sort1=getIntent().getIntExtra("position1",0);
         sort2=getIntent().getIntExtra("position2",0);
+        if(sort1!=0)sort2=0;
         //请求获取试题内容
 //        LoadingDialog.showLoadingDialog(this);
         DialogUtil.showProgressDialog(this, "拼命加载中...");
