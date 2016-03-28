@@ -103,7 +103,9 @@ public class QuestionFragment extends Fragment {
                     }
                     if (mode == 2 ) {//错题模式 判断正误显示正确答案
                         if(!CheckAnswer()) showAnswer();
-                        else {}// TODO: 2016-02-22   显示答对了
+                        else {
+                            Tools.ToastShort("恭喜你，答对啦...");
+                        }// TODO: 2016-02-22   显示答对了
                     } else if (mode == 0) {
 
                         handler.postDelayed(new Runnable() {
@@ -117,13 +119,14 @@ public class QuestionFragment extends Fragment {
                 }
                 if(total==index) {
                     //todo  最后一题  交卷操作
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setIcon(R.drawable.ic_luncher)
-                            .setTitle("提示")
-                            .setPositiveButton("确定", null);
-                    if(mode==0)builder.setMessage("当前是最后一题，可以交卷了！");
-                    else builder.setMessage("当前是最后一题!");
-                    builder.show();
+                    if(mode==0) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setIcon(R.drawable.ic_luncher)
+                                .setTitle("提示")
+                                .setPositiveButton("确定", null);
+                        builder.setMessage("当前是最后一题，可以交卷了！");
+                        builder.show();
+                    }
                 }
             }
         });

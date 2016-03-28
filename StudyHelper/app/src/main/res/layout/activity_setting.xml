@@ -109,8 +109,8 @@
 
         <ImageView
             android:id="@+id/iv_open_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -119,8 +119,8 @@
 
         <ImageView
             android:id="@+id/iv_close_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -150,8 +150,8 @@
 
         <ImageView
             android:id="@+id/iv_open_voice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -160,8 +160,8 @@
 
         <ImageView
             android:id="@+id/iv_close_voice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -192,8 +192,8 @@
 
         <ImageView
             android:id="@+id/iv_open_vibrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -202,8 +202,8 @@
 
         <ImageView
             android:id="@+id/iv_close_vibrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -223,7 +223,7 @@
         style="@style/Smile.Button.logout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_margin="30dp"
         android:text="@string/logout" />
 
 </LinearLayout>

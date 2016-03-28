@@ -177,7 +177,6 @@
                 style="@style/Smile.TextView._Black"
                 android:layout_marginRight="20dp"
                 android:drawablePadding="10dp" />
-
         </LinearLayout>
     </RelativeLayout>
 

@@ -77,23 +77,22 @@ public class Question implements Serializable{
 	public void setExplaination(String explaination) {
 		this.explaination = explaination;
 	}
+
 	@Override
 	public String toString() {
-		return "Questions [id=" + id + ", question=" + question + ", answerA="
-				+ answerA + ", answerB=" + answerB + ", answerC=" + answerC
-				+ ", answerD=" + answerD + ", answerE=" + answerE
-				+ ", rightAnswer=" + rightAnswer + ", selectedAnswer="
-				+ selectedAnswer + ", explaination=" + explaination
-				+ ", isWrong=" + isWrong + ", isFavorite=" + isFavorite + "]";
+		return "Question{" +
+				"id=" + id +
+				", question='" + question + '\'' +
+				", answerA='" + answerA + '\'' +
+				", answerB='" + answerB + '\'' +
+				", answerC='" + answerC + '\'' +
+				", answerD='" + answerD + '\'' +
+				", answerE='" + answerE + '\'' +
+				", rightAnswer=" + rightAnswer +
+				", selectedAnswer=" + selectedAnswer +
+				", explaination='" + explaination + '\'' +
+				", isWrong=" + isWrong +
+				", isFavorite=" + isFavorite +
+				'}';
 	}
-	
-	
-	
-	
-	
-	
-	
-
-
-
 }

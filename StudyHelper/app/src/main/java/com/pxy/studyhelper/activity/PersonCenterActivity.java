@@ -154,7 +154,7 @@ public class PersonCenterActivity extends AppCompatActivity {
             }
             tvTitle.setText("详细资料");
             if(user.getSign()!=null)tvSign.setText(user.getSign());
-            else tvSign.setText("他太忙了,暂无个性签名");
+            else tvSign.setText("暂无个性签名");
 
         }
 
@@ -428,12 +428,7 @@ public class PersonCenterActivity extends AppCompatActivity {
     }
 
     private void updateUserInfo(){
-//        mUser.setSex(true);
-//        mUser.setScore(1000);
-//        mUser.setSchool("清华大学");
-        user.setLevel(1);
-//        mUser.setSign("我就是我,汹涌澎湃!");
-//            , MyApplication.mCurrentUser.getObjectId()
+        MyApplication.mCurrentUser.setSign(user.getSign());
         user.update(PersonCenterActivity.this,new UpdateListener() {
             @Override
             public void onSuccess() {

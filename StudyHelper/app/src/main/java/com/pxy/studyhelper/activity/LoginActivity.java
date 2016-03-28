@@ -1,10 +1,12 @@
 package com.pxy.studyhelper.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -82,17 +84,27 @@ public class LoginActivity extends Activity {
                 Toast.makeText(LoginActivity.this, "登录成功...", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 updateUserInfos();
+                // TODO: 2016-03-28 隐藏软键盘
+                hideKeyboard();
                 finish();
             }
 
             @Override
             public void onFailure(int code, String msg) {
                 LoadingDialog.dissmissDialog();
-                Toast.makeText(LoginActivity.this,msg, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this,msg, Toast.LENGTH_SHORT).show();
+                LogUtil.e(code+msg);
+                Toast.makeText(LoginActivity.this,"用户名或密码错误", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
+    protected void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) LoginActivity.this
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(edt_pwd.getWindowToken(), 0);
+    }
     @Event(value = {R.id.tv_register,R.id.tv_forget_pwd,R.id.tv_see_first},type = View.OnClickListener.class)
     private void  doClick(View view){
         switch (view.getId()){

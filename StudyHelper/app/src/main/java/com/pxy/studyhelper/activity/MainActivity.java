@@ -70,9 +70,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @ViewInject(value = R.id.rb_mine)
     private RadioButton  rbMine;
 
+
     private ImageView  mIvUserPhoto;
     private TextView  tvUserName;
     private TextView  tvSign;
+    private TextView  tvSignIn;//签到
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private List<Fragment> mFragmentList=new ArrayList<>();
@@ -120,22 +122,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
         tvUserName= (TextView) view.findViewById(R.id.tv_user_name);
         tvSign= (TextView) view.findViewById(R.id.tv_signs);
+        tvSignIn= (TextView) view.findViewById(R.id.tv_sign_in);
 
-        if(MyApplication.mCurrentUser==null)mUser=new User();
-        else mUser=MyApplication.mCurrentUser;
-        x.image().bind(mIvUserPhoto, mUser.getHeadUrl(), MyApplication.imageOptions);
-        tvUserName.setText(mUser.getUsername());
-        // TODO: 2016-03-21 称号系统
-        tvSign.setText("称号: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
-        mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
-                intent.putExtra("from", true);
-                intent.putExtra("user", MyApplication.mCurrentUser);
-                startActivity(intent);
-            }
-        });
+//        if(MyApplication.mCurrentUser==null)mUser=new User();
+//        else mUser=MyApplication.mCurrentUser;
+//        x.image().bind(mIvUserPhoto, mUser.getHeadUrl(), MyApplication.imageOptions);
+//        tvUserName.setText(mUser.getUsername());
+//        // TODO: 2016-03-21 称号系统
+//        tvSign.setText("level: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -175,16 +169,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        mRadioButton[1].setChecked(true);
 //        mViewPager.setSystemUiVisibility(0);
 //        mFragmentList.get(1).setUserVisibleHint(false);//取消预加载
+
+        mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
+                intent.putExtra("from", true);
+                intent.putExtra("user", MyApplication.mCurrentUser);
+                startActivity(intent);
+            }
+        });
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int score=MyApplication.mCurrentUser.getScore();
+                tvSignIn.setText("已签到："+score);
+                MyApplication.mCurrentUser.setScore(score+10);
+                tvSignIn.setEnabled(false);
+            }
+        });
     }
+
+
 
 
     @Override
     protected void onResume() {
         super.onResume();
         if(MyApplication.mCurrentUser!=null) {
-            tvUserName.setText(MyApplication.mCurrentUser.getUsername());
-//            tvSign.setText(MyApplication.mCurrentUser.getSign());
-            tvSign.setText("称号: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
+            mUser=MyApplication.mCurrentUser;
+            tvUserName.setText(mUser.getUsername());
+            tvSign.setText("等级: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
             x.image().bind(mIvUserPhoto, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
         }
     }
@@ -197,9 +213,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
 //            super.onBackPressed();
             new AlertDialog.Builder(this)
-                    .setTitle("友情提示")
+                    .setTitle("提示")
                     .setIcon(R.mipmap.ic_launcher)
-                    .setMessage("不再多停留一下了么,确认退出?")
+                    .setMessage("是否立即退出?")
                     .setNegativeButton("取消",null)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
@@ -250,12 +266,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id==R.id.nav_share){//一键分享
 //            Tools.ToastShort("有待进一步开发,敬请期待...");
-            clearCache();
+            doShareBiz();
+        }else if(id==R.id.nav_clear_cache){//清除缓存
+            new AlertDialog.Builder(this).setTitle("提示")
+                    .setMessage("是否立即清除缓存")
+                    .setNegativeButton("取消",null)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            clearCache();
+                        }
+                    }).show();
         }
+
         //关闭侧滑菜单
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void doShareBiz() {
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");  //纯文本
+//　　　　it.setType("image/png");
+//　　　　　//添加图片
+//　　　　 File f = new File(Environment.getExternalStorageDirectory()
+//　　　　　　 +"/Pictures/2.png");
+//　　　　 Uri u = Uri.fromFile(f);
+//　　　　 it.putExtra(Intent.EXTRA_STREAM, u);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+        intent.putExtra(Intent.EXTRA_TEXT, "分享一个超赞的中医药学习类辅助软件给你，赶紧链接下载吧：http://pxy.study_helper.com");
+        startActivity(Intent.createChooser(intent, getTitle()));
     }
 
     private void check4Update() {

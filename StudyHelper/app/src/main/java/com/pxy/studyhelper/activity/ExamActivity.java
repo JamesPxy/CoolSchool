@@ -66,7 +66,7 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
     private int mTotalQusestion;
     private Question  mCurrentQuestion;
     private boolean  isRuning=true;
-    //三种模式  0---测试模式  1---练习模式  3---错题模式
+    //三种模式  0---测试模式  1---练习模式  2---错题模式
     private int mode;
     //添加笔记及注释
     private String explain;
@@ -80,13 +80,16 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
         String name=getIntent().getStringExtra("dbName");
         LogUtil.i("dbName--" + name);
         mTestDao=new TestDao(this,name);
-        mQuestionList=mTestDao.getQuestions();
+        if(mode==2){
+            mQuestionList=mTestDao.getWrongQuestion();
+        }else {
+            mQuestionList = mTestDao.getQuestions();
+        }
         mTotalQusestion=mQuestionList.size();
-        if(mTotalQusestion>0){
-//            showQuestion(mCurrentIndex);
-        }else{
-            Tools.ToastShort("获取试题失败...");
-            this.finish();
+        if(mTotalQusestion<=0){
+            if(mode==2)Tools.ToastShort("暂无该章节对应错题");
+            else Tools.ToastShort("获取试题失败...");
+            finish();
             return;
         }
         mCurrentQuestion=mQuestionList.get(0);
@@ -94,6 +97,7 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void setView() {
+//        LogUtil.i(mCurrentQuestion.toString());
         if(mode==0) {//考核模式
             new AlertDialog.Builder(this).setTitle("提示")
                     .setMessage("考核开始,时间为"+mTotalQusestion+"分钟,加油!")
@@ -148,8 +152,6 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onDestroy() {
-        //todo  根据答题情况修改数据库
-//        updateQuestionData();
         super.onDestroy();
         if(mTestDao.getDb()!=null&&mTestDao.getDb().isOpen()){
             mTestDao.getDb().close();
@@ -160,7 +162,10 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        doBackBiz();
+    }
+
+    private void doBackBiz() {
         if(mode==0&mCurrentIndex!=mQuestionList.size()-1) {
             new AlertDialog.Builder(this).setTitle("提醒")
                     .setIcon(R.mipmap.ic_launcher)
@@ -173,7 +178,7 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
                                 mCurrentQuestion = mQuestionList.get(i);
                                 if (mCurrentQuestion.isWrong==0&&mCurrentQuestion.getRightAnswer()!= mCurrentQuestion.getSelectedAnswer()) {
                                     mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),1);
-                                    LogUtil.i("save6666666666");
+                                    LogUtil.i("考核模式  save6666666666");
                                 }
                             }
                             finish();
@@ -183,14 +188,14 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
         }else if(mode==2){
             new AlertDialog.Builder(this).setTitle("提醒")
                     .setIcon(R.mipmap.ic_launcher)
-                    .setMessage("错题还没有做完，是否要现在退出")
+                    .setMessage("是否要现在退出")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int i = 0; i<mTotalQusestion; i++) {
+                            for (int i = 0; i<mCurrentIndex; i++) {
                                 mCurrentQuestion = mQuestionList.get(i);
-                                if (mCurrentQuestion.getRightAnswer()== mCurrentQuestion.getSelectedAnswer()) {
+                                if (mCurrentQuestion.isWrong==1&mCurrentQuestion.getRightAnswer()== mCurrentQuestion.getSelectedAnswer()) {
                                     mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),0);
                                     LogUtil.i("错题模式 save6666666666");
                                 }
@@ -209,7 +214,9 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
     private  void  doClick(View view){
         switch (view.getId()){
             case R.id.iv_preQ:
-                mViewPager.setCurrentItem(--mCurrentIndex);
+                if(mCurrentIndex>0)
+                    mViewPager.setCurrentItem(--mCurrentIndex);
+                else Tools.ToastShort("当前是第一题");
                 break;
             case R.id.lv_submit:
                 //交卷操作
@@ -224,26 +231,49 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
                 addToFav();
                 break;
             case R.id.iv_nextQ:
-                mViewPager.setCurrentItem(++mCurrentIndex);
                 if(mCurrentIndex==mTotalQusestion){
                     //todo  最后一题  交卷操作
                     AlertDialog.Builder  builder=new AlertDialog.Builder(ExamActivity.this);
-                    if(mode==0)builder.setMessage("当前是最后一题，可以交卷了！");
-                    else builder.setMessage("当前是最后一题!");
-                    builder.setIcon(R.drawable.ic_luncher)
-                            .setTitle("提示")
-                            .setNegativeButton("取消",null)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    DialogUtil.showResultDialog(ExamActivity.this,getScore());
-                                }
-                            });
+                    if(mode==0){
+                        builder.setMessage("当前是最后一题，可以交卷了！");
+                        builder.setIcon(R.drawable.ic_luncher)
+                                .setTitle("提示")
+                                .setNegativeButton("取消",null)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        DialogUtil.showResultDialog(ExamActivity.this, getScore());
+                                    }
+                                });
+                    }
+                    else{
+                        builder.setMessage("当前是最后一题,是否退出!");
+                        builder.setIcon(R.drawable.ic_luncher)
+                                .setTitle("提示")
+                                .setNegativeButton("取消",null)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if(mode==2) {
+                                            for (int i = 0; i < mCurrentIndex; i++) {
+                                                mCurrentQuestion = mQuestionList.get(i);
+                                                if (mCurrentQuestion.isWrong == 1 & mCurrentQuestion.getRightAnswer() == mCurrentQuestion.getSelectedAnswer()) {
+                                                    mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
+                                                }
+                                            }
+                                        }
+                                        finish();
+                                    }
+                                });
+                    }
+
                     builder.show();
+                }else{
+                    mViewPager.setCurrentItem(++mCurrentIndex);
                 }
                 break;
             case R.id.iv_back:
-                finish();
+                doBackBiz();
                 break;
             case R.id.iv_share:
                 //todo  showMenu; 包含 三个菜单  一键分享  错题反馈  黑白模式切换
@@ -277,7 +307,7 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
                     return;
                 }
                 if (!mCurrentQuestion.getExplaination().equals("暂无"))
-                    explain = mCurrentQuestion.getExplaination() + "--" + explain;
+                    explain = mCurrentQuestion.getExplaination() + "\n" + explain;
                 boolean isAddSuccess = mTestDao.addNote(mCurrentQuestion.getId(), explain);
                 if (isAddSuccess) {
                     Tools.ToastShort("添加笔记成功");
@@ -389,10 +419,10 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
         for(int i=0;i<mTotalQusestion;i++) {
             mCurrentQuestion=mQuestionList.get(i);
             if (mCurrentQuestion.getRightAnswer() == mCurrentQuestion.getSelectedAnswer()) {
-                if(mCurrentQuestion.isWrong!=0) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 0);
+                if(mCurrentQuestion.isWrong!=0) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),0);
                 right++;
             } else {//答错
-                if(mCurrentQuestion.isWrong!=1) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(), 1);
+                if(mCurrentQuestion.isWrong!=1) mTestDao.updateQuestion(mCurrentQuestion.getAnswerA(),1);
             }
         }
         score=(int)((right*1.0/mTotalQusestion)*100);

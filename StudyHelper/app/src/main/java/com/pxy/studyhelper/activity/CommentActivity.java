@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -268,15 +269,24 @@ public class CommentActivity extends AppCompatActivity {
             public void onSuccess() {
                 Tools.ToastShort("发送评论成功...");
 //                getCommentInfo(context, mTopic.getObjectId(), curPage);
+                hideKeyboard();
                 mCommentList.addLast(comment);
                 updateListView();
             }
 
             @Override
             public void onFailure(int i, String s) {
-                Tools.ToastShort("发送评论失败.."+s);
+                Tools.ToastShort("发送评论失败.." + s);
             }
         });
+    }
+
+    protected void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)CommentActivity.this
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEdtComment.getWindowToken(), 0);
+        mEdtComment.setText("");
+        mEdtComment.clearFocus();
     }
 
 }

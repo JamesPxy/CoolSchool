@@ -167,7 +167,8 @@
         <!-- baidu map-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="iXPfTlCuZfrbvMbKT7diQcwt" />
+            android:value="MS0sl2jgwXRcMckmOyMmA0uZ0hMbZWle" />
+            <!--android:value="iXPfTlCuZfrbvMbKT7diQcwt" />-->
 
         <service
             android:name="com.baidu.location.f"
