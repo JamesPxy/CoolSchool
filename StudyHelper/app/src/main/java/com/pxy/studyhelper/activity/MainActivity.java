@@ -35,6 +35,7 @@ import com.pxy.studyhelper.fragment.RecentFragment;
 import com.pxy.studyhelper.fragment.TestBigFragment;
 import com.pxy.studyhelper.fragment.TopicFragment;
 import com.pxy.studyhelper.utils.Constant;
+import com.pxy.studyhelper.utils.Tools;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
@@ -43,6 +44,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by:Pxy
  * Date: 2016-01-04
@@ -50,36 +52,37 @@ import java.util.List;
  * 应用主界面
  */
 @ContentView(value = R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     @ViewInject(value = R.id.toolbar)
-    private Toolbar  toolbar;
+    private Toolbar toolbar;
     @ViewInject(value = R.id.drawer_layout)
-    private  DrawerLayout drawer;
+    private DrawerLayout drawer;
     @ViewInject(value = R.id.nav_view)
-    private  NavigationView navigationView;
+    private NavigationView navigationView;
     @ViewInject(value = R.id.radioGroup)
-    private RadioGroup  mRadioGroup;
+    private RadioGroup mRadioGroup;
     @ViewInject(value = R.id.viewpager)
-    private ViewPager  mViewPager;
+    private ViewPager mViewPager;
     @ViewInject(value = R.id.rb_index)
-    private RadioButton  rbIndex;
+    private RadioButton rbIndex;
     @ViewInject(value = R.id.rb_msg)
-    private RadioButton  rbMsg;
+    private RadioButton rbMsg;
     @ViewInject(value = R.id.rb_search)
-    private RadioButton  rbSearch;
+    private RadioButton rbSearch;
     @ViewInject(value = R.id.rb_mine)
-    private RadioButton  rbMine;
+    private RadioButton rbMine;
 
 
-    private ImageView  mIvUserPhoto;
-    private TextView  tvUserName;
-    private TextView  tvSign;
-    private TextView  tvSignIn;//签到
+    private ImageView mIvUserPhoto;
+    private TextView tvUserName;
+    private TextView tvSign;
+    private TextView tvSignIn;//签到
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private List<Fragment> mFragmentList=new ArrayList<>();
-    private User  mUser;
-    private RadioButton[] mRadioButton=new RadioButton[4];
+    private List<Fragment> mFragmentList = new ArrayList<>();
+    private User mUser;
+    private RadioButton[] mRadioButton = new RadioButton[4];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +101,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initView() {
-        mRadioButton[0]=rbIndex;
-        mRadioButton[1]=rbSearch;
-        mRadioButton[2]=rbMsg;
-        mRadioButton[3]=rbMine;
+        mRadioButton[0] = rbIndex;
+        mRadioButton[1] = rbSearch;
+        mRadioButton[2] = rbMsg;
+        mRadioButton[3] = rbMine;
 
 //        mRadioButton=
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,11 +121,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View view=navigationView.getHeaderView(0);
-        mIvUserPhoto= (ImageView) view.findViewById(R.id.img_user_photo);
-        tvUserName= (TextView) view.findViewById(R.id.tv_user_name);
-        tvSign= (TextView) view.findViewById(R.id.tv_signs);
-        tvSignIn= (TextView) view.findViewById(R.id.tv_sign_in);
+        View view = navigationView.getHeaderView(0);
+        mIvUserPhoto = (ImageView) view.findViewById(R.id.img_user_photo);
+        tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
+        tvSign = (TextView) view.findViewById(R.id.tv_signs);
+        tvSignIn = (TextView) view.findViewById(R.id.tv_sign_in);
 
 //        if(MyApplication.mCurrentUser==null)mUser=new User();
 //        else mUser=MyApplication.mCurrentUser;
@@ -159,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        mFragmentList.add(new SettingFragment());
 
 
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -183,24 +185,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int score=MyApplication.mCurrentUser.getScore();
-                tvSignIn.setText("已签到："+score);
-                MyApplication.mCurrentUser.setScore(score+10);
+                int score = MyApplication.mCurrentUser.getScore();
+                tvSignIn.setText("已签到：" + score);
+                MyApplication.mCurrentUser.setScore(score + 10);
                 tvSignIn.setEnabled(false);
+                Tools.ToastShort("签到成功");
             }
         });
     }
 
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
-        if(MyApplication.mCurrentUser!=null) {
-            mUser=MyApplication.mCurrentUser;
+        if (MyApplication.mCurrentUser != null) {
+            mUser = MyApplication.mCurrentUser;
             tvUserName.setText(mUser.getUsername());
-            tvSign.setText("等级: "+Constant.level[mUser.getLevel() + 2]+"\n"+mUser.getSign());
+            tvSign.setText("等级: " + Constant.level[mUser.getLevel() + 2] + "\n" + mUser.getSign());
             x.image().bind(mIvUserPhoto, MyApplication.mCurrentUser.getHeadUrl(), MyApplication.imageOptions);
         }
     }
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setTitle("提示")
                     .setIcon(R.mipmap.ic_launcher)
                     .setMessage("是否立即退出?")
-                    .setNegativeButton("取消",null)
+                    .setNegativeButton("取消", null)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.add_topic) {
-            startActivity(new Intent(MainActivity.this,MakeTopicActivity.class));
+            startActivity(new Intent(MainActivity.this, MakeTopicActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -248,29 +249,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 处理侧滑菜单点击事件
         int id = item.getItemId();
         if (id == R.id.nav_test_center) {//试题中心
-            startActivity(new Intent(MainActivity.this,TestBigActivity.class));
+            startActivity(new Intent(MainActivity.this, TestBigActivity.class));
         } else if (id == R.id.nav_collection) {//我的收藏
-            startActivity(new Intent(MainActivity.this,MyCollectionActivity.class));
+            startActivity(new Intent(MainActivity.this, MyCollectionActivity.class));
 
         } else if (id == R.id.nav_wrong_test) {//错题中心
-            startActivity(new Intent(MainActivity.this,TestBigActivity.class));
+            startActivity(new Intent(MainActivity.this, TestBigActivity.class));
         } else if (id == R.id.nav_setting) {//我的设置
-            startActivity(new Intent(MainActivity.this,SettingActivity.class));
+            startActivity(new Intent(MainActivity.this, SettingActivity.class));
         } else if (id == R.id.nav_challenge) {//我的个人动态
             ToMyTopic();
         } else if (id == R.id.nav_update) {//检查升级
             check4Update();
 
         } else if (id == R.id.nav_back) {//问题反馈
-            startActivity(new Intent(MainActivity.this,ActivityFeedBack.class));
+            startActivity(new Intent(MainActivity.this, ActivityFeedBack.class));
 
-        }else if(id==R.id.nav_share){//一键分享
+        } else if (id == R.id.nav_share) {//一键分享
 //            Tools.ToastShort("有待进一步开发,敬请期待...");
             doShareBiz();
-        }else if(id==R.id.nav_clear_cache){//清除缓存
+        } else if (id == R.id.nav_clear_cache) {//清除缓存
             new AlertDialog.Builder(this).setTitle("提示")
                     .setMessage("是否立即清除缓存")
-                    .setNegativeButton("取消",null)
+                    .setNegativeButton("取消", null)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -286,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void doShareBiz() {
-        Intent intent=new Intent(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");  //纯文本
 //　　　　it.setType("image/png");
 //　　　　　//添加图片
@@ -302,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void check4Update() {
         try {
             // TODO: 2016-03-17 获取网络编号versioncode  检查更新升级
-            if(getPackageManager().getPackageInfo(getPackageName(),0).versionCode<3) {
+            if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < 3) {
                 new AlertDialog.Builder(this)
                         .setTitle("更新提示")
                         .setIcon(R.mipmap.ic_launcher)
@@ -310,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", null)
                         .show();
-            }else{
+            } else {
                 new AlertDialog.Builder(this)
                         .setTitle("更新提示")
                         .setIcon(R.mipmap.ic_launcher)
@@ -337,12 +338,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void ToMyTopic() {
-        if(MyApplication.mCurrentUser==null){
+        if (MyApplication.mCurrentUser == null) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        }else {
+        } else {
             Intent i = new Intent(MainActivity.this, MyTopicActivity.class);
             i.putExtra("userId", MyApplication.mCurrentUser.getObjectId());
             startActivity(i);
@@ -376,7 +377,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        public int getCount() {return mFragmentList.size();}
+        public int getCount() {
+            return mFragmentList.size();
+        }
 
 //        @Override
 //        public int getItemPosition(Object object) {
@@ -392,7 +395,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            }
         }
     }
-
 
 
 }
