@@ -9,6 +9,8 @@
     <color name="tab_icon_font_gary">#a5a5a5</color>
     <color name="tab_icon_font_green">#02c0b9</color>
 
+    <color name="answer_right">#A5CB54</color>
+
 
     <color name="whiteBg">#FFFFFF</color> <!-- 白色 -->
     <color name="gray">#808080</color> <!-- 灰色 -->

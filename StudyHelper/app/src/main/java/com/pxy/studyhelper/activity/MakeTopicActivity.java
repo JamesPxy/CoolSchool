@@ -146,6 +146,7 @@ public class MakeTopicActivity   extends Activity {
                 public void onSuccess() {
                     LogUtil.i("动态发表成功 success");
                     Tools.ToastShort("动态发表成功...");
+                    TopicFragment.mTopicList.addFirst(topic);
                     finish();
                 }
                 @Override

@@ -172,11 +172,16 @@ public class TopicFragment extends Fragment {
                             Tools.ToastShort("没有最新数据了...");
                             return;
                         }
-                        // 当是下拉刷新操作时，将当前页的编号重置为0，并把mTopicList清空，重新添加
+                        // 当是下拉刷新操作时，将当前页的编号重置为0，
                         if(mTopicList.size()>0&&mTopicList.getFirst().getContent().equals(list.get(list.size()-1).getContent())){
                             for (int i=list.size()-2;i>=0;i--) {
                                 mTopicList.addFirst(list.get(i));
                                 LogUtil.i("STATE_REFRESH--666---222222-" + list.get(i).toString());
+                            }
+                        }else if(mTopicList.size()>0&&list.size()>=2&&mTopicList.getFirst().getContent().equals(list.get(list.size()-2).getContent())){
+                            for (int i=list.size()-3;i>=0;i--) {
+                                mTopicList.addFirst(list.get(i));
+                                LogUtil.i("STATE_REFRESH--666---????-" + list.get(i).toString());
                             }
                         }else{
                             for (int i=list.size()-1;i>=0;i--) {
