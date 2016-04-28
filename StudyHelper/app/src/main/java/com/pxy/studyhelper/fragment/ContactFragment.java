@@ -123,11 +123,12 @@ public class ContactFragment extends Fragment implements OnItemClickListener,OnI
 		pinyinComparator = new PinyinComparator();
 		initListView();
 		initRightLetterView();
-		initEditText();
+//		initEditText();
 	}
 
 	private void initEditText() {
 		mClearEditText = (ClearEditText)rootView.findViewById(R.id.et_msg_search);
+		mClearEditText.setEnabled(true);
 		// 根据输入框输入值的改变来过滤搜索
 		mClearEditText.addTextChangedListener(new TextWatcher() {
 
