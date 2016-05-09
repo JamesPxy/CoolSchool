@@ -1,23 +1,27 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     >
+
     <include
         android:id="@+id/include_tabbar"
         layout="@layout/tabbar"/>
+
     <LinearLayout
+        android:id="@+id/lv_topics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/lv_topics"
         android:layout_below="@+id/include_tabbar"
+        android:orientation="vertical"
         >
+
         <RelativeLayout
             android:id="@+id/rv_user_info"
             android:layout_width="match_parent"
             android:layout_height="80dp">
+
             <ImageView
                 android:id="@+id/iv_user_icon"
                 android:layout_width="60dp"
@@ -26,90 +30,107 @@
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/user_head"/>
 
-            <TextView
-                android:id="@+id/tv_username"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="KingJames"
-                android:layout_toRightOf="@+id/iv_user_icon"
-                android:layout_margin="10dp"
-                android:textSize="18sp"
-                />
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="time"
-                android:layout_toRightOf="@+id/iv_user_icon"
-                android:layout_below="@+id/tv_username"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-                />
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/iv_user_icon"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv_user_icon"
+                    android:text="KingJames"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv_user_icon"
+                    android:text="time"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:textSize="18sp"
-            android:text="discuss content"/>
+            android:layout_marginLeft="18dp"
+            android:text="discuss content"
+            android:textSize="18sp"/>
 
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="160dp"
+            android:layout_width="180dp"
             android:layout_height="180dp"
-            android:scaleType="centerCrop"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/image_grid_default"/>
 
+
         <View
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:background="#DADADA"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#DADADA"/>
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_listview"
-        android:layout_above="@+id/tv_no_comment"
-        android:layout_below="@+id/lv_topics"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/tv_no_comment"
+        android:layout_below="@+id/lv_topics"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="@color/black"
         ></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
     <TextView
         android:id="@+id/tv_no_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/rv_send_comment"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="暂时没有更多评论..."/>
+        android:text="暂时没有更多评论..."
+        android:textSize="14sp"/>
+
     <RelativeLayout
         android:id="@+id/rv_send_comment"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
         <EditText
             android:id="@+id/edt_comment"
-            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:layout_marginLeft="5dp"
             android:layout_toLeftOf="@+id/iv_send_conmment"
-            android:hint="说点什么吧..."/>
+            android:hint="说点什么吧..."
+            android:textAppearance="@style/TextAppearance.AppCompat"/>
+
         <ImageView
             android:id="@+id/iv_send_conmment"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             android:src="@drawable/icon_send"/>
     </RelativeLayout>
 </RelativeLayout>

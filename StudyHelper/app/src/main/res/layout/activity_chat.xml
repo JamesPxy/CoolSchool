@@ -43,7 +43,8 @@
             android:cacheColorHint="@android:color/transparent"
             android:divider="@null"
             android:fadingEdgeLength="0dp"
-            android:fastScrollEnabled="true"
+            android:scrollbars="none"
+            android:fastScrollEnabled="false"
             android:listSelector="@color/transparent"
             android:paddingBottom="10dp"
             android:transcriptMode="normal" />

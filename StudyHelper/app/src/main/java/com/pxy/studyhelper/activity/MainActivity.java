@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -121,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        removeNavigationViewScrollbar(navigationView);
+
         View view = navigationView.getHeaderView(0);
         mIvUserPhoto = (ImageView) view.findViewById(R.id.img_user_photo);
         tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
@@ -189,11 +192,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 tvSignIn.setText("已签到：" + score);
                 MyApplication.mCurrentUser.setScore(score + 10);
                 tvSignIn.setEnabled(false);
-                Tools.ToastShort("签到成功");
+                Tools.ToastShort("签到成功+10");
             }
         });
     }
 
+    /**
+     * 移除侧滑菜单滚动条
+     * @param navigationView
+     */
+    private void removeNavigationViewScrollbar(NavigationView navigationView){
+        if (navigationView != null){
+            NavigationMenuView navigationMenuView =  (NavigationMenuView) navigationView.getChildAt(0);
+            if (navigationMenuView != null){
+                navigationMenuView.setVerticalScrollBarEnabled(false);
+            }
+        }
+    }
 
     @Override
     protected void onResume() {

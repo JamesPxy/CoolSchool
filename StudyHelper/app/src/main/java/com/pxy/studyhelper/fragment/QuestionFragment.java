@@ -94,33 +94,23 @@ public class QuestionFragment extends Fragment {
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (mode == 1) {//练习模式
-                    //todo  显示正确答案效果
-                    showAnswer();
-                } else {
-                    for (int i = 0; i < mRadioButtons.length; i++) {
-                        if (mRadioButtons[i].isChecked()) mQuestion.setSelectedAnswer(i);
-                    }
-                    if (mode == 2) {//错题模式 判断正误显示正确答案
-//                        if(!CheckAnswer()) showAnswer();
-//                        else {
-//                            Tools.ToastShort("恭喜你，答对啦...");
-//                        }// TODO: 2016-02-22   显示答对了
-                        showAnswer();
-
-                    } else if (mode == 0) {
-
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mViewPager.setCurrentItem(index++);
-                                LogUtil.i("index------" + index);
-                            }
-                        }, 200);
-                    }
+                for (int i = 0; i < mRadioButtons.length; i++) {
+                    if (mRadioButtons[i].isChecked()) mQuestion.setSelectedAnswer(i);
                 }
+                if (mode == 0) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewPager.setCurrentItem(index++);
+                            LogUtil.i("index------" + index);
+                        }
+                    }, 200);
+                } else {//错题模式和练习模式 显示答案
+                    showAnswer();
+                }
+
                 if (total == index) {
-                    //todo  最后一题  交卷操作
+                    //最后一题  交卷操作
                     if (mode == 0) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setIcon(R.drawable.ic_luncher)

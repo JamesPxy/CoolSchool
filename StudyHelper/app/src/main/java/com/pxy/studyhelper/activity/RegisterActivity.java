@@ -77,13 +77,13 @@ public class RegisterActivity extends Activity {
         final String password=edt_pwd.getText().toString().trim();
 
         if(TextUtils.isEmpty(password)||TextUtils.isEmpty(userName)){
-            Toast.makeText(RegisterActivity.this, "密码不能为空...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
         //  校验  手机号 邮箱
         if(isEmail){
             if(!Tools4Sure.isValidEmail(userName)){
-                edt_user.setError("邮箱格式错误...");
+                edt_user.setError("邮箱格式错误");
                 return;
             }
             user.setEmail(userName);
@@ -102,7 +102,7 @@ public class RegisterActivity extends Activity {
         user.signUp(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(RegisterActivity.this, "恭喜你,注册成功...", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "恭喜你,注册成功", Toast.LENGTH_LONG).show();
                 Intent  intent=new Intent(RegisterActivity.this,LoginActivity.class);
                 intent.putExtra("name",userName);
                 intent.putExtra("password",password);

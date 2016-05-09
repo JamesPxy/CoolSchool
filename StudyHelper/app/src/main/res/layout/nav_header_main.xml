@@ -5,71 +5,71 @@
     android:layout_height="140dp"
     android:background="@color/greenBg"
     >
+
     <ImageView
         android:id="@+id/img_user_photo"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerVertical="true"
         android:layout_margin="15dp"
         android:scaleType="centerCrop"
-        android:layout_centerVertical="true"
         android:src="@drawable/user_head"/>
 
     <LinearLayout
-        android:layout_toRightOf="@+id/img_user_photo"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/img_user_photo"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:text="King james"
             android:layout_centerVertical="true"
+            android:layout_weight="5"
             android:gravity="center_vertical"
+            android:text="King james"
             android:textColor="@color/whiteBg"
             android:textSize="24sp"/>
 
         <LinearLayout
-            android:layout_weight="3"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="3">
 
             <TextView
                 android:id="@+id/tv_signs"
-                android:layout_below="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/tv_user_name"
                 android:gravity="center_vertical"
+                android:text="我就是我,汹涌澎湃!"
                 android:textColor="@color/whiteBg"
-                android:textSize="15sp"
-                android:text="我就是我,汹涌澎湃!"/>
+                android:textSize="15sp"/>
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
             </TextView>
 
             <TextView
-                android:background="@drawable/coin"
                 android:id="@+id/tv_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/whiteBg"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="3dp"
+                android:drawableTop="@drawable/coin"
                 android:gravity="center|bottom"
-                android:textSize="12sp"
-                android:paddingBottom="3dp"
-                android:layout_margin="5dp"
-                android:text="签到"/>
+                android:text="签到"
+                android:textColor="@color/whiteBg"
+                android:textSize="12sp"/>
 
 
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

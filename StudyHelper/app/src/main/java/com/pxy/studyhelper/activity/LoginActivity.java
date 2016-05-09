@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
                 LoadingDialog.dissmissDialog();
                 //给当前用户赋值
                 MyApplication.mCurrentUser = getCurrentUser(LoginActivity.this, User.class);
-                Toast.makeText(LoginActivity.this, "登录成功...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 updateUserInfos();
                 // TODO: 2016-03-28 隐藏软键盘

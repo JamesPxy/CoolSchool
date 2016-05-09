@@ -164,7 +164,7 @@ public class TopicAdapter  extends BaseAdapter {
                 topic.update(context, new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        Tools.ToastShort("点赞成功...");
+//                        Tools.ToastShort("点赞成功...");
                         holder.ivZan.setTag(true);
                         LogUtil.i("love ---" + topic.getLove().intValue());
                         LogUtil.i("love --1---" + (topic.getLove().intValue() + 1));
