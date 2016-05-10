@@ -191,6 +191,7 @@ public class NearPeopleActivity extends ActivityBase implements XListView.IXList
         User user = (User) adapter.getItem(position-1);
         Intent intent =new Intent(this,PersonCenterActivity.class);
         intent.putExtra("from", false);
+        intent.putExtra("chat", true);
         intent.putExtra("username", user);
         startActivity(intent);
     }

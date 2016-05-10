@@ -166,7 +166,7 @@ public class ExamActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void doBackBiz() {
-        if(mode==0&mCurrentIndex!=mQuestionList.size()-1) {
+        if(mode==0&&mCurrentIndex<mQuestionList.size()-1) {
             new AlertDialog.Builder(this).setTitle("提醒")
                     .setIcon(R.mipmap.ic_launcher)
                     .setMessage("试题还没有答完，是否要现在退出")

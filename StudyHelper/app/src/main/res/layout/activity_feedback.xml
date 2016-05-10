@@ -42,11 +42,14 @@
     </RelativeLayout>
 
 
-    <com.pxy.studyhelper.view.EmoticonsEditText
+    <EditText
         android:id="@+id/edt_feedback"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:gravity="top"
+        android:textSize="16sp"
+        android:textColorHint="@color/gray"
         android:hint="请在此输入您的反馈内容或者贡献考题"
         android:background="@drawable/base_edit_input"
         android:imeOptions="flagNoExtractUi"

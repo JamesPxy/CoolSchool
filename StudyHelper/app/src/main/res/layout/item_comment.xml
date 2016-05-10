@@ -1,14 +1,16 @@
 <LinearLayout
+    android:id="@+id/lv_topic"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/lv_topic"
     >
+
     <RelativeLayout
         android:id="@+id/rv_user_info"
         android:layout_width="match_parent"
         android:layout_height="80dp">
+
         <ImageView
             android:id="@+id/iv_user_icon"
             android:layout_width="60dp"
@@ -17,43 +19,58 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/user_head"/>
 
-        <TextView
-            android:id="@+id/tv_username"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KingJames"
-            android:layout_toRightOf="@+id/iv_user_icon"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
-            />
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="time"
-            android:layout_toRightOf="@+id/iv_user_icon"
-            android:layout_below="@+id/tv_username"
-            android:layout_marginLeft="10dp"
-            android:textSize="16sp"
-            />
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/iv_user_icon"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_user_icon"
+                android:text="KingJames"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_username"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_user_icon"
+                android:text="time"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
         <ImageView
+            android:id="@+id/iv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/iv_zan"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:layout_toLeftOf="@+id/tv_zan"
             android:src="@drawable/love_icon"/>
+
         <TextView
             android:id="@+id/tv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="赞(100)"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="赞(100)"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="16sp"/>
     </RelativeLayout>
 
     <TextView
@@ -61,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
-        android:textSize="25sp"
-        android:text="discuss content"/>
+        android:text="discuss content"
+        android:textSize="16sp"/>
 
 </LinearLayout>

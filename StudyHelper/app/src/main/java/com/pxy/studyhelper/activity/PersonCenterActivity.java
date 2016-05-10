@@ -433,11 +433,11 @@ public class PersonCenterActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 LogUtil.i(user.toString());
-                Tools.ToastShort("更新信息成功...");
+                Tools.ToastShort("修改信息成功");
             }
             @Override
             public void onFailure(int i, String s) {
-                Tools.ToastShort("更新信息失败..." + s);
+                Tools.ToastShort("修改信息失败" + s);
             }
         });
     }
