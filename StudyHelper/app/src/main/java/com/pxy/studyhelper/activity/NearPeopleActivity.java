@@ -26,7 +26,7 @@ import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * 附件人的activity
+ * 附近人的activity
  * User: Pxy(15602269883@163.com)
  * Date: 2016-02-27
  * Time: 15:48

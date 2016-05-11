@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="附件的人"
+            android:text="附近的人"
             android:textColor="@color/whiteBg"
             android:textSize="20sp" />
 

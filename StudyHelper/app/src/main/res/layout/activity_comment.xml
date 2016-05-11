@@ -80,7 +80,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_grid_default"/>
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
