@@ -164,7 +164,7 @@ public class MakeTopicActivity   extends Activity {
         //压缩图片
         DialogUtil.showProgressDialog(context, "uploading...");
         final BmobFile bmobFile = new BmobFile(new File(picPath));
-        bmobFile.uploadblock(context, new UploadFileListener() {
+        bmobFile.upload(context, new UploadFileListener() {
             @Override
             public void onSuccess() {
                 LogUtil.i("上传文件成功" + bmobFile.getFileUrl(context));

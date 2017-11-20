@@ -83,7 +83,6 @@ public class WelcomeActivity extends ActivityBase {
 		mReceiver = new BaiduReceiver();
 		registerReceiver(mReceiver, iFilter);
 
-
 	}
 
 	@Override

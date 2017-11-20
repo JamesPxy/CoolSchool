@@ -29,7 +29,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by ljy on 2016-02-24.
+ *@author JamesPxy
+ *@time   2016-02-24  10:55
+ *@Description  我的动态
  */
 @ContentView(value = R.layout.activity_my_topic)
 public class MyTopicActivity extends Activity {

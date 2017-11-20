@@ -12,6 +12,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
+import com.bmob.BmobConfiguration;
+import com.bmob.BmobPro;
 import com.bmob.utils.BmobLog;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -33,9 +35,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.bmob.im.BmobChat;
 import cn.bmob.im.BmobUserManager;
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.db.BmobDB;
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobGeoPoint;
 
@@ -45,7 +49,7 @@ import cn.bmob.v3.datatype.BmobGeoPoint;
  * Time: 21:16
  * FIXME
  */
-public class MyApplication  extends Application {
+public class MyApplication extends Application {
 
     public static MyApplication mInstance;
 
@@ -119,13 +123,29 @@ public class MyApplication  extends Application {
             contactList = CollectionUtils.list2map(BmobDB.create(getApplicationContext()).getContactList());
         }
         initBaidu();
+
+//        initBmob();
+
+    }
+
+    private void initBmob() {
+        //初始化Bmob
+        Bmob.initialize(this, "b6df61fc2e46b2ba781525d42e8b318a");
+
+        BmobChat.DEBUG_MODE = true;
+        //BmobIM SDK初始化--只需要这一段代码即可完成初始化
+        BmobChat.getInstance(this).init("b6df61fc2e46b2ba781525d42e8b318a");
+
+//BmobFile缓存目录  缓存总目录下，包含上面两个分目录，分别用于保存下载文件和缩略图
+        BmobConfiguration config = new BmobConfiguration.Builder(this).customExternalCacheDir("myBmobFile").build();
+        BmobPro.getInstance(this).initConfig(config);
     }
 
     /**
      * 初始化ImageLoader
      */
     public static void initImageLoader(Context context) {
-        File cacheDir =context.getCacheDir();// 获取到缓存的目录地址
+        File cacheDir = context.getCacheDir();// 获取到缓存的目录地址
         // 创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 context)
@@ -134,10 +154,10 @@ public class MyApplication  extends Application {
                 .memoryCache(new WeakMemoryCache())
                 .denyCacheImageMultipleSizesInMemory()
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                        // 将保存的时候的URI名称用MD5 加密
+                // 将保存的时候的URI名称用MD5 加密
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .discCache(new UnlimitedDiscCache(cacheDir))// 自定义缓存路径
-                        // .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                // .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
                 .writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.
@@ -149,7 +169,7 @@ public class MyApplication  extends Application {
      */
     public void logout() {
         BmobUserManager.getInstance(getApplicationContext()).logout();
-        mCurrentUser=null;
+        mCurrentUser = null;
         setContactList(null);
         setLatitude(null);
         setLongtitude(null);
@@ -311,7 +331,7 @@ public class MyApplication  extends Application {
             if (lastPoint != null) {
                 if (lastPoint.getLatitude() == location.getLatitude()
                         && lastPoint.getLongitude() == location.getLongitude()) {
-					BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
+                    BmobLog.i("两次获取坐标相同");// 若两次请求获取到的地理位置坐标是相同的，则不再定位
                     mLocationClient.stop();
                     return;
                 }
@@ -321,8 +341,6 @@ public class MyApplication  extends Application {
 
     }
 }
-
-
 
 
 //        //初始化Bmob
