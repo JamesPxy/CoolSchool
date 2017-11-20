@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/StudyHelper.iml" filepath="$PROJECT_DIR$/StudyHelper.iml" />
+      <module fileurl="file://D:\ASProject\Publish\CoolSchool\StudyHelper\StudyHelper.iml" filepath="D:\ASProject\Publish\CoolSchool\StudyHelper\StudyHelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\ASProject\Publish\CoolSchool\StudyHelper\app\app.iml" filepath="D:\ASProject\Publish\CoolSchool\StudyHelper\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraryoflistview/libraryoflistview.iml" filepath="$PROJECT_DIR$/libraryoflistview/libraryoflistview.iml" />
+      <module fileurl="file://D:\ASProject\Publish\CoolSchool\StudyHelper\libraryoflistview\libraryoflistview.iml" filepath="D:\ASProject\Publish\CoolSchool\StudyHelper\libraryoflistview\libraryoflistview.iml" />
     </modules>
   </component>
 </project>
